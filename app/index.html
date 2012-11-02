@@ -13,22 +13,22 @@
   <body>
     <div style="margin-top: 50px;" class="container">           
       <div id="worklist" class="row">
-        <div class="span2">
-          <ul class="nav nav-tabs nav-stacked">
-            <li>List Item</li>
-            <li>List Item</li>
-            <li>List Item</li>
-            <li>List Item</li>
-            <li>List Item</li>
-          </ul>
-          <p>Debug</p>
-          <!-- p(data-bind="text: ko.toJSON($data)")        -->
+        <div class="span2 info">
+          <h5>UBC Course Registration<small>&nbsp;Worklist</small></h5>
+          <p>The Worklist stores courses to be registered later. Through a Worklist, the student can compare multiple schedules in order to get the most convenient timetable.</p>
+          <p>The objective of this prototype is to improve the following features inside of the current worklist
+            <ul>
+              <li>Browse of multiple Worklists</li>
+              <li>Display of the Timetable elaboration</li>
+            </ul>
+          </p>
         </div>
         <div class="span10">
           <div class="row">
-            <div class="span5">
+            <div class="span6">
+              <legend>Worklist<small>&nbsp;Saved courses for registration.              </small></legend>
               <div id="backlog">
-                <table>
+                <table class="table table-striped">                 
                   <thead>
                     <th>&nbsp;</th>
                     <th>Course name</th>
@@ -45,7 +45,7 @@
                       </td>
                       <td data-bind="text:name">COURSENAME</td>
                       <td data-bind="text:id">COURSEID</td>
-                      <td data-bind="click:$root.removeFromBacklog" class="remove">&times;</td>
+                      <td data-bind="click:$root.removeFromBacklog" class="remove"><i class="icon-minus-sign">&nbsp;</i></td>
                     </tr>
                     <!-- /ko-->
                   </tbody>
@@ -53,7 +53,7 @@
               </div>
               <div id="controls"><a data-bind="click:addDown" class="btn btn-primary">&darr;</a><a data-bind="click:allDown" class="btn btn-primary">&darr;&darr;</a><a data-bind="click:allUp" class="btn btn-primary">&uarr;&uarr;</a><a data-bind="click:addUp" class="btn btn-primary">&uarr;</a></div>
               <div id="store">
-                <table>
+                <table class="table table-striped">
                   <thead>
                     <th>&nbsp;</th>
                     <th>Course name</th>
@@ -77,12 +77,9 @@
                 </table>
               </div>
             </div>
-            <div class="span5">
+            <div class="span4">
               <div class="row">
-                <div id="timetable" class="span3"><img src="http://placehold.it/280x500"></div>
-                <div id="colorCode" class="span2">
-                  <p>Worklist.ColorCode</p>
-                </div>
+                <div id="timetable" class="span4"><img src="http://placehold.it/280x400"></div>
               </div>
             </div>
           </div>

@@ -1,14 +1,20 @@
-table td {
+#worklist table td {
   font-size: .8em;
 }
-table .remove {
+#worklist table .remove {
   font-size: 1.2em;
   text-align: center;
   cursor: pointer;
 }
-#controls {
+#worklist legend {
+  margin-bottom: 0px;
+}
+#worklist .info {
+  font-size: .8em;
+}
+#worklist #controls {
   margin: 10px;
 }
-#controls a {
+#worklist #controls a {
   margin: 0px 5px;
 }
