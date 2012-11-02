@@ -35,23 +35,17 @@
                     <th>ID</th>
                     <th>Delete</th>
                   </thead>
-                  <tbody>
-                    <!-- ko foreach:backlog-->
-                    <tr>
-                      <td>
-                        <label class="checkbox">
-                          <input data-bind="checked: checked" type="checkbox">
-                        </label>
-                      </td>
-                      <td data-bind="text:name">COURSENAME</td>
-                      <td data-bind="text:id">COURSEID</td>
-                      <td data-bind="click:$root.removeFromBacklog" class="remove"><i class="icon-minus-sign">&nbsp;</i></td>
-                    </tr>
-                    <!-- /ko-->
-                  </tbody>
+                  <tbody data-bind="template: { name:'tableContent', foreach:backlog }"></tbody>
                 </table>
               </div>
-              <div id="controls"><a data-bind="click:addDown" class="btn btn-primary">&darr;</a><a data-bind="click:allDown" class="btn btn-primary">&darr;&darr;</a><a data-bind="click:allUp" class="btn btn-primary">&uarr;&uarr;</a><a data-bind="click:addUp" class="btn btn-primary">&uarr;</a></div>
+              <div id="controls">
+                <div class="row">
+                  <div class="span3"><a data-bind="click:addDown" class="btn btn-primary">&darr;</a><a data-bind="click:allDown" class="btn btn-primary">&darr;&darr;</a><a data-bind="click:allUp" class="btn btn-primary">&uarr;&uarr;</a><a data-bind="click:addUp" class="btn btn-primary">&uarr;</a></div>
+                  <div class="span3">
+                    <p>Use the controls to move the courses between the Worklists and your Course List.</p>
+                  </div>
+                </div>
+              </div>
               <div id="store">
                 <table class="table table-striped">
                   <thead>
@@ -60,26 +54,13 @@
                     <th>ID</th>
                     <th>Delete</th>
                   </thead>
-                  <tbody>
-                    <!-- ko foreach:store-->
-                    <tr>
-                      <td>
-                        <label class="checkbox">
-                          <input data-bind="checked: checked" type="checkbox">
-                        </label>
-                      </td>
-                      <td data-bind="text:name">COURSENAME</td>
-                      <td data-bind="text:id">COURSEID</td>
-                      <td style="font-size:1.2em; text-align: center;">&times;</td>
-                    </tr>
-                    <!-- /ko-->
-                  </tbody>
+                  <tbody data-bind="template: { name:'tableContent', foreach:store }">                   </tbody>
                 </table>
               </div>
             </div>
             <div class="span4">
               <div class="row">
-                <div id="timetable" class="span4"><img src="http://placehold.it/280x400"></div>
+                <div id="timetable" class="span4"><img src="http://placehold.it/280x435"></div>
               </div>
             </div>
           </div>
@@ -100,6 +81,18 @@
     <script src="scripts/vendor/bootstrap/bootstrap-tab.js">   </script>
     <script src="scripts/vendor/bootstrap/bootstrap-tab.js">   </script>
     <script src="components/knockoutjs/build/output/knockout-latest.js">   </script>
-    <script src="scripts/main.js">   </script>
+    <script src="scripts/main.js"></script>
+    <script type="text/html" id="tableContent">   
+      <tr>
+        <td>
+          <label class="checkbox">
+            <input data-bind="checked: checked" type="checkbox">
+          </label>
+        </td>
+        <td data-bind="text:name">COURSENAME</td>
+        <td data-bind="text:id">COURSEID</td>
+        <td style="font-size:1.2em; text-align: center;">&times;  </td>
+      </tr>
+    </script>
   </body>
 </html>

@@ -1,3 +1,9 @@
+html {
+  background: url('/images/nasty_fabric.png') repeat;
+}
+#worklist {
+  margin-top: 20px;
+}
 #worklist table td {
   font-size: .8em;
 }
@@ -13,8 +19,11 @@
   font-size: .8em;
 }
 #worklist #controls {
-  margin: 10px;
+  margin: 10px 0px;
 }
 #worklist #controls a {
-  margin: 0px 5px;
+  margin: 5px;
+}
+#worklist #controls p {
+  font-size: .8em;
 }

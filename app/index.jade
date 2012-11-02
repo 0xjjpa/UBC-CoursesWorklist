@@ -32,22 +32,16 @@ html.no-js
                     th Course name
                     th ID
                     th Delete
-                  tbody
-                    // ko foreach:backlog
-                    tr
-                      td
-                        label.checkbox
-                          input(data-bind="checked: checked", type="checkbox")
-                      td(data-bind="text:name") COURSENAME
-                      td(data-bind="text:id") COURSEID
-                      td.remove(data-bind="click:$root.removeFromBacklog")
-                        i.icon-minus-sign &nbsp;
-                    // /ko
+                  tbody(data-bind="template: { name:'tableContent', foreach:backlog }")
               #controls
-                a.btn.btn-primary(data-bind="click:addDown") &darr;
-                a.btn.btn-primary(data-bind="click:allDown") &darr;&darr;
-                a.btn.btn-primary(data-bind="click:allUp") &uarr;&uarr;
-                a.btn.btn-primary(data-bind="click:addUp") &uarr;
+                .row
+                  .span3
+                    a.btn.btn-primary(data-bind="click:addDown") &darr;
+                    a.btn.btn-primary(data-bind="click:allDown") &darr;&darr;
+                    a.btn.btn-primary(data-bind="click:allUp") &uarr;&uarr;
+                    a.btn.btn-primary(data-bind="click:addUp") &uarr;
+                  .span3
+                    p Use the controls to move the courses between the Worklists and your Course List.
               #store
                 table.table.table-striped
                   thead
@@ -55,20 +49,11 @@ html.no-js
                     th Course name
                     th ID
                     th Delete
-                  tbody
-                    // ko foreach:store
-                    tr
-                      td
-                        label.checkbox
-                          input(data-bind="checked: checked", type="checkbox")
-                      td(data-bind="text:name") COURSENAME
-                      td(data-bind="text:id") COURSEID
-                      td(style="font-size:1.2em; text-align: center;") &times;
-                    // /ko
+                  tbody(data-bind="template: { name:'tableContent', foreach:store }")                    
             .span4
               .row
                 #timetable.span4
-                  img(src="http://placehold.it/280x400")                
+                  img(src="http://placehold.it/280x435")                
     script(src="scripts/vendor/jquery.min.js") 
     script(src='scripts/vendor/bootstrap/bootstrap-affix.js')
     script(src='scripts/vendor/bootstrap/bootstrap-alert.js')    
@@ -83,4 +68,12 @@ html.no-js
     script(src='scripts/vendor/bootstrap/bootstrap-tab.js')    
     script(src='scripts/vendor/bootstrap/bootstrap-tab.js')    
     script(src='components/knockoutjs/build/output/knockout-latest.js')    
-    script(src='scripts/main.js')    
+    script(src='scripts/main.js')
+    script(type="text/html")#tableContent    
+      tr
+        td
+          label.checkbox
+            input(data-bind="checked: checked", type="checkbox")
+        td(data-bind="text:name") COURSENAME
+        td(data-bind="text:id") COURSEID
+        td(style="font-size:1.2em; text-align: center;") &times;  
