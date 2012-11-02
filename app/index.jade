@@ -1,0 +1,83 @@
+!!! 5
+html.no-js
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+    title
+    meta(name='description', content='')
+    meta(name='viewport', content='width=device-width')    
+    link(rel='stylesheet', href='styles/main.css')
+    link(rel='stylesheet', href='styles/courses.css')
+    script(src='scripts/vendor/modernizr.min.js')
+  body
+    .container(style='margin-top: 50px;')            
+      #worklist.row
+        .span2
+          ul.nav.nav-tabs.nav-stacked
+            each item in [1,2,3,4,5]
+              li List Item
+          p Debug
+          // p(data-bind="text: ko.toJSON($data)")        
+        .span10
+          .row
+            .span5
+              #backlog
+                table
+                  thead
+                    th &nbsp;
+                    th Course name
+                    th ID
+                    th Delete
+                  tbody
+                    // ko foreach:backlog
+                    tr
+                      td
+                        label.checkbox
+                          input(data-bind="checked: checked", type="checkbox")
+                      td(data-bind="text:name") COURSENAME
+                      td(data-bind="text:id") COURSEID
+                      td.remove(data-bind="click:$root.removeFromBacklog") &times;
+                    // /ko
+              #controls
+                a.btn.btn-primary(data-bind="click:addDown") &darr;
+                a.btn.btn-primary(data-bind="click:allDown") &darr;&darr;
+                a.btn.btn-primary(data-bind="click:allUp") &uarr;&uarr;
+                a.btn.btn-primary(data-bind="click:addUp") &uarr;
+              #store
+                table
+                  thead
+                    th &nbsp;
+                    th Course name
+                    th ID
+                    th Delete
+                  tbody
+                    // ko foreach:store
+                    tr
+                      td
+                        label.checkbox
+                          input(data-bind="checked: checked", type="checkbox")
+                      td(data-bind="text:name") COURSENAME
+                      td(data-bind="text:id") COURSEID
+                      td(style="font-size:1.2em; text-align: center;") &times;
+                    // /ko
+            .span5
+              .row
+                #timetable.span3
+                  img(src="http://placehold.it/280x500")
+                #colorCode.span2
+                  p Worklist.ColorCode
+    script(src="scripts/vendor/jquery.min.js") 
+    script(src='scripts/vendor/bootstrap/bootstrap-affix.js')
+    script(src='scripts/vendor/bootstrap/bootstrap-alert.js')    
+    script(src='scripts/vendor/bootstrap/bootstrap-tooltip.js')
+    script(src='scripts/vendor/bootstrap/bootstrap-modal.js')    
+    script(src='scripts/vendor/bootstrap/bootstrap-button.js')
+    script(src='scripts/vendor/bootstrap/bootstrap-popover.js')
+    script(src='scripts/vendor/bootstrap/bootstrap-typeahead.js')
+    script(src='scripts/vendor/bootstrap/bootstrap-carousel.js')
+    script(src='scripts/vendor/bootstrap/bootstrap-scrollspy.js')
+    script(src='scripts/vendor/bootstrap/bootstrap-collapse.js')
+    script(src='scripts/vendor/bootstrap/bootstrap-tab.js')    
+    script(src='scripts/vendor/bootstrap/bootstrap-tab.js')    
+    script(src='components/knockoutjs/build/output/knockout-latest.js')    
+    script(src='scripts/main.js')    

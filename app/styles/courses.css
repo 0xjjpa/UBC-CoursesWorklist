@@ -1,0 +1,14 @@
+table td {
+  font-size: .8em;
+}
+table .remove {
+  font-size: 1.2em;
+  text-align: center;
+  cursor: pointer;
+}
+#controls {
+  margin: 10px;
+}
+#controls a {
+  margin: 0px 5px;
+}
