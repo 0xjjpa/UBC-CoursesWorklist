@@ -18,10 +18,7 @@ In order to see the application running in your localhost. Visit Yeoman's site f
 
 ### Current Proposals
 
-![Middle Control Movement][0]
+![MiddleControlMovement](https://raw.github.com/jjperezaguinaga/UBC-CoursesWorklist/master/app/images/prototypes/Worklist%20prototype.png)
 
 *Features*
 A middle control that moves the courses up and down, where up is the worklist "draft"
-
-
-[0]: http://d.pr/i/b14C
