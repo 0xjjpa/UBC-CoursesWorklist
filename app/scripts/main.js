@@ -45,15 +45,9 @@ window.courseData = [
 
 $(document).ready(function() {
 
-	var Course = function(data) {
-		var self = {};
-
-		for(var key in data) {
-			if(data.hasOwnProperty(key)) self[key] = data[key];
-		}
-		
-		self.checked = ko.observable(false);
-		return self;		
+	var Course = function(data) {			
+		data.checked = ko.observable(false);
+		return data;		
 	}
 		
 
