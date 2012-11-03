@@ -4,7 +4,8 @@ The following files describe an alternative to the current designed used in the 
 
 This main proposal breaks the worklist into 2 different sections: A draft section where "Saved" courses reside, and a "to-register" section where users can then register their courses. Users drag the courses from the draft version to the register version, so they can the visualize how it looks in their timetable and then compare different versions.
 
-*To do*
+**To do**
+
 * Display multiple worklists
 * Add up register button
 * Timetable design.
