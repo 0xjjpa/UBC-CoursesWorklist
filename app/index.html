@@ -11,7 +11,7 @@
     <script src="scripts/vendor/modernizr.min.js"></script>
   </head>
   <body>
-    <div style="margin-top: 50px;" class="container">           
+    <div style="margin-top: 30px; min-height: 600px;" class="container">           
       <div id="worklist" class="row">
         <div class="span2 info">
           <h5>UBC Course Registration<small>&nbsp;Worklist</small></h5>
@@ -54,13 +54,36 @@
                     <th>ID</th>
                     <th>Delete</th>
                   </thead>
-                  <tbody data-bind="template: { name:'tableContent', foreach:store }">                   </tbody>
-                </table>
+                  <tbody data-bind="template: { name:'tableContent', foreach:store }"></tbody>
+                </table><a class="btn btn-primary">Register         </a>
               </div>
             </div>
             <div class="span4">
               <div class="row">
-                <div id="timetable" class="span4"><img src="http://placehold.it/280x435"></div>
+                <div id="timetable" class="span4">
+                  <table data-bind="with:timetable" class="table table-bordered table-striped">
+                    <thead>
+                      <tr data-bind="foreach: days">
+                        <!--ko if:isFirstColumn($index)-->
+                        <th> <a class="btn btn-primary timetableButton first">&uarr;</a><a class="btn btn-primary timetableButton">&darr;</a></th>
+                        <!-- /ko-->
+                        <!--ko ifnot:isFirstColumn($index)-->
+                        <th data-bind="text: name"></th>
+                        <!-- /ko-->
+                      </tr>
+                    </thead>
+                    <tbody data-bind="foreach: classesHours">
+                      <tr data-bind="foreach: $parent.days">
+                        <!--ko if:isFirstColumn($index) -->
+                        <td data-bind="text: $parent.hour">;</td>
+                        <!-- /ko-->
+                        <!--ko ifnot:isFirstColumn($index) -->
+                        <td>&nbsp;</td>
+                        <!-- /ko-->
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>

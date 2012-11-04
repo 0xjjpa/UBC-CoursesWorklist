@@ -10,7 +10,7 @@ html.no-js
     link(rel='stylesheet', href='styles/courses.css')
     script(src='scripts/vendor/modernizr.min.js')
   body
-    .container(style='margin-top: 50px;')            
+    .container(style='margin-top: 30px; min-height: 600px;')            
       #worklist.row
         .span2.info
           h5 UBC Course Registration
@@ -49,11 +49,30 @@ html.no-js
                     th Course name
                     th ID
                     th Delete
-                  tbody(data-bind="template: { name:'tableContent', foreach:store }")                    
+                  tbody(data-bind="template: { name:'tableContent', foreach:store }")
+                a.btn.btn-primary Register         
             .span4
               .row
                 #timetable.span4
-                  img(src="http://placehold.it/280x435")                
+                  table.table.table-bordered.table-striped(data-bind="with:timetable")
+                    thead
+                      tr(data-bind="foreach: days")
+                        //ko if:isFirstColumn($index)
+                        th 
+                          a.btn.btn-primary.timetableButton.first &uarr;
+                          a.btn.btn-primary.timetableButton &darr;
+                        // /ko
+                        //ko ifnot:isFirstColumn($index)
+                        th(data-bind="text: name")
+                        // /ko
+                    tbody(data-bind="foreach: classesHours")
+                      tr(data-bind="foreach: $parent.days")
+                        //ko if:isFirstColumn($index) 
+                        td(data-bind="text: $parent.hour");
+                        // /ko
+                        //ko ifnot:isFirstColumn($index) 
+                        td &nbsp;
+                        // /ko
     script(src="scripts/vendor/jquery.min.js") 
     script(src='scripts/vendor/bootstrap/bootstrap-affix.js')
     script(src='scripts/vendor/bootstrap/bootstrap-alert.js')    

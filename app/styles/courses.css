@@ -18,8 +18,21 @@ html {
 #worklist .info {
   font-size: .8em;
 }
+#worklist #timetable th,
+#worklist #timetable td {
+  text-align: center;
+}
+#worklist #timetable th {
+  width: 20px;
+}
+#worklist #timetable .timetableButton {
+  padding: 2px;
+}
+#worklist #timetable .first {
+  margin-right: 2px;
+}
 #worklist #controls {
-  margin: 10px 0px;
+  margin: 5px 0px;
 }
 #worklist #controls a {
   margin: 5px;

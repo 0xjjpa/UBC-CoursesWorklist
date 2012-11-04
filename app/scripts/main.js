@@ -49,14 +49,89 @@ $(document).ready(function() {
 		data.checked = ko.observable(false);
 		return data;		
 	}
+
+	var Day = function(name, hours) {
+		var self = {};
+		self.name = "";
+		self.hours = [];
+
+		self.isFirstColumn = function(index) {			
+			return (index() == 0)
+		}
+			
+		self.init = function(name, hours) {
+			self.name = name;
+			self.hours = hours;
+			console.log(self);
+			return self;
+		}
+		
+		return self.init(name, hours);
+	}
+
+	var Timetable = function() {
+		var self = {};
+
+
+		var localeDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+		var startClass = 700;
+		var endClass = 2200
+
+		self.days = [];
+		self.hours = ko.observableArray([]);
+		self.classesHours = ko.observableArray([]);
+
+		var loadHours = function(selfHours, minutesPerHour) {
+			//@toDo Check minutesPerHour is not bigger than 60. If it is, floor it.
+			var mH = minutesPerHour || 30;
+			var minutesInDay = 60 * 24;
+			var hours = [];
+			var appendZero = false;
+			var hour = "";
+			var militarHour = 0;
+
+			for (var i = 0; i < minutesInDay; i+=mH) {				
+				hour = parseInt(i/60) + ":" + (i%60);
+				militarHour = parseInt(i/60) * 100 + (i%60);
+				appendZero = i%60 == 0 ? true : false;
+				if(appendZero) hour = hour + "0";								
+				hours.push({hour:hour, militarHour:militarHour});
+			}			
+			selfHours(hours);
+		}
+
+		var loadClassesHours = function(selfHours, selfClassesHours) {
+			var classesHours = [];
+			classesHours = ko.utils.arrayFilter(selfHours(), function(hour) {
+				return hour.militarHour > startClass && hour.militarHour < endClass;
+			})
+			selfClassesHours(classesHours);
+		}
+
+		self.init = function() {
+			loadHours(self.hours);
+			loadClassesHours(self.hours, self.classesHours);
+			localeDays.unshift("");
+			$.each(localeDays, function(i, v){
+				self.days.push( new Day(v, self.hours) );
+			});
+			return self;
+		}
+
+		return self.init();		
+	}
 		
 
 	var WorklistViewModel = function() {
 		var self = this;
-		self.backlog = ko.observableArray($.map(window.courseData, function(course){ return new Course(course); }));
+		self.backlog = ko.observableArray([]);
 		self.store = ko.observableArray([]);
+		self.timetable = ko.observable({});
 
 		self.init = function() {
+			self.backlog = ko.observableArray($.map(window.courseData, function(course){ return new Course(course); }));
+			self.timetable = ko.observable( new Timetable() );
+			console.log(ko.toJS(self.timetable));
 			return self;
 		}
 
