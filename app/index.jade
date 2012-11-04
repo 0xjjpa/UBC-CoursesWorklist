@@ -12,7 +12,7 @@ html.no-js
   body
     .container(style='margin-top: 30px; min-height: 600px;')            
       #worklist.row
-        .span2.info
+        .span2.description
           h5 UBC Course Registration
             small &nbsp;Worklist
           p The Worklist stores courses to be registered later. Through a Worklist, the student can compare multiple schedules in order to get the most convenient timetable.
@@ -71,7 +71,7 @@ html.no-js
                         td(data-bind="text: $parent.hour");
                         // /ko
                         //ko ifnot:isFirstColumn($index) 
-                        td &nbsp;
+                        td(data-bind="style: {'background-color': $root.getColor($index, $parentContext.$index)}, text: ko.toJSON('T')") &nbsp;
                         // /ko
     script(src="scripts/vendor/jquery.min.js") 
     script(src='scripts/vendor/bootstrap/bootstrap-affix.js')
@@ -89,10 +89,14 @@ html.no-js
     script(src='components/knockoutjs/build/output/knockout-latest.js')    
     script(src='scripts/main.js')
     script(type="text/html")#tableContent    
-      tr
-        td
+      tr(data-bind="css: { success: checked, error: isFull, info: isWaitingList }")
+        td(data-bind="ifnot: isFull")
           label.checkbox
             input(data-bind="checked: checked", type="checkbox")
-        td(data-bind="text:name") COURSENAME
+        td 
+          span(data-bind="text:name") COURSENAME
+          &nbsp;
+          span.label.label-important(data-bind="visible: isFull") Full
+          span.label.label-info(data-bind="visible: isWaitingList") Waiting List
         td(data-bind="text:id") COURSEID
         td(style="font-size:1.2em; text-align: center;") &times;  

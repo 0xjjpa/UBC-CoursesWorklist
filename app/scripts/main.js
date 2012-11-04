@@ -4,42 +4,48 @@ window.courseData = [
 		faculty: "Science",
 		id: "CPSC 418",
 		terms: [1],
-		status: "Full"
+		status: "Full",
+		schedule: {days: ["Tue", "Thu"], hours: ["15:30", "16:00", "16:30"]}
 	},
 	{
 		name: "Introduction to Human Computer Interaction",
 		faculty: "Science",		
 		id: "CPSC 344",
 		terms: [1,2],
-		status: "Open"
+		status: "Open",
+		schedule: {days: ["Tue", "Thu"], hours: ["9:30", "10:00", "10:30"]}
 	},
 	{
 		name: "Data Mining and Machine Learning",		
 		faculty: "Science",
 		id: "CPSC 314",
 		terms: [1],
-		status: "Open"
+		status: "Open",
+		schedule: {days: ["Mon", "Wed", "Fri"], hours: ["15:00", "15:30"]}
 	},
 	{
 		name: "Computer Graphics",		
 		faculty: "Science",
 		id: "CPSC 318",
 		terms: [1,2],
-		status: "Waitlist"
+		status: "Waitlist",
+		schedule: {days: ["Mon", "Wed", "Fri"], hours: ["9:00", "9:30"]}
 	},
 	{
 		name: "Software Construction",		
 		faculty: "Science",
 		id: "CPSC 212",
 		terms: [2],
-		status: "Open"
+		status: "Open",
+		schedule: {days: ["Mon", "Wed", "Fri"], hours: ["11:00", "11:30"]}
 	},
 	{
 		name: "Computing in the Life Sciences",		
 		faculty: "Science",
 		id: "CPSC 218",
 		terms: [2],
-		status: "Full"
+		status: "Full",
+		schedule: {days: ["Mon", "Wed", "Fri"], hours: ["9:00", "9:30"]}
 	}
 ];
 
@@ -47,6 +53,8 @@ $(document).ready(function() {
 
 	var Course = function(data) {			
 		data.checked = ko.observable(false);
+		data.isFull = ko.observable(data.status == "Full" ? true : false);
+		data.isWaitingList = ko.observable(data.status == "Waitlist" ? true : false);
 		return data;		
 	}
 
@@ -76,7 +84,7 @@ $(document).ready(function() {
 		var minutesPerHour = 30;		
 		var startClass = 700;
 		var endClass = 2300;
-		var hoursToDisplay = 10;
+		var hoursToDisplay = 25;
 
 		self.days = [];
 		self.hours = ko.observableArray([]);
@@ -84,13 +92,13 @@ $(document).ready(function() {
 		self.minimumHourDisplay = ko.observable(startClass);
 		self.maximumHourDisplay = ko.observable(endClass);		
 
-		var parseMilitarHourToString = function(militarHour) {
+		self.parseMilitarHourToString = function(militarHour) {
 			var hour = parseInt(militarHour/100)
 			var minutes =  militarHour%100;
 			return hour + ":" + minutes;
 		}
 
-		var parseStringHourToMilitar = function(stringHour) {
+		self.parseStringHourToMilitar = function(stringHour) {
 			var hourArray = stringHour.split(/:/ig);
 			var hour = parseInt(hourArray[0]) * 100;
 			var minutes = parseInt(hourArray[1]);
@@ -108,10 +116,10 @@ $(document).ready(function() {
 
 			for (var i = 0; i < minutesInDay; i+=mH) {				
 				militarHour = parseInt(i/60) * 100 + (i%60);			
-				hour = parseMilitarHourToString(militarHour);				
+				hour = self.parseMilitarHourToString(militarHour);				
 				appendZero = i%60 == 0 ? true : false;
 				if(appendZero) hour = hour + "0";											
-				hours.push({hour:hour, militarHour:militarHour, index: i/mH});
+				hours.push({hour:hour, militarHour:militarHour, index: i/mH, color: "white"});
 			}			
 			selfHours(hours);
 		}
@@ -133,7 +141,6 @@ $(document).ready(function() {
 
 		self.up = function() {			
 			var minimumHourDisplay = self.minimumHourDisplay();
-			console.log(minimumHourDisplay);	
 			if(minimumHourDisplay > startClass) {				
 				var currentMinimumHour = self.classesHours()[0];			     			   
 				var newMinimunHour = self.hours()[currentMinimumHour.index - 1];
@@ -177,6 +184,36 @@ $(document).ready(function() {
 		self.backlog = ko.observableArray([]);
 		self.store = ko.observableArray([]);
 		self.timetable = ko.observable({});
+		
+		self.getColor = function(colIndex, rowIndex) {
+			//console.log(colIndex());
+			//console.log(rowIndex());			
+			if(colIndex() == 1 && rowIndex() == 1) return "red";
+			else return "white";
+		}
+
+		self.paintCourseInTimetable = function(course) {			
+			var timetable = self.timetable();
+			var courseDays = course.schedule.days;
+			var courseHours = course.schedule.hours;
+
+			var indexDay = 0;
+			var dayHours = timetable.days[indexDay].hours();
+
+			var indexHour = 0;
+			var hourOfTheDay = dayHours[indexHour];
+			var courseInHour = hourOfTheDay.course;
+			if(!courseInHour) {
+				hourOfTheDay.course = course;
+			} else {
+				alert("Conflict");
+			}
+
+			timetable.days[indexDay].hours()[indexHour] = hourOfTheDay
+			console.log(ko.toJS(timetable.days));			
+			
+
+		}
 
 		self.init = function() {
 			self.backlog = ko.observableArray($.map(window.courseData, function(course){ return new Course(course); }));
@@ -188,7 +225,7 @@ $(document).ready(function() {
 			var backlog = self.backlog();
 			var store = [];
 			$.each(backlog, function(i, v) {
-				if(v.checked()) { store.push(v); self.store.push(v); }
+				if(v.checked()) { self.paintCourseInTimetable(v); store.push(v); self.store.push(v); }
 			})									
 			self.backlog.removeAll(store);
 		};
@@ -205,6 +242,7 @@ $(document).ready(function() {
 		self.allDown = function() {
 			var backlog = self.backlog.removeAll();
 			$.each(backlog, function(i, v) {
+				self.paintCourseInTimetable(v);
 				self.store.push(v);
 			})			
 		}

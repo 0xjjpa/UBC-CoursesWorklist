@@ -15,7 +15,7 @@ html {
 #worklist legend {
   margin-bottom: 0px;
 }
-#worklist .info {
+#worklist .description {
   font-size: .8em;
 }
 #worklist #timetable th,
