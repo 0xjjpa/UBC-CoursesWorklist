@@ -74,14 +74,17 @@ $(document).ready(function() {
 
 
 		var localeDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+		var minutesPerHour = 30;
 		var startClass = 700;
-		var endClass = 2200
+		var endClass = 1800;
 
 		self.days = [];
 		self.hours = ko.observableArray([]);
 		self.classesHours = ko.observableArray([]);
+		self.minimumHourDisplay = ko.observable(startClass);
+		self.maximumHourDisplay = ko.observable(endClass);		
 
-		var loadHours = function(selfHours, minutesPerHour) {
+		var loadHours = function(selfHours) {
 			//@toDo Check minutesPerHour is not bigger than 60. If it is, floor it.
 			var mH = minutesPerHour || 30;
 			var minutesInDay = 60 * 24;
@@ -106,6 +109,13 @@ $(document).ready(function() {
 				return hour.militarHour > startClass && hour.militarHour < endClass;
 			})
 			selfClassesHours(classesHours);
+		}
+
+		self.up = function() {
+			var minimumHourDisplay = self.minimumHourDisplay();
+			if(minimumHourDisplay > 0) {				
+				self.minimumHourDisplay( minimumHourDisplay - minutesPerHour );
+			}
 		}
 
 		self.init = function() {
