@@ -61,8 +61,7 @@ $(document).ready(function() {
 			
 		self.init = function(name, hours) {
 			self.name = name;
-			self.hours = hours;
-			console.log(self);
+			self.hours = hours;	
 			return self;
 		}
 		
@@ -74,15 +73,29 @@ $(document).ready(function() {
 
 
 		var localeDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-		var minutesPerHour = 30;
+		var minutesPerHour = 30;		
 		var startClass = 700;
-		var endClass = 1800;
+		var endClass = 2300;
+		var hoursToDisplay = 10;
 
 		self.days = [];
 		self.hours = ko.observableArray([]);
 		self.classesHours = ko.observableArray([]);
 		self.minimumHourDisplay = ko.observable(startClass);
 		self.maximumHourDisplay = ko.observable(endClass);		
+
+		var parseMilitarHourToString = function(militarHour) {
+			var hour = parseInt(militarHour/100)
+			var minutes =  militarHour%100;
+			return hour + ":" + minutes;
+		}
+
+		var parseStringHourToMilitar = function(stringHour) {
+			var hourArray = stringHour.split(/:/ig);
+			var hour = parseInt(hourArray[0]) * 100;
+			var minutes = parseInt(hourArray[1]);
+			return hour + minutes;
+		}
 
 		var loadHours = function(selfHours) {
 			//@toDo Check minutesPerHour is not bigger than 60. If it is, floor it.
@@ -94,27 +107,54 @@ $(document).ready(function() {
 			var militarHour = 0;
 
 			for (var i = 0; i < minutesInDay; i+=mH) {				
-				hour = parseInt(i/60) + ":" + (i%60);
-				militarHour = parseInt(i/60) * 100 + (i%60);
+				militarHour = parseInt(i/60) * 100 + (i%60);			
+				hour = parseMilitarHourToString(militarHour);				
 				appendZero = i%60 == 0 ? true : false;
-				if(appendZero) hour = hour + "0";								
-				hours.push({hour:hour, militarHour:militarHour});
+				if(appendZero) hour = hour + "0";											
+				hours.push({hour:hour, militarHour:militarHour, index: i/mH});
 			}			
 			selfHours(hours);
 		}
 
 		var loadClassesHours = function(selfHours, selfClassesHours) {
 			var classesHours = [];
+			var index = 0;
 			classesHours = ko.utils.arrayFilter(selfHours(), function(hour) {
-				return hour.militarHour > startClass && hour.militarHour < endClass;
+				return hour.militarHour > startClass && hour.militarHour < endClass && index++ < hoursToDisplay;
 			})
 			selfClassesHours(classesHours);
 		}
 
-		self.up = function() {
+		self.panelClassesHours = ko.computed(function() {			
+			return ko.utils.arrayFilter(self.hours(), function(hour) {
+				return hour.militarHour > self.minimumHourDisplay() && hour.militarHour < self.maximumHourDisplay();
+			})
+		})
+
+		self.up = function() {			
 			var minimumHourDisplay = self.minimumHourDisplay();
-			if(minimumHourDisplay > 0) {				
-				self.minimumHourDisplay( minimumHourDisplay - minutesPerHour );
+			console.log(minimumHourDisplay);	
+			if(minimumHourDisplay > startClass) {				
+				var currentMinimumHour = self.classesHours()[0];			     			   
+				var newMinimunHour = self.hours()[currentMinimumHour.index - 1];
+				var newMaximumHour = self.classesHours()[self.classesHours().length - 2];
+				self.minimumHourDisplay(newMinimunHour.militarHour);				
+				self.maximumHourDisplay(newMaximumHour.militarHour);				
+				self.classesHours.unshift(newMinimunHour);
+				self.classesHours.pop();
+			}
+		}
+
+		self.down = function() {
+			var maximumHourDisplay = self.maximumHourDisplay();						
+			if(maximumHourDisplay <= endClass) {				
+				var currentMaximumHour = self.classesHours()[self.classesHours().length - 1];			     			   
+				var newMaximumHour = self.hours()[currentMaximumHour.index + 1];
+				var newMinimumHour = self.classesHours()[0];
+				self.maximumHourDisplay(newMaximumHour.militarHour);				
+				self.minimumHourDisplay(newMinimumHour.militarHour);				
+				self.classesHours.push(newMaximumHour);
+				self.classesHours.shift();
 			}
 		}
 
@@ -140,8 +180,7 @@ $(document).ready(function() {
 
 		self.init = function() {
 			self.backlog = ko.observableArray($.map(window.courseData, function(course){ return new Course(course); }));
-			self.timetable = ko.observable( new Timetable() );
-			console.log(ko.toJS(self.timetable));
+			self.timetable = ko.observable( new Timetable() );	
 			return self;
 		}
 

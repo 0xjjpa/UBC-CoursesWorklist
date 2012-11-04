@@ -59,8 +59,8 @@ html.no-js
                       tr(data-bind="foreach: days")
                         //ko if:isFirstColumn($index)
                         th 
-                          a.btn.btn-primary.timetableButton.first &uarr;
-                          a.btn.btn-primary.timetableButton &darr;
+                          a.btn.btn-primary.timetableButton.first(data-bind="click: $parent.up") &uarr;
+                          a.btn.btn-primary.timetableButton(data-bind="click: $parent.down") &darr;
                         // /ko
                         //ko ifnot:isFirstColumn($index)
                         th(data-bind="text: name")
