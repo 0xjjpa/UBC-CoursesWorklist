@@ -64,21 +64,21 @@
                   <table data-bind="with:timetable" class="table table-bordered table-striped">
                     <thead>
                       <tr data-bind="foreach: days">
-                        <!--ko if:isFirstColumn($index)-->
+                        <!--ko if:$index() == 0-->
                         <th> <a data-bind="click: $parent.up" class="btn btn-primary timetableButton first">&uarr;</a><a data-bind="click: $parent.down" class="btn btn-primary timetableButton">&darr;</a></th>
                         <!-- /ko-->
-                        <!--ko ifnot:isFirstColumn($index)-->
-                        <th data-bind="text: name"></th>
+                        <!--ko ifnot:$index() == 0-->
+                        <th data-bind="text: $data"></th>
                         <!-- /ko-->
                       </tr>
                     </thead>
                     <tbody data-bind="foreach: classesHours">
-                      <tr data-bind="foreach: $parent.days">
+                      <tr data-bind="foreach: days">
                         <!--ko if:isFirstColumn($index) -->
                         <td data-bind="text: $parent.hour">;</td>
                         <!-- /ko-->
                         <!--ko ifnot:isFirstColumn($index) -->
-                        <td data-bind="style: {'background-color': $root.getColor($index, $parentContext.$index)}, text: ko.toJSON('T')">&nbsp;</td>
+                        <td data-bind="style: {'background-color': color}">&nbsp;</td>
                         <!-- /ko-->
                       </tr>
                     </tbody>

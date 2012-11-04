@@ -22,3 +22,8 @@ In order to see the application running in your localhost. Visit Yeoman's site f
 
 *Features*
 A middle control that moves the courses up and down, where up is the worklist "draft"
+
+![MiddleControlMovement](https://raw.github.com/jjperezaguinaga/UBC-CoursesWorklist/master/app/images/prototypes/Worklist%20prototype%20v2.png)
+
+*Features*
+A navigation through the timetable, label display status of the courses, timetable showcasing the selected -preregister- courses.

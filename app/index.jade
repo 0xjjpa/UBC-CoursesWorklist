@@ -57,21 +57,21 @@ html.no-js
                   table.table.table-bordered.table-striped(data-bind="with:timetable")
                     thead
                       tr(data-bind="foreach: days")
-                        //ko if:isFirstColumn($index)
+                        //ko if:$index() == 0
                         th 
                           a.btn.btn-primary.timetableButton.first(data-bind="click: $parent.up") &uarr;
                           a.btn.btn-primary.timetableButton(data-bind="click: $parent.down") &darr;
                         // /ko
-                        //ko ifnot:isFirstColumn($index)
-                        th(data-bind="text: name")
+                        //ko ifnot:$index() == 0
+                        th(data-bind="text: $data")
                         // /ko
                     tbody(data-bind="foreach: classesHours")
-                      tr(data-bind="foreach: $parent.days")
+                      tr(data-bind="foreach: days")
                         //ko if:isFirstColumn($index) 
                         td(data-bind="text: $parent.hour");
                         // /ko
                         //ko ifnot:isFirstColumn($index) 
-                        td(data-bind="style: {'background-color': $root.getColor($index, $parentContext.$index)}, text: ko.toJSON('T')") &nbsp;
+                        td(data-bind="style: {'background-color': color}") &nbsp;
                         // /ko
     script(src="scripts/vendor/jquery.min.js") 
     script(src='scripts/vendor/bootstrap/bootstrap-affix.js')
