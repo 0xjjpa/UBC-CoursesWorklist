@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="styles/b3531146.main.css"/>
+    <script src="scripts/2edc7af0.vendor.js"></script>
+  </head>
+  <body>
+    <div style="margin-top: 30px; min-height: 600px;" class="container">           
+      <div id="worklist" class="row">
+        <div class="span2 description">
+          <h5>UBC Course Registration<small>&nbsp;Worklist</small></h5>
+          <p>The Worklist stores courses to be registered later. Through a Worklist, the student can compare multiple schedules in order to get the most convenient timetable.</p>
+          <p>The objective of this prototype is to improve the following features inside of the current worklist
+            <ul>
+              <li>Browse of multiple Worklists</li>
+              <li>Display of the Timetable elaboration</li>
+            </ul>
+          </p>
+        </div>
+        <div class="span10">
+          <div class="row">
+            <div class="span6">
+              <legend>Worklist<small>&nbsp;Saved courses for registration.              </small></legend>
+              <div id="backlog">
+                <table class="table table-striped">                 
+                  <thead>
+                    <th>&nbsp;</th>
+                    <th>Course name</th>
+                    <th>ID</th>
+                    <th>Delete</th>
+                  </thead>
+                  <tbody data-bind="template: { name:'backlogTemplate', foreach:backlog }"></tbody>
+                </table>
+              </div>
+              <div id="controls">
+                <div class="row">
+                  <div class="span3"><a data-bind="click:addDown" class="btn btn-primary">&darr;</a><a data-bind="click:allDown" class="btn btn-primary">&darr;&darr;</a><a data-bind="click:allUp" class="btn btn-primary">&uarr;&uarr;</a><a data-bind="click:addUp" class="btn btn-primary">&uarr;</a></div>
+                  <div class="span3">
+                    <p>Use the controls to move the courses between the Worklists and your Course List.</p>
+                  </div>
+                </div>
+              </div>
+              <div id="store" data-bind="ifnot: isStoreEmpty">               
+                <table class="table table-striped">
+                  <thead>
+                    <th>&nbsp;</th>
+                    <th>Course name</th>
+                    <th>ID</th>
+                    <th>Code</th>
+                  </thead>
+                  <tbody data-bind="template: { name:'storeTemplate', foreach:store }"></tbody>
+                </table><a data-bind="click:function(){alert('Registration complete')}" class="register btn btn-primary">Register         </a>
+              </div>
+            </div>
+            <div class="span4">
+              <div class="row">
+                <div id="timetable" class="span4">
+                  <table data-bind="with:timetable" class="table table-bordered table-striped">
+                    <thead>
+                      <tr data-bind="foreach: days">
+                        <!--ko if:$index() == 0-->
+                        <th> <a data-bind="click: $parent.up" class="btn btn-primary timetableButton first">&uarr;</a><a data-bind="click: $parent.down" class="btn btn-primary timetableButton">&darr;</a></th>
+                        <!-- /ko-->
+                        <!--ko ifnot:$index() == 0-->
+                        <th data-bind="text: $data"></th>
+                        <!-- /ko-->
+                      </tr>
+                    </thead>
+                    <tbody data-bind="foreach: classesHours">
+                      <tr data-bind="foreach: days">
+                        <!--ko if:isFirstColumn($index) -->
+                        <td data-bind="text: $parent.hour">;</td>
+                        <!-- /ko-->
+                        <!--ko ifnot:isFirstColumn($index) -->
+                        <td data-bind="style: {'background-color': color}, with: course"><span data-bind="text: id">;</span></td>
+                        <!-- /ko        -->
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="components/knockoutjs/build/output/knockout-latest.js"></script>
+    <script src="scripts/204b2c3e.main.js"></script>
+    <script type="text/html" id="backlogTemplate">   
+      <tr data-bind="css: { success: checked, error: isFull, info: isWaitingList }">
+        <td data-bind="ifnot: isFull">
+          <label class="checkbox">
+            <input data-bind="checked: checked" type="checkbox">
+          </label>
+        </td>
+        <td> <span data-bind="text:name">COURSENAME</span>&nbsp;<span data-bind="visible: isFull" class="label label-important">Full</span><span data-bind="visible: isWaitingList" class="label label-info">Waiting List</span></td>
+        <td data-bind="text:id">COURSEID</td>
+        <td data-bind="click:$parent.removeFromBacklog" class="remove">&times;</td>
+      </tr>
+    </script>
+    <script type="text/html" id="storeTemplate">   
+      <tr data-bind="css: { success: checked, error: isFull, info: isWaitingList }">
+        <td data-bind="ifnot: isFull">
+          <label class="checkbox">
+            <input data-bind="checked: checked" type="checkbox">
+          </label>
+        </td>
+        <td> <span data-bind="text:name">COURSENAME</span>&nbsp;<span data-bind="visible: isFull" class="label label-important">Full</span><span data-bind="visible: isWaitingList" class="label label-info">Waiting List</span></td>
+        <td data-bind="text:id">COURSEID</td>
+        <td><span data-bind="style: {'background-color': color}" class="colorCode">&nbsp;  </span></td>
+      </tr>
+    </script>
+  </body>
+</html>

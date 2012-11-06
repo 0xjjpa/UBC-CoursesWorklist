@@ -1,0 +1,110 @@
+!!! 5
+html.no-js
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+    title
+    meta(name='description', content='')
+    meta(name='viewport', content='width=device-width')
+    // build:css styles/main.css
+    link(rel='stylesheet', href='styles/main.css')
+    link(rel='stylesheet', href='styles/courses.css')
+    // endbuild
+    // build:js scripts/vendor.js
+    script(src="scripts/vendor/jquery.min.js")
+    script(src='scripts/vendor/modernizr.min.js')
+    // endbuild
+  body
+    .container(style='margin-top: 30px; min-height: 600px;')            
+      #worklist.row
+        .span2.description
+          h5 UBC Course Registration
+            small &nbsp;Worklist
+          p The Worklist stores courses to be registered later. Through a Worklist, the student can compare multiple schedules in order to get the most convenient timetable.
+          p The objective of this prototype is to improve the following features inside of the current worklist
+            ul
+              li Browse of multiple Worklists
+              li Display of the Timetable elaboration
+        .span10
+          .row
+            .span6
+              legend Worklist
+                small &nbsp;Saved courses for registration.              
+              #backlog
+                table.table.table-striped                  
+                  thead
+                    th &nbsp;
+                    th Course name
+                    th ID
+                    th Delete
+                  tbody(data-bind="template: { name:'backlogTemplate', foreach:backlog }")
+              #controls
+                .row
+                  .span3
+                    a.btn.btn-primary(data-bind="click:addDown") &darr;
+                    a.btn.btn-primary(data-bind="click:allDown") &darr;&darr;
+                    a.btn.btn-primary(data-bind="click:allUp") &uarr;&uarr;
+                    a.btn.btn-primary(data-bind="click:addUp") &uarr;
+                  .span3
+                    p Use the controls to move the courses between the Worklists and your Course List.
+              #store(data-bind="ifnot: isStoreEmpty")                
+                table.table.table-striped
+                  thead
+                    th &nbsp;
+                    th Course name
+                    th ID
+                    th Code
+                  tbody(data-bind="template: { name:'storeTemplate', foreach:store }")
+                a.register.btn.btn-primary(data-bind="click:function(){alert('Registration complete')}") Register         
+            .span4
+              .row
+                #timetable.span4
+                  table.table.table-bordered.table-striped(data-bind="with:timetable")
+                    thead
+                      tr(data-bind="foreach: days")
+                        //ko if:$index() == 0
+                        th 
+                          a.btn.btn-primary.timetableButton.first(data-bind="click: $parent.up") &uarr;
+                          a.btn.btn-primary.timetableButton(data-bind="click: $parent.down") &darr;
+                        // /ko
+                        //ko ifnot:$index() == 0
+                        th(data-bind="text: $data")
+                        // /ko
+                    tbody(data-bind="foreach: classesHours")
+                      tr(data-bind="foreach: days")
+                        //ko if:isFirstColumn($index) 
+                        td(data-bind="text: $parent.hour");
+                        // /ko
+                        //ko ifnot:isFirstColumn($index) 
+                        td(data-bind="style: {'background-color': color}, with: course")
+                          span(data-bind="text: id");
+                        // /ko        
+    script(src='components/knockoutjs/build/output/knockout-latest.js')
+    // build:js scripts/main.js
+    script(src='scripts/main.js')
+    // endbuild
+    script(type="text/html")#backlogTemplate    
+      tr(data-bind="css: { success: checked, error: isFull, info: isWaitingList }")
+        td(data-bind="ifnot: isFull")
+          label.checkbox
+            input(data-bind="checked: checked", type="checkbox")
+        td 
+          span(data-bind="text:name") COURSENAME
+          &nbsp;
+          span.label.label-important(data-bind="visible: isFull") Full
+          span.label.label-info(data-bind="visible: isWaitingList") Waiting List
+        td(data-bind="text:id") COURSEID
+        td.remove(data-bind="click:$parent.removeFromBacklog") &times;
+    script(type="text/html")#storeTemplate    
+      tr(data-bind="css: { success: checked, error: isFull, info: isWaitingList }")
+        td(data-bind="ifnot: isFull")
+          label.checkbox
+            input(data-bind="checked: checked", type="checkbox")
+        td 
+          span(data-bind="text:name") COURSENAME
+          &nbsp;
+          span.label.label-important(data-bind="visible: isFull") Full
+          span.label.label-info(data-bind="visible: isWaitingList") Waiting List
+        td(data-bind="text:id") COURSEID
+        td
+          span.colorCode(data-bind="style: {'background-color': color}") &nbsp;  

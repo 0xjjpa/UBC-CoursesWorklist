@@ -1,0 +1,64 @@
+html {
+	background: url('/images/nasty_fabric.png') repeat;
+}
+
+#worklist {
+	margin-top: 20px;
+	table {
+		td {
+			font-size: .8em;
+		}	
+		.remove  {
+			font-size:1.2em; text-align: center; cursor: pointer;
+		}
+	}
+
+	legend {
+		margin-bottom: 0px;
+	}
+
+	.register {
+		float: right;
+	}
+
+	.description {
+		font-size: .8em;
+	}
+
+	.colorCode {
+		border: 1px solid #999;
+		padding: 0 16px;
+	}
+
+	#timetable {		
+		th, td {
+			text-align: center;
+		}
+		th {
+			width: 35px;			
+		}
+		tbody td {
+			line-height: 5px;
+			span {
+				line-height: 12px;
+			}
+		}
+		.timetableButton {
+			padding: 2px;		
+		}
+		.first {
+			margin-right: 2px;
+			}
+	}
+	
+
+	#controls {
+		margin: 5px 0px;
+		a {
+			margin: 5px;
+		}
+		p {
+			font-size: .8em;
+		}
+	}
+}
