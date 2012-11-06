@@ -35,7 +35,7 @@
                     <th>ID</th>
                     <th>Delete</th>
                   </thead>
-                  <tbody data-bind="template: { name:'tableContent', foreach:backlog }"></tbody>
+                  <tbody data-bind="template: { name:'backlogTemplate', foreach:backlog }"></tbody>
                 </table>
               </div>
               <div id="controls">
@@ -46,16 +46,16 @@
                   </div>
                 </div>
               </div>
-              <div id="store">
+              <div id="store" data-bind="ifnot: isStoreEmpty">               
                 <table class="table table-striped">
                   <thead>
                     <th>&nbsp;</th>
                     <th>Course name</th>
                     <th>ID</th>
-                    <th>Delete</th>
+                    <th>Code</th>
                   </thead>
-                  <tbody data-bind="template: { name:'tableContent', foreach:store }"></tbody>
-                </table><a class="btn btn-primary">Register         </a>
+                  <tbody data-bind="template: { name:'storeTemplate', foreach:store }"></tbody>
+                </table><a data-bind="click:function(){alert('Registration complete')}" class="register btn btn-primary">Register         </a>
               </div>
             </div>
             <div class="span4">
@@ -78,7 +78,7 @@
                         <td data-bind="text: $parent.hour">;</td>
                         <!-- /ko-->
                         <!--ko ifnot:isFirstColumn($index) -->
-                        <td data-bind="style: {'background-color': color}">&nbsp;</td>
+                        <td data-bind="style: {'background-color': color}, with: course"><span data-bind="text: id">;</span></td>
                         <!-- /ko-->
                       </tr>
                     </tbody>
@@ -90,22 +90,10 @@
         </div>
       </div>
     </div>
-    <script src="scripts/vendor/jquery.min.js"> </script>
-    <script src="scripts/vendor/bootstrap/bootstrap-affix.js"></script>
-    <script src="scripts/vendor/bootstrap/bootstrap-alert.js">   </script>
-    <script src="scripts/vendor/bootstrap/bootstrap-tooltip.js"></script>
-    <script src="scripts/vendor/bootstrap/bootstrap-modal.js">   </script>
-    <script src="scripts/vendor/bootstrap/bootstrap-button.js"></script>
-    <script src="scripts/vendor/bootstrap/bootstrap-popover.js"></script>
-    <script src="scripts/vendor/bootstrap/bootstrap-typeahead.js"></script>
-    <script src="scripts/vendor/bootstrap/bootstrap-carousel.js"></script>
-    <script src="scripts/vendor/bootstrap/bootstrap-scrollspy.js"></script>
-    <script src="scripts/vendor/bootstrap/bootstrap-collapse.js"></script>
-    <script src="scripts/vendor/bootstrap/bootstrap-tab.js">   </script>
-    <script src="scripts/vendor/bootstrap/bootstrap-tab.js">   </script>
+    <script src="scripts/vendor/jquery.min.js">    </script>
     <script src="components/knockoutjs/build/output/knockout-latest.js">   </script>
     <script src="scripts/main.js"></script>
-    <script type="text/html" id="tableContent">   
+    <script type="text/html" id="backlogTemplate">   
       <tr data-bind="css: { success: checked, error: isFull, info: isWaitingList }">
         <td data-bind="ifnot: isFull">
           <label class="checkbox">
@@ -114,7 +102,19 @@
         </td>
         <td> <span data-bind="text:name">COURSENAME</span>&nbsp;<span data-bind="visible: isFull" class="label label-important">Full</span><span data-bind="visible: isWaitingList" class="label label-info">Waiting List</span></td>
         <td data-bind="text:id">COURSEID</td>
-        <td style="font-size:1.2em; text-align: center;">&times;  </td>
+        <td data-bind="click:$parent.removeFromBacklog" class="remove">&times;</td>
+      </tr>
+    </script>
+    <script type="text/html" id="storeTemplate">   
+      <tr data-bind="css: { success: checked, error: isFull, info: isWaitingList }">
+        <td data-bind="ifnot: isFull">
+          <label class="checkbox">
+            <input data-bind="checked: checked" type="checkbox">
+          </label>
+        </td>
+        <td> <span data-bind="text:name">COURSENAME</span>&nbsp;<span data-bind="visible: isFull" class="label label-important">Full</span><span data-bind="visible: isWaitingList" class="label label-info">Waiting List</span></td>
+        <td data-bind="text:id">COURSEID</td>
+        <td><span data-bind="style: {'background-color': color}" class="colorCode">&nbsp;  </span></td>
       </tr>
     </script>
   </body>

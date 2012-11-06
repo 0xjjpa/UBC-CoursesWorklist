@@ -15,8 +15,15 @@ html {
 #worklist legend {
   margin-bottom: 0px;
 }
+#worklist .register {
+  float: right;
+}
 #worklist .description {
   font-size: .8em;
+}
+#worklist .colorCode {
+  border: 1px solid #999;
+  padding: 0 16px;
 }
 #worklist #timetable th,
 #worklist #timetable td {
@@ -27,6 +34,9 @@ html {
 }
 #worklist #timetable tbody td {
   line-height: 5px;
+}
+#worklist #timetable tbody td span {
+  line-height: 12px;
 }
 #worklist #timetable .timetableButton {
   padding: 2px;

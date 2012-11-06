@@ -27,3 +27,8 @@ A middle control that moves the courses up and down, where up is the worklist "d
 
 *Features*
 A navigation through the timetable, label display status of the courses, timetable showcasing the selected -preregister- courses.
+
+![MiddleControlMovement](https://raw.github.com/jjperezaguinaga/UBC-CoursesWorklist/master/app/images/prototypes/Worklist%20prototype%20v3.png)
+
+*Features*
+Color coded id's displayed in the timetable, labeled in the registration section.

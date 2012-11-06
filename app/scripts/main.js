@@ -91,7 +91,7 @@ $(document).ready(function() {
 		self.parentIndex = 0;
 		self.index = 0;
 		self.color = ko.observable("white");
-		self.course = ko.observable();
+		self.course = ko.observable({id: null});
 
 		self.isFirstColumn = function(index) {			
 			return (index() == 0)
@@ -209,8 +209,12 @@ $(document).ready(function() {
 		self.backlog = ko.observableArray([]);
 		self.store = ko.observableArray([]);
 		self.timetable = ko.observable({});
+
+		self.isStoreEmpty = ko.computed(function(){			
+			return self.store().length === 0;
+		})
 		
-		self.paintCourseInTimetable = function(course) {			
+		self.paintCourseInTimetable = function(course, operation) {			
 			var timetable = self.timetable();
 			var courseDays = course.schedule.days;
 			var courseHours = course.schedule.hours;
@@ -230,11 +234,7 @@ $(document).ready(function() {
 					if(day.name == courseDay) indexesDays.push(j);
 				})				
 			})
-
-			console.log(indexesHours);
-			console.log(indexesDays);
-
-
+			
 			var weekDays = []
 			$.each(indexesHours, function(i, hourIndex) {
 				weekDays = timetable.hours()[hourIndex].days;
@@ -242,9 +242,14 @@ $(document).ready(function() {
 					$.each(indexesDays, function(k, indexDay) {
 						if(day.index == indexDay) {
 							var courseGivenInDay = day.course;
-							if(!ko.toJS(courseGivenInDay)) {
-								day.course(course);
-								day.color(course.color);
+							if(!courseGivenInDay.id || operation === "Remove") {
+								if(operation === "Add") {
+									day.course(course);
+									day.color(course.color);	
+								} else {
+									day.course({id:null});
+									day.color("white");
+								}								
 							} else {
 								alert("Conflict");
 							}
@@ -265,7 +270,7 @@ $(document).ready(function() {
 			var backlog = self.backlog();
 			var store = [];
 			$.each(backlog, function(i, v) {
-				if(v.checked()) { self.paintCourseInTimetable(v); store.push(v); self.store.push(v); }
+				if(v.checked()) { self.paintCourseInTimetable(v, "Add"); store.push(v); self.store.push(v); }
 			})									
 			self.backlog.removeAll(store);
 		};
@@ -274,7 +279,7 @@ $(document).ready(function() {
 			var store = self.store();
 			var backlog = [];
 			$.each(store, function(i, v) {				
-				if(v.checked()) { backlog.push(v); self.backlog.push(v); }	
+				if(v.checked()) { self.paintCourseInTimetable(v, "Remove"); backlog.push(v); self.backlog.push(v); }	
 			})
 			self.store.removeAll(backlog);
 		}
@@ -282,15 +287,24 @@ $(document).ready(function() {
 		self.allDown = function() {
 			var backlog = self.backlog.removeAll();
 			$.each(backlog, function(i, v) {
-				self.paintCourseInTimetable(v);
-				self.store.push(v);
+				if(v.status !== "Full") {
+					self.paintCourseInTimetable(v, "Add");
+					self.store.push(v);	
+				} else {
+					self.backlog.push(v);
+				}				
 			})			
 		}
 
 		self.allUp = function() {
 			var store = self.store.removeAll();
 			$.each(store, function(i, v) {
-				self.backlog.push(v);
+				if(v.status !== "Full") {
+					self.paintCourseInTimetable(v, "Remove");
+					self.backlog.push(v);					
+				} else {
+					self.store.push(v);
+				}
 			})			
 		}
 

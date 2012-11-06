@@ -32,7 +32,7 @@ html.no-js
                     th Course name
                     th ID
                     th Delete
-                  tbody(data-bind="template: { name:'tableContent', foreach:backlog }")
+                  tbody(data-bind="template: { name:'backlogTemplate', foreach:backlog }")
               #controls
                 .row
                   .span3
@@ -42,15 +42,15 @@ html.no-js
                     a.btn.btn-primary(data-bind="click:addUp") &uarr;
                   .span3
                     p Use the controls to move the courses between the Worklists and your Course List.
-              #store
+              #store(data-bind="ifnot: isStoreEmpty")                
                 table.table.table-striped
                   thead
                     th &nbsp;
                     th Course name
                     th ID
-                    th Delete
-                  tbody(data-bind="template: { name:'tableContent', foreach:store }")
-                a.btn.btn-primary Register         
+                    th Code
+                  tbody(data-bind="template: { name:'storeTemplate', foreach:store }")
+                a.register.btn.btn-primary(data-bind="click:function(){alert('Registration complete')}") Register         
             .span4
               .row
                 #timetable.span4
@@ -71,24 +71,13 @@ html.no-js
                         td(data-bind="text: $parent.hour");
                         // /ko
                         //ko ifnot:isFirstColumn($index) 
-                        td(data-bind="style: {'background-color': color}") &nbsp;
+                        td(data-bind="style: {'background-color': color}, with: course")
+                          span(data-bind="text: id");
                         // /ko
-    script(src="scripts/vendor/jquery.min.js") 
-    script(src='scripts/vendor/bootstrap/bootstrap-affix.js')
-    script(src='scripts/vendor/bootstrap/bootstrap-alert.js')    
-    script(src='scripts/vendor/bootstrap/bootstrap-tooltip.js')
-    script(src='scripts/vendor/bootstrap/bootstrap-modal.js')    
-    script(src='scripts/vendor/bootstrap/bootstrap-button.js')
-    script(src='scripts/vendor/bootstrap/bootstrap-popover.js')
-    script(src='scripts/vendor/bootstrap/bootstrap-typeahead.js')
-    script(src='scripts/vendor/bootstrap/bootstrap-carousel.js')
-    script(src='scripts/vendor/bootstrap/bootstrap-scrollspy.js')
-    script(src='scripts/vendor/bootstrap/bootstrap-collapse.js')
-    script(src='scripts/vendor/bootstrap/bootstrap-tab.js')    
-    script(src='scripts/vendor/bootstrap/bootstrap-tab.js')    
+    script(src="scripts/vendor/jquery.min.js")     
     script(src='components/knockoutjs/build/output/knockout-latest.js')    
     script(src='scripts/main.js')
-    script(type="text/html")#tableContent    
+    script(type="text/html")#backlogTemplate    
       tr(data-bind="css: { success: checked, error: isFull, info: isWaitingList }")
         td(data-bind="ifnot: isFull")
           label.checkbox
@@ -99,4 +88,17 @@ html.no-js
           span.label.label-important(data-bind="visible: isFull") Full
           span.label.label-info(data-bind="visible: isWaitingList") Waiting List
         td(data-bind="text:id") COURSEID
-        td(style="font-size:1.2em; text-align: center;") &times;  
+        td.remove(data-bind="click:$parent.removeFromBacklog") &times;
+    script(type="text/html")#storeTemplate    
+      tr(data-bind="css: { success: checked, error: isFull, info: isWaitingList }")
+        td(data-bind="ifnot: isFull")
+          label.checkbox
+            input(data-bind="checked: checked", type="checkbox")
+        td 
+          span(data-bind="text:name") COURSENAME
+          &nbsp;
+          span.label.label-important(data-bind="visible: isFull") Full
+          span.label.label-info(data-bind="visible: isWaitingList") Waiting List
+        td(data-bind="text:id") COURSEID
+        td
+          span.colorCode(data-bind="style: {'background-color': color}") &nbsp;  
