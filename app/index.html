@@ -6,9 +6,14 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
+    <!-- build:css styles/main.css-->
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/courses.css">
+    <!-- endbuild-->
+    <!-- build:js scripts/vendor.js-->
+    <script src="scripts/vendor/jquery.min.js"></script>
     <script src="scripts/vendor/modernizr.min.js"></script>
+    <!-- endbuild-->
   </head>
   <body>
     <div style="margin-top: 30px; min-height: 600px;" class="container">           
@@ -79,7 +84,7 @@
                         <!-- /ko-->
                         <!--ko ifnot:isFirstColumn($index) -->
                         <td data-bind="style: {'background-color': color}, with: course"><span data-bind="text: id">;</span></td>
-                        <!-- /ko-->
+                        <!-- /ko        -->
                       </tr>
                     </tbody>
                   </table>
@@ -90,9 +95,10 @@
         </div>
       </div>
     </div>
-    <script src="scripts/vendor/jquery.min.js">    </script>
-    <script src="components/knockoutjs/build/output/knockout-latest.js">   </script>
+    <script src="components/knockoutjs/build/output/knockout-latest.js"></script>
+    <!-- build:js scripts/main.js-->
     <script src="scripts/main.js"></script>
+    <!-- endbuild-->
     <script type="text/html" id="backlogTemplate">   
       <tr data-bind="css: { success: checked, error: isFull, info: isWaitingList }">
         <td data-bind="ifnot: isFull">
