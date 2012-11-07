@@ -209,6 +209,7 @@ $(document).ready(function() {
 		self.backlog = ko.observableArray([]);
 		self.store = ko.observableArray([]);
 		self.timetable = ko.observable({});
+		self.timetables = ko.observableArray([]);
 
 		self.isStoreEmpty = ko.computed(function(){			
 			return self.store().length === 0;

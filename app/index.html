@@ -51,17 +51,35 @@
                   </div>
                 </div>
               </div>
-              <div id="store" data-bind="ifnot: isStoreEmpty">               
-                <table class="table table-striped">
-                  <thead>
-                    <th>&nbsp;</th>
-                    <th>Course name</th>
-                    <th>ID</th>
-                    <th>Code</th>
-                  </thead>
-                  <tbody data-bind="template: { name:'storeTemplate', foreach:store }"></tbody>
-                </table><a data-bind="click:function(){alert('Registration complete')}" class="register btn btn-primary">Register         </a>
-              </div>
+              <section>
+                <ul id="storeNav" class="nav nav-tabs">                   
+                  <li> <a href="#worklist1" data-toggle="tab">Worklist 1</a></li>
+                  <li>              <a href="#worklist2" data-toggle="tab">Worklist 2</a></li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                  <div id="worklist1" class="tab-pane fade active in">
+                    <div data-bind="if: isStoreEmpty" class="isEmpty">
+                      <h4>Please add courses to your worklist #1</h4>
+                    </div>
+                    <div id="store" data-bind="ifnot: isStoreEmpty">               
+                      <table class="table table-striped">
+                        <thead>
+                          <th>&nbsp;</th>
+                          <th>Course name</th>
+                          <th>ID</th>
+                          <th>Code</th>
+                        </thead>
+                        <tbody data-bind="template: { name:'storeTemplate', foreach:store }"></tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div id="worklist2" class="tab-pane fade">
+                    <div class="isEmpty">
+                      <h4>Please add courses to your worklist #2</h4>
+                    </div>
+                  </div>
+                </div>
+              </section><a data-bind="click:function(){alert('Registration complete')}" class="register btn btn-primary">Register         </a>
             </div>
             <div class="span4">
               <div class="row">
@@ -96,6 +114,7 @@
       </div>
     </div>
     <script src="components/knockoutjs/build/output/knockout-latest.js"></script>
+    <script src="scripts/vendor/bootstrap/bootstrap-tab.js">   </script>
     <!-- build:js scripts/main.js-->
     <script src="scripts/main.js"></script>
     <!-- endbuild-->

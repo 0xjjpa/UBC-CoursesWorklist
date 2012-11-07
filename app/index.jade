@@ -47,15 +47,28 @@ html.no-js
                     a.btn.btn-primary(data-bind="click:addUp") &uarr;
                   .span3
                     p Use the controls to move the courses between the Worklists and your Course List.
-              #store(data-bind="ifnot: isStoreEmpty")                
-                table.table.table-striped
-                  thead
-                    th &nbsp;
-                    th Course name
-                    th ID
-                    th Code
-                  tbody(data-bind="template: { name:'storeTemplate', foreach:store }")
-                a.register.btn.btn-primary(data-bind="click:function(){alert('Registration complete')}") Register         
+              section
+                ul#storeNav.nav.nav-tabs                    
+                  li 
+                    a(href="#worklist1", data-toggle="tab") Worklist 1
+                  li               
+                    a(href="#worklist2", data-toggle="tab") Worklist 2
+                #myTabContent.tab-content
+                  #worklist1.tab-pane.fade.active.in
+                    .isEmpty(data-bind="if: isStoreEmpty")
+                      h4 Please add courses to your worklist #1
+                    #store(data-bind="ifnot: isStoreEmpty")                
+                      table.table.table-striped
+                        thead
+                          th &nbsp;
+                          th Course name
+                          th ID
+                          th Code
+                        tbody(data-bind="template: { name:'storeTemplate', foreach:store }")
+                  #worklist2.tab-pane.fade
+                    .isEmpty
+                      h4 Please add courses to your worklist #2
+              a.register.btn.btn-primary(data-bind="click:function(){alert('Registration complete')}") Register         
             .span4
               .row
                 #timetable.span4
@@ -80,6 +93,7 @@ html.no-js
                           span(data-bind="text: id");
                         // /ko        
     script(src='components/knockoutjs/build/output/knockout-latest.js')
+    script(src='scripts/vendor/bootstrap/bootstrap-tab.js')    
     // build:js scripts/main.js
     script(src='scripts/main.js')
     // endbuild
