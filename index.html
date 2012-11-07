@@ -6,7 +6,7 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="styles/b3531146.main.css"/>
+    <link rel="stylesheet" href="styles/51b871b6.main.css"/>
     <script src="scripts/2edc7af0.vendor.js"></script>
   </head>
   <body>
@@ -45,17 +45,35 @@
                   </div>
                 </div>
               </div>
-              <div id="store" data-bind="ifnot: isStoreEmpty">               
-                <table class="table table-striped">
-                  <thead>
-                    <th>&nbsp;</th>
-                    <th>Course name</th>
-                    <th>ID</th>
-                    <th>Code</th>
-                  </thead>
-                  <tbody data-bind="template: { name:'storeTemplate', foreach:store }"></tbody>
-                </table><a data-bind="click:function(){alert('Registration complete')}" class="register btn btn-primary">Register         </a>
-              </div>
+              <section>
+                <ul id="storeNav" class="nav nav-tabs">                   
+                  <li> <a href="#worklist1" data-toggle="tab">Worklist 1</a></li>
+                  <li>              <a href="#worklist2" data-toggle="tab">Worklist 2</a></li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                  <div id="worklist1" class="tab-pane fade active in">
+                    <div data-bind="if: isStoreEmpty" class="isEmpty">
+                      <h4>Please add courses to your worklist #1</h4>
+                    </div>
+                    <div id="store" data-bind="ifnot: isStoreEmpty">               
+                      <table class="table table-striped">
+                        <thead>
+                          <th>&nbsp;</th>
+                          <th>Course name</th>
+                          <th>ID</th>
+                          <th>Code</th>
+                        </thead>
+                        <tbody data-bind="template: { name:'storeTemplate', foreach:store }"></tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div id="worklist2" class="tab-pane fade">
+                    <div class="isEmpty">
+                      <h4>Please add courses to your worklist #2</h4>
+                    </div>
+                  </div>
+                </div>
+              </section><a data-bind="click:function(){alert('Registration complete')}" class="register btn btn-primary">Register         </a>
             </div>
             <div class="span4">
               <div class="row">
@@ -90,7 +108,7 @@
       </div>
     </div>
     <script src="components/knockoutjs/build/output/knockout-latest.js"></script>
-    <script src="scripts/204b2c3e.main.js"></script>
+    <script src="scripts/9c683652.main.js"></script>
     <script type="text/html" id="backlogTemplate">   
       <tr data-bind="css: { success: checked, error: isFull, info: isWaitingList }">
         <td data-bind="ifnot: isFull">
