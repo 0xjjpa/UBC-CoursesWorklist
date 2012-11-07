@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# Time: Tue Nov 06 2012 11:56:43 GMT-0800 (PST)
+# Time: Wed Nov 07 2012 14:09:33 GMT-0800 (PST)
 # This manifest was created by confess.js, http://github.com/jamesgpearce/confess
 #
 # Retrieved URL: http://localhost:3501/
@@ -22,12 +22,12 @@ CACHE MANIFEST
 
 CACHE:
 components/knockoutjs/build/output/knockout-latest.js
-http://localhost:3501/app/images/glyphicons-halflings-white.png?1352231731
-http://localhost:3501/app/images/glyphicons-halflings.png?1352231731
+http://localhost:3501/app/images/glyphicons-halflings-white.png?1352326116
+http://localhost:3501/app/images/glyphicons-halflings.png?1352326116
 http://localhost:3501/images/c03780fc.nasty_fabric.png
-scripts/204b2c3e.main.js
 scripts/2edc7af0.vendor.js
-styles/b3531146.main.css
+scripts/9c683652.main.js
+styles/4cf31b5e.main.css
 
 NETWORK:
 *
