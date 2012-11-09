@@ -1,0 +1,52 @@
+#header
+      #ubc-logo
+    #nav-holder
+      #main-nav
+          #student-info
+            p
+              b
+                | Name:
+              | &nbsp; Matei Negulescu &nbsp;
+              b Student #: 
+              | 12345678
+              br
+          #home-logout
+            ul
+              li
+                a(href='SSCMain.jsp') HOME
+              li |
+              li
+                a(href='javascript:logoutRedirect(\'SSCMain.jsp?logout=logout\');') LOGOUT
+          h1.main-nav-title
+            a(href='SSCMain.jsp', title='Student Service Centre Home', style='color: white;')  STUDENT SERVICE CENTRE
+          #main-menu-left
+            ul.sf-menu.sf-js-enabled.sf-shadow              
+              li.first-nav-item
+                a.sf-with-ul(href='SSCMain.jsp?function=ApplicantStatus')
+                  | Admissions                          
+              li
+                a.sf-with-ul(href='SSCMain.jsp?function=Finances-Summary')
+                  | Finances                                  
+              li
+                a.sf-with-ul(href='/sscportal/servlets/ServiceTicketServer?service=https://courses.students.ubc.ca/cs/main?newSession=true&serviceType=courses', target='SSCFunctionWindowCourse', schedule='')
+                  | Registration                  
+              li
+                a.sf-with-ul(href='SSCMain.jsp?function=SessGradeRpt')
+                  | Grades & Records                  
+              li
+                a.sf-with-ul(href='SSCMain.jsp?function=ExamSchedule')
+                  | Exams                  
+              li
+                a.sf-with-ul(href='/sscportal/servlets/ServiceTicketServer?service=https://secure.housing.ubc.ca/pls/sgw/cwl_auth.login&serviceType=cwlTicket&servicename=housing_psa', target='SSCFunctionWindowHousing', food='')
+                  | Housing & Food                  
+              li
+                a.sf-with-ul(href='SSCMain.jsp?function=GraduationService')
+                  | Graduation                  
+          #main-menu-right
+            ul.sf-menu.sf-js-enabled.sf-shadow            
+              li
+                a.goldTextMenu.sf-with-ul(href='SSCMain.jsp?function=ContactInfo')
+                  | Personal Info                
+              li
+                a.goldTextMenu.sf-with-ul(href='SSCMain.jsp?function=MessageCentre')
+                  | Message Centre

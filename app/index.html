@@ -16,17 +16,45 @@
     <!-- endbuild-->
   </head>
   <body>
-    <div style="margin-top: 30px; min-height: 600px;" class="container">           
+    <div id="header">
+      <div id="ubc-logo"></div>
+    </div>
+    <div id="nav-holder">
+      <div id="main-nav">
+        <div id="student-info">
+          <p><b>Name:</b>&nbsp; Matei Negulescu &nbsp;<b>Student #: </b>12345678<br></p>
+        </div>
+        <div id="home-logout">
+          <ul>
+            <li><a href="SSCMain.jsp">HOME</a></li>
+            <li>|</li>
+            <li><a href="javascript:logoutRedirect('SSCMain.jsp?logout=logout');">LOGOUT</a></li>
+          </ul>
+        </div>
+        <h1 class="main-nav-title"><a href="SSCMain.jsp" title="Student Service Centre Home" style="color: white;"> STUDENT SERVICE CENTRE</a></h1>
+        <div id="main-menu-left">
+          <ul class="sf-menu sf-js-enabled sf-shadow">             
+            <li class="first-nav-item"><a href="SSCMain.jsp?function=ApplicantStatus" class="sf-with-ul">Admissions                          </a></li>
+            <li><a href="SSCMain.jsp?function=Finances-Summary" class="sf-with-ul">Finances                                  </a></li>
+            <li><a href="/sscportal/servlets/ServiceTicketServer?service=https://courses.students.ubc.ca/cs/main?newSession=true&amp;serviceType=courses" target="SSCFunctionWindowCourse" schedule="" class="sf-with-ul">Registration                  </a></li>
+            <li><a href="SSCMain.jsp?function=SessGradeRpt" class="sf-with-ul">Grades & Records                  </a></li>
+            <li><a href="SSCMain.jsp?function=ExamSchedule" class="sf-with-ul">Exams                  </a></li>
+            <li><a href="/sscportal/servlets/ServiceTicketServer?service=https://secure.housing.ubc.ca/pls/sgw/cwl_auth.login&amp;serviceType=cwlTicket&amp;servicename=housing_psa" target="SSCFunctionWindowHousing" food="" class="sf-with-ul">Housing & Food                  </a></li>
+            <li><a href="SSCMain.jsp?function=GraduationService" class="sf-with-ul">Graduation                  </a></li>
+          </ul>
+        </div>
+        <div id="main-menu-right">
+          <ul class="sf-menu sf-js-enabled sf-shadow">           
+            <li><a href="SSCMain.jsp?function=ContactInfo" class="goldTextMenu sf-with-ul">Personal Info                </a></li>
+            <li><a href="SSCMain.jsp?function=MessageCentre" class="goldTextMenu sf-with-ul">Message Centre</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div min-height: 600px; class="container">           
       <div id="worklist" class="row">
         <div class="span2 description">
-          <h5>UBC Course Registration<small>&nbsp;Worklist</small></h5>
-          <p>The Worklist stores courses to be registered later. Through a Worklist, the student can compare multiple schedules in order to get the most convenient timetable.</p>
-          <p>The objective of this prototype is to improve the following features inside of the current worklist
-            <ul>
-              <li>Browse of multiple Worklists</li>
-              <li>Display of the Timetable elaboration</li>
-            </ul>
-          </p>
+          <h5>&nbsp;</h5>
         </div>
         <div class="span10">
           <div class="row">
@@ -139,8 +167,36 @@
         </td>
         <td> <span data-bind="text:name">COURSENAME</span>&nbsp;<span data-bind="visible: isFull" class="label label-important">Full</span><span data-bind="visible: isWaitingList" class="label label-info">Waiting List</span></td>
         <td data-bind="text:id">COURSEID</td>
-        <td><span data-bind="style: {'background-color': color}" class="colorCode">&nbsp;  </span></td>
+        <td><span data-bind="style: {'background-color': color}" class="colorCode">&nbsp;</span></td>
       </tr>
     </script>
+    <div id="footer">
+      <div id="footer-content">
+        <div id="footer-copyright">
+          <p>Maintained by Enrolment Services<br>Copyright © 2009 The University of British Columbia</p>
+        </div>
+        <div id="footer-menu">
+          <ul>
+            <li><a href="#" onclick="openFAQDialog('ContactUs','TechnicalSupport'); $('#ContactUs0_title').click(); return false;">
+                Contact
+                Us</a></li>
+            <li>|</li>
+            <li><a href="#" onclick="openFAQDialog(); return false;">SSC Help & Tutorials</a></li>
+            <li>|</li>
+            <li><a href="#" onclick="openFAQDialog('TermsofUse','General'); $('#TermsofUse0_title').click(); return false;">
+                Terms
+                of Use</a></li>
+            <li>|</li>
+            <li><a href="http://survey.students.ubc.ca/public/survey.php?name=sscfeedback" target="_blank">Feedback</a></li>
+          </ul>
+        </div>
+        <div id="footer-messages">
+          <p>
+            The SSC is closed for system maintenance: Monday to Saturday, 3:00-3:30 am PST, and Sunday, 1:00-4:00 am
+            PST
+          </p>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

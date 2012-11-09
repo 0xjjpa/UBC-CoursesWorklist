@@ -1,9 +1,131 @@
-html {
-	background: url('/images/nasty_fabric.png') repeat;
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Verdana, Helvetica, Arial, sans-serif;
+	font-size: 11px;
+	background: white url(../images/bodyBg-landingLogin.gif) top left repeat-x;	
+}
+
+#header {
+	position: relative;
+	width: 1000px;
+	height: 45px;
+	margin: 0 auto;
+	padding: 0px;
+
+	#ubc-logo {
+		position: absolute;
+		top: 0px;
+		left: 12px;
+		width: 258px;
+		height: 46px;
+		background: transparent url(../images/ubclogo.png) top left no-repeat;
+	}
+}
+
+
+
+#nav-holder {
+	background: transparent url(../images/menuBg.png) bottom left repeat-x;
+	position: relative;
+	z-index: 6;
+	margin-top: 1px;
+
+	#main-nav {
+		position: relative;
+		width: 1000px;
+		height: 100px;
+		margin: auto;
+		padding-top: 10px;
+		ul {
+			margin: 0 0 0 12px;
+			padding: 0;
+			list-style: none;
+			color: white;
+			li {
+				margin: 0 0 0 20px;
+				padding: 0;
+				display: inline;
+				font-size: 11px;
+				a {
+					color: white;
+					text-decoration: none;
+				}
+
+				a.goldTextMenu {
+					color: #D8A838;
+				}
+			}
+			li.first-nav-item {
+				margin-left: 0;
+			}
+		}
+		.main-nav-title {
+			margin: 0 0 0px 12px;
+			padding: 0;
+			font-size: 30px;
+			font-weight: normal;
+			letter-spacing: 1px;
+			color: white;
+		}
+
+		#student-info {
+			position: absolute;
+			top: -25px;
+			right: 28px;
+			width: 415px;
+			height: 26px;
+			margin: 0px;
+			padding: 0 0 0 0;
+			text-align: right;
+			color: white;
+			z-index: 100 !important;
+		}
+
+		#home-logout {
+			position: absolute;
+			top: 0;
+			right: 15px;
+			width: 115px;
+			height: 26px;
+			margin: 0px;
+			padding: 0px;
+			background: transparent url(../images/homelogout.png) top left no-repeat;
+			z-index: 100 !important;
+
+			ul {
+				margin: 0px;
+				padding: 6px 6px;
+				list-style: none;
+				li {
+					margin: 0px;
+					padding: 0px;
+					display: inline;
+					font-size: 10px;
+					color: #0045A9;
+					a {
+						color: #0045A9;
+						text-decoration: none;
+					}
+				}
+			}
+		}
+
+		#main-menu-left {
+			float:left;
+		}
+
+		#main-menu-right {
+			float: right;
+			margin-right: 30px;
+		}
+		
+	}	
 }
 
 #worklist {
 	margin-top: 20px;
+	margin-bottom: 20px;
 	table {
 		td {
 			font-size: .8em;
@@ -48,9 +170,9 @@ html {
 		}
 		.first {
 			margin-right: 2px;
-			}
+		}
 	}
-	
+
 	#storeNav {
 		margin-bottom: 0px;
 	}
@@ -62,6 +184,57 @@ html {
 		}
 		p {
 			font-size: .8em;
+		}
+	}
+}
+
+#footer {
+	line-height: 1.2;
+	clear: left;
+	color: white;
+	background: transparent url(../images/footerBg.png) top left repeat-x;
+	#footer-content {
+		width: 1000px;
+		height: 110px;
+		margin: 0 auto;
+		#footer-copyright {
+			float: left;
+			margin: 40px 0 0 12px;
+			p {
+				font-size: 9px;
+				margin: 0;
+				padding: 0;
+				color: #80A2D4;
+			}
+		}
+		#footer-menu {
+			float: right;
+			margin: 40px 10px 0 0;
+			ul {
+				margin: 0;
+				padding: 0;
+				font-size: 9px;
+				list-style: none;
+				li {
+					margin: 0;
+					padding: 0 2px 0 0;
+					display: inline;
+					a {
+						text-decoration: none;
+						color: white;
+					}
+				}
+			}
+		}
+		#footer-messages {
+			clear: both;
+			margin: 0 0 0 12px;
+			p {
+				font-size: 9px;
+				padding: 20px 0 0 0;
+				margin: 0;
+				color: #80A2D4;
+			}
 		}
 	}
 }

@@ -1,0 +1,36 @@
+
+<div id="header">
+  <div id="ubc-logo"></div>
+</div>
+<div id="nav-holder">
+  <div id="main-nav">
+    <div id="student-info">
+      <p><b>Name:</b>&nbsp; Matei Negulescu &nbsp;<b>Student #: </b>12345678<br/></p>
+    </div>
+    <div id="home-logout">
+      <ul>
+        <li><a href="SSCMain.jsp">HOME</a></li>
+        <li>|</li>
+        <li><a href="javascript:logoutRedirect('SSCMain.jsp?logout=logout');">LOGOUT</a></li>
+      </ul>
+    </div>
+    <h1 class="main-nav-title"><a href="SSCMain.jsp" title="Student Service Centre Home" style="color: white;"> STUDENT SERVICE CENTRE</a></h1>
+    <div id="main-menu-left">
+      <ul class="sf-menu sf-js-enabled sf-shadow">             
+        <li class="first-nav-item"><a href="SSCMain.jsp?function=ApplicantStatus" class="sf-with-ul">Admissions                          </a></li>
+        <li><a href="SSCMain.jsp?function=Finances-Summary" class="sf-with-ul">Finances                                  </a></li>
+        <li><a href="/sscportal/servlets/ServiceTicketServer?service=https://courses.students.ubc.ca/cs/main?newSession=true&amp;serviceType=courses" target="SSCFunctionWindowCourse" schedule="" class="sf-with-ul">Registration                  </a></li>
+        <li><a href="SSCMain.jsp?function=SessGradeRpt" class="sf-with-ul">Grades & Records                  </a></li>
+        <li><a href="SSCMain.jsp?function=ExamSchedule" class="sf-with-ul">Exams                  </a></li>
+        <li><a href="/sscportal/servlets/ServiceTicketServer?service=https://secure.housing.ubc.ca/pls/sgw/cwl_auth.login&amp;serviceType=cwlTicket&amp;servicename=housing_psa" target="SSCFunctionWindowHousing" food="" class="sf-with-ul">Housing & Food                  </a></li>
+        <li><a href="SSCMain.jsp?function=GraduationService" class="sf-with-ul">Graduation                  </a></li>
+      </ul>
+    </div>
+    <div id="main-menu-right">
+      <ul class="sf-menu sf-js-enabled sf-shadow">           
+        <li><a href="SSCMain.jsp?function=ContactInfo" class="goldTextMenu sf-with-ul">Personal Info                </a></li>
+        <li><a href="SSCMain.jsp?function=MessageCentre" class="goldTextMenu sf-with-ul">Message Centre</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
