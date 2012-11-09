@@ -3,7 +3,7 @@ body {
 	padding: 0;
 	font-family: Verdana, Helvetica, Arial, sans-serif;
 	font-size: 11px;
-	background: white url(../images/bodyBg-landingLogin.gif) top left repeat-x;	
+	background: white url(../images/bodyBg-loggedIn.png) top left repeat-x;	
 }
 
 #header {
@@ -142,11 +142,7 @@ body {
 	.register {
 		float: right;
 	}
-
-	.description {
-		font-size: .8em;
-	}
-
+	
 	.colorCode {
 		border: 1px solid #999;
 		padding: 0 16px;
@@ -184,6 +180,47 @@ body {
 		}
 		p {
 			font-size: .8em;
+		}
+	}
+}
+
+#body-left {
+	width: 180px;
+	min-width: 180px;
+	min-height: 504px;
+	margin: 0;
+	padding: 0 10px 0 10px;
+	background: transparent url(../images/financialSummary-leftSidebarBg.jpg) top right no-repeat;
+	ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		min-width: 180px;
+	}
+	li {
+		background: transparent url(../images/financialSummary-sidebarArrows.png) no-repeat scroll left 6px;
+		border-top: thin solid lightGrey;
+		color: #0044A9;
+		font-size: 12px;
+		padding: 5px 0 5px 21px;
+		a {
+			color: #0044A9;
+			font-size: 12px;
+			text-decoration: none;
+		}
+
+		ul {
+			margin: 0;
+			padding: 0;
+			li {
+				margin: 7px 0 7px 0;
+				padding: 0;
+				background: none;
+				border-top: none;
+				a {
+					color: #777;
+				}
+			}
 		}
 	}
 }

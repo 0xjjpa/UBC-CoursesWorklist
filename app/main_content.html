@@ -1,0 +1,114 @@
+
+<div id="worklist" class="row">
+  <div id="body-left" class="span2">
+    <h5>Registration</h5>
+    <div id="left_menu_nav">
+      <ul id="left_menu_id">               
+        <li class="subfolder"><a href="#">Courses</a>
+          <ul>
+            <li><a href="#">Find Courses</a></li>
+            <li><a href="#">My Courses</a></li>
+            <li><a href="#">Timetable</a></li>
+            <li><a href="#">Books</a></li>
+          </ul>
+        </li>
+        <li class="subfolder"><a href="#">Worklists</a>
+          <ul>
+            <li><a href="#">Worklist 1</a></li>
+            <li><a href="#">Worklist 2                    </a></li>
+          </ul>
+        </li>
+        <li class="subfolder"><a href="#">Programs</a>
+          <ul>
+            <li><a href="#">Requirements</a></li>
+            <li><a href="#">Specializations                    </a></li>
+          </ul>
+        </li>
+        <li class="subfolder"><a href="#">Help                  </a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="span10">
+    <div class="row">
+      <div class="span6">
+        <legend>Worklist<small>&nbsp;Saved courses for registration.              </small></legend>
+        <div id="backlog">
+          <table class="table table-striped">                 
+            <thead>
+              <th>&nbsp;</th>
+              <th>Course name</th>
+              <th>ID</th>
+              <th>Delete</th>
+            </thead>
+            <tbody data-bind="template: { name:'backlogTemplate', foreach:backlog }"></tbody>
+          </table>
+        </div>
+        <div id="controls">
+          <div class="row">
+            <div class="span3"><a data-bind="click:addDown" class="btn btn-primary">&darr;</a><a data-bind="click:allDown" class="btn btn-primary">&darr;&darr;</a><a data-bind="click:allUp" class="btn btn-primary">&uarr;&uarr;</a><a data-bind="click:addUp" class="btn btn-primary">&uarr;</a></div>
+            <div class="span3">
+              <p>Use the controls to move the courses between the Worklists and your Course List.</p>
+            </div>
+          </div>
+        </div>
+        <section>
+          <ul id="storeNav" class="nav nav-tabs">                   
+            <li> <a href="#worklist1" data-toggle="tab">Worklist 1</a></li>
+            <li>              <a href="#worklist2" data-toggle="tab">Worklist 2</a></li>
+          </ul>
+          <div id="myTabContent" class="tab-content">
+            <div id="worklist1" class="tab-pane fade active in">
+              <div data-bind="if: isStoreEmpty" class="isEmpty">
+                <h4>Please add courses to your worklist #1</h4>
+              </div>
+              <div id="store" data-bind="ifnot: isStoreEmpty">               
+                <table class="table table-striped">
+                  <thead>
+                    <th>&nbsp;</th>
+                    <th>Course name</th>
+                    <th>ID</th>
+                    <th>Code</th>
+                  </thead>
+                  <tbody data-bind="template: { name:'storeTemplate', foreach:store }"></tbody>
+                </table>
+              </div>
+            </div>
+            <div id="worklist2" class="tab-pane fade">
+              <div class="isEmpty">
+                <h4>Please add courses to your worklist #2</h4>
+              </div>
+            </div>
+          </div>
+        </section><a data-bind="click:function(){alert('Registration complete')}" class="register btn btn-primary">Register         </a>
+      </div>
+      <div class="span4">
+        <div class="row">
+          <div id="timetable" class="span4">
+            <table data-bind="with:timetable" class="table table-bordered table-striped">
+              <thead>
+                <tr data-bind="foreach: days">
+                  <!--ko if:$index() == 0-->
+                  <th> <a data-bind="click: $parent.up" class="btn btn-primary timetableButton first">&uarr;</a><a data-bind="click: $parent.down" class="btn btn-primary timetableButton">&darr;</a></th>
+                  <!-- /ko-->
+                  <!--ko ifnot:$index() == 0-->
+                  <th data-bind="text: $data"></th>
+                  <!-- /ko-->
+                </tr>
+              </thead>
+              <tbody data-bind="foreach: classesHours">
+                <tr data-bind="foreach: days">
+                  <!--ko if:isFirstColumn($index) -->
+                  <td data-bind="text: $parent.hour">;</td>
+                  <!-- /ko-->
+                  <!--ko ifnot:isFirstColumn($index) -->
+                  <td data-bind="style: {'background-color': color}, with: course"><span data-bind="text: id">;</span></td>
+                  <!-- /ko        -->
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
