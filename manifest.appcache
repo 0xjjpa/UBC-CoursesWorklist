@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# Time: Wed Nov 07 2012 14:09:33 GMT-0800 (PST)
+# Time: Fri Nov 09 2012 15:58:37 GMT-0800 (PST)
 # This manifest was created by confess.js, http://github.com/jamesgpearce/confess
 #
 # Retrieved URL: http://localhost:3501/
@@ -22,12 +22,18 @@ CACHE MANIFEST
 
 CACHE:
 components/knockoutjs/build/output/knockout-latest.js
-http://localhost:3501/app/images/glyphicons-halflings-white.png?1352326116
-http://localhost:3501/app/images/glyphicons-halflings.png?1352326116
-http://localhost:3501/images/c03780fc.nasty_fabric.png
+http://jjperezaguinaga.github.com/UBC-CoursesWorklist/images/bodyBg-loggedIn.png
+http://jjperezaguinaga.github.com/UBC-CoursesWorklist/images/financialSummary-leftSidebarBg.jpg
+http://jjperezaguinaga.github.com/UBC-CoursesWorklist/images/financialSummary-sidebarArrows.png
+http://jjperezaguinaga.github.com/UBC-CoursesWorklist/images/footerBg.png
+http://jjperezaguinaga.github.com/UBC-CoursesWorklist/images/homelogout.png
+http://jjperezaguinaga.github.com/UBC-CoursesWorklist/images/menuBg.png
+http://jjperezaguinaga.github.com/UBC-CoursesWorklist/images/ubclogo.png
+http://localhost:3501/app/images/glyphicons-halflings-white.png?1352505474
+http://localhost:3501/app/images/glyphicons-halflings.png?1352505474
 scripts/2edc7af0.vendor.js
-scripts/9c683652.main.js
-styles/4cf31b5e.main.css
+scripts/4f5b7b7e.main.js
+styles/67795717.main.css
 
 NETWORK:
 *

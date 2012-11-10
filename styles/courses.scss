@@ -1,9 +1,131 @@
-html {
-	background: url('/images/nasty_fabric.png') repeat;
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Verdana, Helvetica, Arial, sans-serif;
+	font-size: 11px;
+	background: white url(http://jjperezaguinaga.github.com/UBC-CoursesWorklist/images/bodyBg-loggedIn.png) top left repeat-x;	
+}
+
+#header {
+	position: relative;
+	width: 1000px;
+	height: 45px;
+	margin: 0 auto;
+	padding: 0px;
+
+	#ubc-logo {
+		position: absolute;
+		top: 0px;
+		left: 12px;
+		width: 258px;
+		height: 46px;
+		background: transparent url(http://jjperezaguinaga.github.com/UBC-CoursesWorklist/images/ubclogo.png) top left no-repeat;
+	}
+}
+
+
+
+#nav-holder {
+	background: transparent url(http://jjperezaguinaga.github.com/UBC-CoursesWorklist/images/menuBg.png) bottom left repeat-x;
+	position: relative;
+	z-index: 6;
+	margin-top: 1px;
+
+	#main-nav {
+		position: relative;
+		width: 1000px;
+		height: 100px;
+		margin: auto;
+		padding-top: 10px;
+		ul {
+			margin: 0 0 0 12px;
+			padding: 0;
+			list-style: none;
+			color: white;
+			li {
+				margin: 0 0 0 20px;
+				padding: 0;
+				display: inline;
+				font-size: 11px;
+				a {
+					color: white;
+					text-decoration: none;
+				}
+
+				a.goldTextMenu {
+					color: #D8A838;
+				}
+			}
+			li.first-nav-item {
+				margin-left: 0;
+			}
+		}
+		.main-nav-title {
+			margin: 0 0 0px 12px;
+			padding: 0;
+			font-size: 30px;
+			font-weight: normal;
+			letter-spacing: 1px;
+			color: white;
+		}
+
+		#student-info {
+			position: absolute;
+			top: -25px;
+			right: 28px;
+			width: 415px;
+			height: 26px;
+			margin: 0px;
+			padding: 0 0 0 0;
+			text-align: right;
+			color: white;
+			z-index: 100 !important;
+		}
+
+		#home-logout {
+			position: absolute;
+			top: 0;
+			right: 15px;
+			width: 115px;
+			height: 26px;
+			margin: 0px;
+			padding: 0px;
+			background: transparent url(http://jjperezaguinaga.github.com/UBC-CoursesWorklist/images/homelogout.png) top left no-repeat;
+			z-index: 100 !important;
+
+			ul {
+				margin: 0px;
+				padding: 6px 6px;
+				list-style: none;
+				li {
+					margin: 0px;
+					padding: 0px;
+					display: inline;
+					font-size: 10px;
+					color: #0045A9;
+					a {
+						color: #0045A9;
+						text-decoration: none;
+					}
+				}
+			}
+		}
+
+		#main-menu-left {
+			float:left;
+		}
+
+		#main-menu-right {
+			float: right;
+			margin-right: 30px;
+		}
+		
+	}	
 }
 
 #worklist {
 	margin-top: 20px;
+	margin-bottom: 20px;
 	table {
 		td {
 			font-size: .8em;
@@ -20,11 +142,7 @@ html {
 	.register {
 		float: right;
 	}
-
-	.description {
-		font-size: .8em;
-	}
-
+	
 	.colorCode {
 		border: 1px solid #999;
 		padding: 0 16px;
@@ -48,9 +166,9 @@ html {
 		}
 		.first {
 			margin-right: 2px;
-			}
+		}
 	}
-	
+
 	#storeNav {
 		margin-bottom: 0px;
 	}
@@ -62,6 +180,98 @@ html {
 		}
 		p {
 			font-size: .8em;
+		}
+	}
+}
+
+#body-left {
+	width: 180px;
+	min-width: 180px;
+	min-height: 504px;
+	margin: 0;
+	padding: 0 10px 0 10px;
+	background: transparent url(http://jjperezaguinaga.github.com/UBC-CoursesWorklist/images/financialSummary-leftSidebarBg.jpg) top right no-repeat;
+	ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		min-width: 180px;
+	}
+	li {
+		background: transparent url(http://jjperezaguinaga.github.com/UBC-CoursesWorklist/images/financialSummary-sidebarArrows.png) no-repeat scroll left 6px;
+		border-top: thin solid lightGrey;
+		color: #0044A9;
+		font-size: 12px;
+		padding: 5px 0 5px 21px;
+		a {
+			color: #0044A9;
+			font-size: 12px;
+			text-decoration: none;
+		}
+
+		ul {
+			margin: 0;
+			padding: 0;
+			li {
+				margin: 7px 0 7px 0;
+				padding: 0;
+				background: none;
+				border-top: none;
+				a {
+					color: #777;
+				}
+			}
+		}
+	}
+}
+
+#footer {
+	line-height: 1.2;
+	clear: left;
+	color: white;
+	background: transparent url(http://jjperezaguinaga.github.com/UBC-CoursesWorklist/images/footerBg.png) top left repeat-x;
+	#footer-content {
+		width: 1000px;
+		height: 110px;
+		margin: 0 auto;
+		#footer-copyright {
+			float: left;
+			margin: 40px 0 0 12px;
+			p {
+				font-size: 9px;
+				margin: 0;
+				padding: 0;
+				color: #80A2D4;
+			}
+		}
+		#footer-menu {
+			float: right;
+			margin: 40px 10px 0 0;
+			ul {
+				margin: 0;
+				padding: 0;
+				font-size: 9px;
+				list-style: none;
+				li {
+					margin: 0;
+					padding: 0 2px 0 0;
+					display: inline;
+					a {
+						text-decoration: none;
+						color: white;
+					}
+				}
+			}
+		}
+		#footer-messages {
+			clear: both;
+			margin: 0 0 0 12px;
+			p {
+				font-size: 9px;
+				padding: 20px 0 0 0;
+				margin: 0;
+				color: #80A2D4;
+			}
 		}
 	}
 }

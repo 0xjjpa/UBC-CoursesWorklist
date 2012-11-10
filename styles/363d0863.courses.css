@@ -1,0 +1,308 @@
+/* line 1, ../../app/styles/courses.scss */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Verdana, Helvetica, Arial, sans-serif;
+  font-size: 11px;
+  background: white url(http://jjperezaguinaga.github.com/UBC-CoursesWorklist/images/bodyBg-loggedIn.png) top left repeat-x;
+}
+
+/* line 9, ../../app/styles/courses.scss */
+#header {
+  position: relative;
+  width: 1000px;
+  height: 45px;
+  margin: 0 auto;
+  padding: 0px;
+}
+/* line 16, ../../app/styles/courses.scss */
+#header #ubc-logo {
+  position: absolute;
+  top: 0px;
+  left: 12px;
+  width: 258px;
+  height: 46px;
+  background: transparent url(http://jjperezaguinaga.github.com/UBC-CoursesWorklist/images/ubclogo.png) top left no-repeat;
+}
+
+/* line 28, ../../app/styles/courses.scss */
+#nav-holder {
+  background: transparent url(http://jjperezaguinaga.github.com/UBC-CoursesWorklist/images/menuBg.png) bottom left repeat-x;
+  position: relative;
+  z-index: 6;
+  margin-top: 1px;
+}
+/* line 34, ../../app/styles/courses.scss */
+#nav-holder #main-nav {
+  position: relative;
+  width: 1000px;
+  height: 100px;
+  margin: auto;
+  padding-top: 10px;
+}
+/* line 40, ../../app/styles/courses.scss */
+#nav-holder #main-nav ul {
+  margin: 0 0 0 12px;
+  padding: 0;
+  list-style: none;
+  color: white;
+}
+/* line 45, ../../app/styles/courses.scss */
+#nav-holder #main-nav ul li {
+  margin: 0 0 0 20px;
+  padding: 0;
+  display: inline;
+  font-size: 11px;
+}
+/* line 50, ../../app/styles/courses.scss */
+#nav-holder #main-nav ul li a {
+  color: white;
+  text-decoration: none;
+}
+/* line 55, ../../app/styles/courses.scss */
+#nav-holder #main-nav ul li a.goldTextMenu {
+  color: #D8A838;
+}
+/* line 59, ../../app/styles/courses.scss */
+#nav-holder #main-nav ul li.first-nav-item {
+  margin-left: 0;
+}
+/* line 63, ../../app/styles/courses.scss */
+#nav-holder #main-nav .main-nav-title {
+  margin: 0 0 0px 12px;
+  padding: 0;
+  font-size: 30px;
+  font-weight: normal;
+  letter-spacing: 1px;
+  color: white;
+}
+/* line 72, ../../app/styles/courses.scss */
+#nav-holder #main-nav #student-info {
+  position: absolute;
+  top: -25px;
+  right: 28px;
+  width: 415px;
+  height: 26px;
+  margin: 0px;
+  padding: 0 0 0 0;
+  text-align: right;
+  color: white;
+  z-index: 100 !important;
+}
+/* line 85, ../../app/styles/courses.scss */
+#nav-holder #main-nav #home-logout {
+  position: absolute;
+  top: 0;
+  right: 15px;
+  width: 115px;
+  height: 26px;
+  margin: 0px;
+  padding: 0px;
+  background: transparent url(http://jjperezaguinaga.github.com/UBC-CoursesWorklist/images/homelogout.png) top left no-repeat;
+  z-index: 100 !important;
+}
+/* line 96, ../../app/styles/courses.scss */
+#nav-holder #main-nav #home-logout ul {
+  margin: 0px;
+  padding: 6px 6px;
+  list-style: none;
+}
+/* line 100, ../../app/styles/courses.scss */
+#nav-holder #main-nav #home-logout ul li {
+  margin: 0px;
+  padding: 0px;
+  display: inline;
+  font-size: 10px;
+  color: #0045A9;
+}
+/* line 106, ../../app/styles/courses.scss */
+#nav-holder #main-nav #home-logout ul li a {
+  color: #0045A9;
+  text-decoration: none;
+}
+/* line 114, ../../app/styles/courses.scss */
+#nav-holder #main-nav #main-menu-left {
+  float: left;
+}
+/* line 118, ../../app/styles/courses.scss */
+#nav-holder #main-nav #main-menu-right {
+  float: right;
+  margin-right: 30px;
+}
+
+/* line 126, ../../app/styles/courses.scss */
+#worklist {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+/* line 130, ../../app/styles/courses.scss */
+#worklist table td {
+  font-size: .8em;
+}
+/* line 133, ../../app/styles/courses.scss */
+#worklist table .remove {
+  font-size: 1.2em;
+  text-align: center;
+  cursor: pointer;
+}
+/* line 138, ../../app/styles/courses.scss */
+#worklist legend {
+  margin-bottom: 0px;
+}
+/* line 142, ../../app/styles/courses.scss */
+#worklist .register {
+  float: right;
+}
+/* line 146, ../../app/styles/courses.scss */
+#worklist .colorCode {
+  border: 1px solid #999;
+  padding: 0 16px;
+}
+/* line 152, ../../app/styles/courses.scss */
+#worklist #timetable th, #worklist #timetable td {
+  text-align: center;
+}
+/* line 155, ../../app/styles/courses.scss */
+#worklist #timetable th {
+  width: 35px;
+}
+/* line 158, ../../app/styles/courses.scss */
+#worklist #timetable tbody td {
+  line-height: 5px;
+}
+/* line 160, ../../app/styles/courses.scss */
+#worklist #timetable tbody td span {
+  line-height: 12px;
+}
+/* line 164, ../../app/styles/courses.scss */
+#worklist #timetable .timetableButton {
+  padding: 2px;
+}
+/* line 167, ../../app/styles/courses.scss */
+#worklist #timetable .first {
+  margin-right: 2px;
+}
+/* line 172, ../../app/styles/courses.scss */
+#worklist #storeNav {
+  margin-bottom: 0px;
+}
+/* line 176, ../../app/styles/courses.scss */
+#worklist #controls {
+  margin: 5px 0px;
+}
+/* line 178, ../../app/styles/courses.scss */
+#worklist #controls a {
+  margin: 5px;
+}
+/* line 181, ../../app/styles/courses.scss */
+#worklist #controls p {
+  font-size: .8em;
+}
+
+/* line 187, ../../app/styles/courses.scss */
+#body-left {
+  width: 180px;
+  min-width: 180px;
+  min-height: 504px;
+  margin: 0;
+  padding: 0 10px 0 10px;
+  background: transparent url(http://jjperezaguinaga.github.com/UBC-CoursesWorklist/images/financialSummary-leftSidebarBg.jpg) top right no-repeat;
+}
+/* line 194, ../../app/styles/courses.scss */
+#body-left ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  min-width: 180px;
+}
+/* line 200, ../../app/styles/courses.scss */
+#body-left li {
+  background: transparent url(http://jjperezaguinaga.github.com/UBC-CoursesWorklist/images/financialSummary-sidebarArrows.png) no-repeat scroll left 6px;
+  border-top: thin solid lightGrey;
+  color: #0044A9;
+  font-size: 12px;
+  padding: 5px 0 5px 21px;
+}
+/* line 206, ../../app/styles/courses.scss */
+#body-left li a {
+  color: #0044A9;
+  font-size: 12px;
+  text-decoration: none;
+}
+/* line 212, ../../app/styles/courses.scss */
+#body-left li ul {
+  margin: 0;
+  padding: 0;
+}
+/* line 215, ../../app/styles/courses.scss */
+#body-left li ul li {
+  margin: 7px 0 7px 0;
+  padding: 0;
+  background: none;
+  border-top: none;
+}
+/* line 220, ../../app/styles/courses.scss */
+#body-left li ul li a {
+  color: #777;
+}
+
+/* line 228, ../../app/styles/courses.scss */
+#footer {
+  line-height: 1.2;
+  clear: left;
+  color: white;
+  background: transparent url(http://jjperezaguinaga.github.com/UBC-CoursesWorklist/images/footerBg.png) top left repeat-x;
+}
+/* line 233, ../../app/styles/courses.scss */
+#footer #footer-content {
+  width: 1000px;
+  height: 110px;
+  margin: 0 auto;
+}
+/* line 237, ../../app/styles/courses.scss */
+#footer #footer-content #footer-copyright {
+  float: left;
+  margin: 40px 0 0 12px;
+}
+/* line 240, ../../app/styles/courses.scss */
+#footer #footer-content #footer-copyright p {
+  font-size: 9px;
+  margin: 0;
+  padding: 0;
+  color: #80A2D4;
+}
+/* line 247, ../../app/styles/courses.scss */
+#footer #footer-content #footer-menu {
+  float: right;
+  margin: 40px 10px 0 0;
+}
+/* line 250, ../../app/styles/courses.scss */
+#footer #footer-content #footer-menu ul {
+  margin: 0;
+  padding: 0;
+  font-size: 9px;
+  list-style: none;
+}
+/* line 255, ../../app/styles/courses.scss */
+#footer #footer-content #footer-menu ul li {
+  margin: 0;
+  padding: 0 2px 0 0;
+  display: inline;
+}
+/* line 259, ../../app/styles/courses.scss */
+#footer #footer-content #footer-menu ul li a {
+  text-decoration: none;
+  color: white;
+}
+/* line 266, ../../app/styles/courses.scss */
+#footer #footer-content #footer-messages {
+  clear: both;
+  margin: 0 0 0 12px;
+}
+/* line 269, ../../app/styles/courses.scss */
+#footer #footer-content #footer-messages p {
+  font-size: 9px;
+  padding: 20px 0 0 0;
+  margin: 0;
+  color: #80A2D4;
+}
