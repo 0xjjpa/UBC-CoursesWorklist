@@ -53,11 +53,18 @@ $(document).ready(function() {
 
 	var colors = ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94", "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7", "#bcbd22", "#dbdb8d", "#17becf", "#9edae5"];
 
-	var Course = function(data) {		
+	var Course = function(data, index) {		
 		data.checked = ko.observable(false);
 		data.isFull = ko.observable(data.status == "Full" ? true : false);
-		data.isWaitingList = ko.observable(data.status == "Waitlist" ? true : false);
-		data.color = colors.shift();
+		data.isWaitingList = ko.observable(data.status == "Waitlist" ? true : false);		
+
+		if (data.isFull()) {
+			data.color = "#B94A48";			
+		} else if (data.isWaitingList()) {
+			data.color = "gray";
+		} else {
+			data.color = colors[index];
+		}
 		return data;		
 	}
 
@@ -203,19 +210,60 @@ $(document).ready(function() {
 		return self.init();		
 	}
 
+	var Search = function() {
+		var self = {};
+		self.input = ko.observable();
 
-	var WorklistViewModel = function() {
-		var self = this;
-		self.backlog = ko.observableArray([]);
-		self.store = ko.observableArray([]);
-		self.timetable = ko.observable({});
-		self.timetables = ko.observableArray([]);
+		self.backlog = ko.observableArray($.map(window.courseData, function(course, index){ return new Course(course, index); }));
+		self.results = ko.observableArray([]);
 
-		self.isStoreEmpty = ko.computed(function(){			
-			return self.store().length === 0;
+		self.containsElements = ko.computed(function() {
+			return self.results().length > 0;
+		});
+
+		self.removeFromBacklog = function(course) {
+			self.backlog.remove(course);
+		}
+
+		self.addToBacklog = function(course) {
+			self.backlog.push(course);
+		}
+
+		self.cleanInput = function() {
+			self.input("");
+			self.results.removeAll();
+		}
+
+		self.input.subscribe(function(value) {			
+			if (value.length === 0) { self.cleanInput(); return; }
+			var results = ko.utils.arrayFilter(self.backlog(), function(course) {
+				var courseName = course.name;
+				var keywords = courseName.split(/\W+/g);
+				var word = "";
+				for(var i = 0; i < keywords.length; i++) {
+					word = keywords[i].toLowerCase();							
+					if (word.indexOf(value.toLowerCase()) >= 0) return true;
+				}
+				return false;				
+			});
+
+			self.results(results);		
 		})
-		
-		self.paintCourseInTimetable = function(course, operation) {			
+
+		return self;
+	}
+
+	var Worklist = function (index) {
+		var self = {};
+
+		self.isActive = ko.observable(true);
+		self.name = ko.observable("");
+		self.label = ko.observable("");
+		self.timetable = ko.observable({});
+		self.search = ko.observable({});
+		self.courses = ko.observableArray([]);
+
+		self.paintCourseInTimetable = function(course, operation) {
 			var timetable = self.timetable();
 			var courseDays = course.schedule.days;
 			var courseHours = course.schedule.hours;
@@ -261,57 +309,88 @@ $(document).ready(function() {
 			
 		}
 
-		self.init = function() {
-			self.backlog = ko.observableArray($.map(window.courseData, function(course){ return new Course(course); }));
+		
+		self.init = function(index) {
+			var name = "Worklist " + index;
+			self.name = ko.observable(name);
+			self.label = self.name().replace(/ /ig, "_");
 			self.timetable = ko.observable( new Timetable() );	
+			self.search = ko.observable( new Search() );	
 			return self;
 		}
 
-		self.addDown = function() {
-			var backlog = self.backlog();
-			var store = [];
-			$.each(backlog, function(i, v) {
-				if(v.checked()) { self.paintCourseInTimetable(v, "Add"); store.push(v); self.store.push(v); }
-			})									
-			self.backlog.removeAll(store);
-		};
-
-		self.addUp = function() {
-			var store = self.store();
-			var backlog = [];
-			$.each(store, function(i, v) {				
-				if(v.checked()) { self.paintCourseInTimetable(v, "Remove"); backlog.push(v); self.backlog.push(v); }	
-			})
-			self.store.removeAll(backlog);
+		self.addCourse = function(course) {			
+			self.courses.push(course);
+			var searchGUI = self.search();
+			self.paintCourseInTimetable(course, 'Add');
+			searchGUI.removeFromBacklog(course);			
+			searchGUI.cleanInput();
+			return false;
 		}
 
-		self.allDown = function() {
-			var backlog = self.backlog.removeAll();
-			$.each(backlog, function(i, v) {
-				if(v.status !== "Full") {
-					self.paintCourseInTimetable(v, "Add");
-					self.store.push(v);	
-				} else {
-					self.backlog.push(v);
-				}				
-			})			
+		self.removeCourse = function(course) {
+			self.courses.remove(course);
+			var searchGUI = self.search();
+			self.paintCourseInTimetable(course, 'Remove');
+			searchGUI.addToBacklog(course);
+
 		}
 
-		self.allUp = function() {
-			var store = self.store.removeAll();
-			$.each(store, function(i, v) {
-				if(v.status !== "Full") {
-					self.paintCourseInTimetable(v, "Remove");
-					self.backlog.push(v);					
-				} else {
-					self.store.push(v);
-				}
-			})			
+		return self.init(index);		
+	}
+
+	var WorklistViewModel = function() {
+		var self = this;
+		
+		self.currentWorklist = ko.observable({});
+		self.worklists = ko.observableArray([]);		
+
+		self.copyActive = function() {
+			var worklist = ko.mapping.fromJS(ko.toJS(self.currentWorklist));
+			self.currentWorklist(worklist);			
+			self.worklists.push(worklist);
+			self.selectWorklist(worklist);
 		}
 
-		self.removeFromBacklog = function(course) {
-			self.backlog.remove(course);
+		self.addWorklist = function() {
+			var worklist = new Worklist(self.worklists().length+1);
+			self.currentWorklist(worklist);			
+			self.worklists.push(worklist);
+			self.selectWorklist(worklist);
 		}
+
+		self.selectWorklist = function(worklist) {
+			var worklists = self.worklists();		
+			for (var i = 0; i < worklists.length; i++) {
+				worklists[i].isActive(false);
+			}
+			worklist.isActive(true);
+			self.currentWorklist(worklist);
+		}
+
+		self.register = function() {
+			var worklist = self.currentWorklist();
+			var courses = worklist.courses();
+			var coursesToRegister = [];
+			if(!courses.length) { alert("Please select at least one course to your worklist."); return; }
+			for (var i = 0; i < courses.length; i++) {
+				if(courses[i].checked()) coursesToRegister.push(courses[i]);
+			}
+			if(!coursesToRegister.length) { alert("Please check the courses to register."); return; }
+			
+			var confirmationMessage = "";
+			for (var j = 0; j < coursesToRegister.length; j++) {
+				confirmationMessage += coursesToRegister[j].name + ", ";
+			}
+			result = confirm("Are you sure you want to register: "+ confirmationMessage);
+			if(result) alert("Demo is completed. Thank you.");
+			return false;
+		}
+
+		self.init = function() {			
+			self.addWorklist();
+		}
+		
 
 		return self.init();
 	}
