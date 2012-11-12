@@ -34,7 +34,7 @@ module.exports = function( grunt ) {
         options: {
           css_dir: 'temp/styles',
           sass_dir: 'app/styles',
-          images_dir: 'images',
+          images_dir: '../images',
           javascripts_dir: 'temp/scripts',
           config: '.compass.rb',
           force: true
