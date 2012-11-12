@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# Time: Fri Nov 09 2012 15:58:37 GMT-0800 (PST)
+# Time: Sun Nov 11 2012 20:17:16 GMT-0800 (PST)
 # This manifest was created by confess.js, http://github.com/jamesgpearce/confess
 #
 # Retrieved URL: http://localhost:3501/
@@ -22,18 +22,19 @@ CACHE MANIFEST
 
 CACHE:
 components/knockoutjs/build/output/knockout-latest.js
-http://jjperezaguinaga.github.com/UBC-CoursesWorklist/images/bodyBg-loggedIn.png
-http://jjperezaguinaga.github.com/UBC-CoursesWorklist/images/financialSummary-leftSidebarBg.jpg
-http://jjperezaguinaga.github.com/UBC-CoursesWorklist/images/financialSummary-sidebarArrows.png
-http://jjperezaguinaga.github.com/UBC-CoursesWorklist/images/footerBg.png
-http://jjperezaguinaga.github.com/UBC-CoursesWorklist/images/homelogout.png
-http://jjperezaguinaga.github.com/UBC-CoursesWorklist/images/menuBg.png
-http://jjperezaguinaga.github.com/UBC-CoursesWorklist/images/ubclogo.png
-http://localhost:3501/app/images/glyphicons-halflings-white.png?1352505474
-http://localhost:3501/app/images/glyphicons-halflings.png?1352505474
+components/knockoutjs/build/output/knockout.mapping-latest.js
+http://localhost:3501/images/5d462625.glyphicons-halflings-white.png
+http://localhost:3501/images/9cc6609b.glyphicons-halflings.png
+http://localhost:3501/styles/images/bodyBg-loggedIn.png
+http://localhost:3501/styles/images/financialSummary-leftSidebarBg.jpg
+http://localhost:3501/styles/images/financialSummary-sidebarArrows.png
+http://localhost:3501/styles/images/footerBg.png
+http://localhost:3501/styles/images/homelogout.png
+http://localhost:3501/styles/images/menuBg.png
+http://localhost:3501/styles/images/ubclogo.png
+scripts/179ebfbc.main.js
 scripts/2edc7af0.vendor.js
-scripts/4f5b7b7e.main.js
-styles/67795717.main.css
+styles/c0496335.main.css
 
 NETWORK:
 *
