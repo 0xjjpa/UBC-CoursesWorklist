@@ -309,11 +309,15 @@ $(document).ready(function() {
 			
 		}
 
+		self.updateLabel = function() {
+			self.label = self.name().replace(/ /ig, "_");
+		}
 		
 		self.init = function(index) {
 			var name = "Worklist " + index;
 			self.name = ko.observable(name);
-			self.label = self.name().replace(/ /ig, "_");
+
+			self.updateLabel();
 			self.timetable = ko.observable( new Timetable() );	
 			self.search = ko.observable( new Search() );	
 			return self;
@@ -345,8 +349,19 @@ $(document).ready(function() {
 		self.currentWorklist = ko.observable({});
 		self.worklists = ko.observableArray([]);		
 
-		self.copyActive = function() {
-			var worklist = ko.mapping.fromJS(ko.toJS(self.currentWorklist));
+		self.copyActive = function() {			
+			var courses = self.currentWorklist().courses();			
+			var worklist = new Worklist(self.worklists().length+1);
+
+			for(var i = 0; i< courses.length; i++) {
+				worklist.addCourse(courses[i]);
+			}
+			
+			worklist.name(worklist.name() + " (Copy)");
+			worklist.updateLabel();
+			
+			console.log(worklist.courses());
+			
 			self.currentWorklist(worklist);			
 			self.worklists.push(worklist);
 			self.selectWorklist(worklist);
