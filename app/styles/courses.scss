@@ -302,3 +302,6 @@ body {
 		}
 	}
 }
+
+.nav-tabs > .active > a > [class^="icon-"],.nav-tabs>.active>a>[class*=" icon-"] { background-image:url("images/glyphicons-halflings.png") !important; }
+.whiteColor { color: white !important;}

@@ -1,51 +1,47 @@
 include template_content
   .row(data-bind="with: currentWorklist")
     .span6
-      legend Worklist
-        small &nbsp;Saved courses for registration.
-      section#courses
+      legend Find Courses
+        small &nbsp; Courses Registration System.
+      section#courses(style="margin-top: 10px")
+        ul#storeNav.nav.nav-tabs
+          li.active
+            a Basic search
+          li
+            a Advanced search
         .navbar
           .navbar-inner           
             form.navbar-search.pull-left#search(data-bind="with: search")
-              input.search-query(data-bind="value: input, valueUpdate: 'afterkeyup'", type="text", placeholder="Type course name to search...")
+              input.search-query(style="margin-top: 10px",data-bind="value: input, valueUpdate: 'afterkeyup'", type="text", placeholder="Type course name to search...")
               .dropdown                
                 ul.dropdown-menu(role='menu', aria-labelledby='dLabel', data-bind="foreach: results, visible: containsElements")
                   li
                     a(data-bind="text: name, click: $parents[1].addCourse", href='#') COURSE NAME
-        ul#storeNav.nav.nav-tabs.navbar-inverse
-          // ko foreach: $parents[0].worklists
-          li(data-bind="css: { active: isActive }")            
-            a(data-toggle="tab")
-              span(data-bind="click: $root.selectWorklist, text:name, attr: {href: label}")
-              i(style="margin-left:4px").icon-remove
-          // /ko
-          li               
-            a.add(data-bind="click: $root.addWorklist")
-              i.icon-plus
-          li               
-            a.add(data-bind="click: $root.copyActive")
-              i.icon-share-alt
-        .tab-content
-          .tab-pane.fade.active.in(data-bind="attr: {id: label}")
-            table.table.table-striped                  
-              thead
-                th &nbsp;
-                th Course name
-                th ID
-                th Code
-                th Remove
-              tbody(data-bind="template: { name:'storeTemplate', foreach:courses }")                                                      
-      a.register.btn.btn-primary(href="#", data-bind="click:$root.register") Register         
+            select(style="margin: 10px 0px; font-size: .9em")
+              option Select Faculty
+              option Science
+              option Humanities          
+        table.table.table-striped                  
+          thead
+            th Faculty
+            th Course name
+            th ID
+            th Terms
+            th Remove
+          tbody(data-bind="template: { name:'storeTemplate', foreach:courses }")                                                            
     .span4
       .row
         .terms
           ul#termContainer.nav.nav-tabs
+            .registered(style="position: relative;left: 150px; top: 38px")
+              span.colorCode(style="background-color: black; float: left; height: 20px; margin-right: 10px")
+              p Courses already registered
             li.active
               a(href="#term1", data-toggle="tab") Term 1
             li
               a(href="#term2", data-toggle="tab") Term 2
           .tab-content
-            #term1.tab-pane.fade.active.in
+            #term1.tab-pane.fade.active.in                            
               .timetable.span4
                 table.table.table-bordered.table-striped(data-bind="with:timetable")
                   thead
@@ -64,7 +60,7 @@ include template_content
                       td(data-bind="text: $parent.hour");
                       // /ko
                       //ko ifnot:isFirstColumn($index) 
-                      td(data-bind="style: {'background-color': color}, with: course")
+                      td(data-bind="style: {'background-color': color}, css: {'whiteColor': $data.course().isRegistered}, with: course")
                         span(data-bind="text: id");
                       // /ko
             #term2.tab-pane
@@ -86,21 +82,19 @@ include template_content
                       td(data-bind="text: $parent.hour");
                       // /ko
                       //ko ifnot:isFirstColumn($index) 
-                      td(data-bind="style: {'background-color': color}, with: course")
+                      td(data-bind="style: {'background-color': color}, css: {'whiteColor': $data.course().isRegistered}, with: course")
                         span(data-bind="text: id");
                       // /ko  
   script(type="text/html")#storeTemplate    
-      tr(data-bind="css: { success: checked }")
-        td(data-bind="ifnot: isFull")
-          label.checkbox
-            input(data-bind="checked: checked", type="checkbox")
+      tr(data-bind="event: {mouseover: $parent.paintOver, mouseout: $parent.paintOut}, css: { success: checked }")
+        td
+          span(data-bind="text:faculty") FACULTY
         td 
-          span(data-bind="text:name") COURSENAME
-          &nbsp;
-          span.label.label-important(data-bind="visible: isFull") Full
-          span.label.label-info(data-bind="visible: isWaitingList") Waiting List
+          span(data-bind="text:name") COURSENAME                    
         td(data-bind="text:id") COURSEID
         td
-          span.colorCode(data-bind="style: {'background-color': color}") &nbsp;
+          span(data-bind="text:terms") TERM
         td.remove(data-bind="click:$parent.removeCourse")
-          i.icon-minus
+          span.label.label-important(data-bind="visible: isFull") Full
+          span.label.label-info(data-bind="visible: isWaitingList") Waiting List
+          span.label.label-success(data-bind="visible: isOpen") Open
