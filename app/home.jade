@@ -1,0 +1,14 @@
+!!! 5
+html.no-js
+  include head
+  body
+    include header
+    .container(min-height: 600px;')            
+      include main_home_content
+    script(src='components/knockoutjs/build/output/knockout-latest.js')
+    script(src='components/knockoutjs/build/output/knockout.mapping-latest.js')
+    // build:js scripts/home.js
+    script(src='scripts/vendor/bootstrap/bootstrap-tab.js')
+    script(src='scripts/home.js')
+    // endbuild    
+    include footer
