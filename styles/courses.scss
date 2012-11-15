@@ -152,7 +152,8 @@ body {
 		margin-left: 30px;
 	}
 
-	.timetable {		
+	.timetable {	
+		overflow: visible;	
 		margin-left: 0px;
 		th, td {
 			text-align: center;
@@ -302,3 +303,6 @@ body {
 		}
 	}
 }
+
+.nav-tabs > .active > a > [class^="icon-"],.nav-tabs>.active>a>[class*=" icon-"] { background-image:url("images/glyphicons-halflings.png") !important; }
+.whiteColor { color: white !important;}

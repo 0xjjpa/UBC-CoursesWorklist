@@ -1,0 +1,106 @@
+include template_content
+  .row(data-bind="with: currentWorklist")
+    .span6
+      legend Worklist
+        small &nbsp;Saved courses for registration.
+      section#courses
+        .navbar
+          .navbar-inner           
+            form.navbar-search.pull-left#search(data-bind="with: search")
+              input.search-query(data-bind="value: input, valueUpdate: 'afterkeyup'", type="text", placeholder="Type course name to search...")
+              .dropdown                
+                ul.dropdown-menu(role='menu', aria-labelledby='dLabel', data-bind="foreach: results, visible: containsElements")
+                  li
+                    a(data-bind="text: name, click: $parents[1].addCourse", href='#') COURSE NAME
+        ul#storeNav.nav.nav-tabs.navbar-inverse
+          // ko foreach: $parents[0].worklists
+          li(data-bind="css: { active: isActive }")            
+            a(data-toggle="tab")
+              span(data-bind="click: $root.selectWorklist, text:name, attr: {href: label}")
+              i(style="margin-left:4px").icon-remove
+          // /ko
+          li               
+            a.add(data-bind="click: $root.addWorklist")
+              i.icon-plus
+          li               
+            a.add(data-bind="click: $root.copyActive")
+              i.icon-share-alt
+        .tab-content
+          .tab-pane.fade.active.in(data-bind="attr: {id: label}")
+            table.table.table-striped                  
+              thead
+                th &nbsp;
+                th Course name
+                th ID
+                th Code
+                th Remove
+              tbody(data-bind="template: { name:'storeTemplate', foreach:courses }")                                                      
+      a.register.btn.btn-primary(href="#", data-bind="click:$root.register") Register         
+    .span4
+      .row
+        .terms
+          ul#termContainer.nav.nav-tabs
+            li.active
+              a(href="#term1", data-toggle="tab") Term 1
+            li
+              a(href="#term2", data-toggle="tab") Term 2
+          .tab-content
+            #term1.tab-pane.fade.active.in
+              .timetable.span4
+                table.table.table-bordered.table-striped(data-bind="with:timetable")
+                  thead
+                    tr(data-bind="foreach: days")
+                      //ko if:$index() == 0
+                      th 
+                        a.btn.btn-primary.timetableButton.first(data-bind="click: $parent.up") &uarr;
+                        a.btn.btn-primary.timetableButton(data-bind="click: $parent.down") &darr;
+                      // /ko
+                      //ko ifnot:$index() == 0
+                      th(data-bind="text: $data")
+                      // /ko
+                  tbody(data-bind="foreach: classesHours")
+                    tr(data-bind="foreach: days")
+                      //ko if:isFirstColumn($index) 
+                      td(data-bind="text: $parent.hour");
+                      // /ko
+                      //ko ifnot:isFirstColumn($index) 
+                      td(data-bind="style: {'background-color': color}, with: course")
+                        span(data-bind="text: id");
+                      // /ko
+            #term2.tab-pane
+              .timetable.span4
+                table.table.table-bordered.table-striped(data-bind="with:timetable")
+                  thead
+                    tr(data-bind="foreach: days")
+                      //ko if:$index() == 0
+                      th 
+                        a.btn.btn-primary.timetableButton.first(data-bind="click: $parent.up") &uarr;
+                        a.btn.btn-primary.timetableButton(data-bind="click: $parent.down") &darr;
+                      // /ko
+                      //ko ifnot:$index() == 0
+                      th(data-bind="text: $data")
+                      // /ko
+                  tbody(data-bind="foreach: classesHours")
+                    tr(data-bind="foreach: days")
+                      //ko if:isFirstColumn($index) 
+                      td(data-bind="text: $parent.hour");
+                      // /ko
+                      //ko ifnot:isFirstColumn($index) 
+                      td(data-bind="style: {'background-color': color}, with: course")
+                        span(data-bind="text: id");
+                      // /ko  
+  script(type="text/html")#storeTemplate    
+      tr(data-bind="css: { success: checked }")
+        td(data-bind="ifnot: isFull")
+          label.checkbox
+            input(data-bind="checked: checked", type="checkbox")
+        td 
+          span(data-bind="text:name") COURSENAME
+          &nbsp;
+          span.label.label-important(data-bind="visible: isFull") Full
+          span.label.label-info(data-bind="visible: isWaitingList") Waiting List
+        td(data-bind="text:id") COURSEID
+        td
+          span.colorCode(data-bind="style: {'background-color': color}") &nbsp;
+        td.remove(data-bind="click:$parent.removeCourse")
+          i.icon-minus

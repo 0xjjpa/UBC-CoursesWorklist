@@ -164,54 +164,55 @@ body {
 }
 /* line 155, ../../app/styles/courses.scss */
 #worklist .timetable {
+  overflow: visible;
   margin-left: 0px;
 }
-/* line 157, ../../app/styles/courses.scss */
+/* line 158, ../../app/styles/courses.scss */
 #worklist .timetable th, #worklist .timetable td {
   text-align: center;
 }
-/* line 160, ../../app/styles/courses.scss */
+/* line 161, ../../app/styles/courses.scss */
 #worklist .timetable th {
   width: 35px;
 }
-/* line 163, ../../app/styles/courses.scss */
+/* line 164, ../../app/styles/courses.scss */
 #worklist .timetable tbody td {
   line-height: 5px;
 }
-/* line 165, ../../app/styles/courses.scss */
+/* line 166, ../../app/styles/courses.scss */
 #worklist .timetable tbody td span {
   line-height: 12px;
 }
-/* line 169, ../../app/styles/courses.scss */
+/* line 170, ../../app/styles/courses.scss */
 #worklist .timetable .tab-content {
   margin-left: 0px;
 }
-/* line 172, ../../app/styles/courses.scss */
+/* line 173, ../../app/styles/courses.scss */
 #worklist .timetable .timetableButton {
   padding: 2px;
 }
-/* line 175, ../../app/styles/courses.scss */
+/* line 176, ../../app/styles/courses.scss */
 #worklist .timetable .first {
   margin-right: 2px;
 }
-/* line 180, ../../app/styles/courses.scss */
+/* line 181, ../../app/styles/courses.scss */
 #worklist #storeNav {
   margin-bottom: 0px;
 }
-/* line 184, ../../app/styles/courses.scss */
+/* line 185, ../../app/styles/courses.scss */
 #worklist #controls {
   margin: 5px 0px;
 }
-/* line 186, ../../app/styles/courses.scss */
+/* line 187, ../../app/styles/courses.scss */
 #worklist #controls a {
   margin: 5px;
 }
-/* line 189, ../../app/styles/courses.scss */
+/* line 190, ../../app/styles/courses.scss */
 #worklist #controls p {
   font-size: .8em;
 }
 
-/* line 195, ../../app/styles/courses.scss */
+/* line 196, ../../app/styles/courses.scss */
 #body-left {
   width: 180px;
   min-width: 180px;
@@ -220,14 +221,14 @@ body {
   padding: 0 10px 0 10px;
   background: transparent url(images/financialSummary-leftSidebarBg.jpg) top right no-repeat;
 }
-/* line 202, ../../app/styles/courses.scss */
+/* line 203, ../../app/styles/courses.scss */
 #body-left ul {
   margin: 0;
   padding: 0;
   list-style: none;
   min-width: 180px;
 }
-/* line 208, ../../app/styles/courses.scss */
+/* line 209, ../../app/styles/courses.scss */
 #body-left li {
   background: transparent url(images/financialSummary-sidebarArrows.png) no-repeat scroll left 6px;
   border-top: thin solid lightGrey;
@@ -235,104 +236,114 @@ body {
   font-size: 12px;
   padding: 5px 0 5px 21px;
 }
-/* line 214, ../../app/styles/courses.scss */
+/* line 215, ../../app/styles/courses.scss */
 #body-left li a {
   color: #0044A9;
   font-size: 12px;
   text-decoration: none;
 }
-/* line 220, ../../app/styles/courses.scss */
+/* line 221, ../../app/styles/courses.scss */
 #body-left li ul {
   margin: 0;
   padding: 0;
 }
-/* line 223, ../../app/styles/courses.scss */
+/* line 224, ../../app/styles/courses.scss */
 #body-left li ul li {
   margin: 7px 0 7px 0;
   padding: 0;
   background: none;
   border-top: none;
 }
-/* line 228, ../../app/styles/courses.scss */
+/* line 229, ../../app/styles/courses.scss */
 #body-left li ul li a {
   color: #777;
 }
 
-/* line 237, ../../app/styles/courses.scss */
+/* line 238, ../../app/styles/courses.scss */
 #courses .add {
   cursor: pointer;
 }
-/* line 240, ../../app/styles/courses.scss */
+/* line 241, ../../app/styles/courses.scss */
 #courses .tab-content {
   overflow: visible;
 }
 
-/* line 246, ../../app/styles/courses.scss */
+/* line 247, ../../app/styles/courses.scss */
 #search input {
   width: 500px;
 }
-/* line 250, ../../app/styles/courses.scss */
+/* line 251, ../../app/styles/courses.scss */
 #search .dropdown-menu {
   display: block;
 }
 
-/* line 255, ../../app/styles/courses.scss */
+/* line 256, ../../app/styles/courses.scss */
 #footer {
   line-height: 1.2;
   clear: left;
   color: white;
   background: transparent url(images/footerBg.png) top left repeat-x;
 }
-/* line 260, ../../app/styles/courses.scss */
+/* line 261, ../../app/styles/courses.scss */
 #footer #footer-content {
   width: 1000px;
   height: 110px;
   margin: 0 auto;
 }
-/* line 264, ../../app/styles/courses.scss */
+/* line 265, ../../app/styles/courses.scss */
 #footer #footer-content #footer-copyright {
   float: left;
   margin: 40px 0 0 12px;
 }
-/* line 267, ../../app/styles/courses.scss */
+/* line 268, ../../app/styles/courses.scss */
 #footer #footer-content #footer-copyright p {
   font-size: 9px;
   margin: 0;
   padding: 0;
   color: #80A2D4;
 }
-/* line 274, ../../app/styles/courses.scss */
+/* line 275, ../../app/styles/courses.scss */
 #footer #footer-content #footer-menu {
   float: right;
   margin: 40px 10px 0 0;
 }
-/* line 277, ../../app/styles/courses.scss */
+/* line 278, ../../app/styles/courses.scss */
 #footer #footer-content #footer-menu ul {
   margin: 0;
   padding: 0;
   font-size: 9px;
   list-style: none;
 }
-/* line 282, ../../app/styles/courses.scss */
+/* line 283, ../../app/styles/courses.scss */
 #footer #footer-content #footer-menu ul li {
   margin: 0;
   padding: 0 2px 0 0;
   display: inline;
 }
-/* line 286, ../../app/styles/courses.scss */
+/* line 287, ../../app/styles/courses.scss */
 #footer #footer-content #footer-menu ul li a {
   text-decoration: none;
   color: white;
 }
-/* line 293, ../../app/styles/courses.scss */
+/* line 294, ../../app/styles/courses.scss */
 #footer #footer-content #footer-messages {
   clear: both;
   margin: 0 0 0 12px;
 }
-/* line 296, ../../app/styles/courses.scss */
+/* line 297, ../../app/styles/courses.scss */
 #footer #footer-content #footer-messages p {
   font-size: 9px;
   padding: 20px 0 0 0;
   margin: 0;
   color: #80A2D4;
+}
+
+/* line 307, ../../app/styles/courses.scss */
+.nav-tabs > .active > a > [class^="icon-"], .nav-tabs > .active > a > [class*=" icon-"] {
+  background-image: url("images/9cc6609b.glyphicons-halflings.png") !important;
+}
+
+/* line 308, ../../app/styles/courses.scss */
+.whiteColor {
+  color: white !important;
 }

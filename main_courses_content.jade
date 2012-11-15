@@ -1,8 +1,8 @@
 include template_content
   .row(data-bind="with: currentWorklist")
     .span6
-      legend Worklist
-        small &nbsp;Saved courses for registration.
+      legend My Courses
+        small &nbsp; Registered courses.
       section#courses
         .navbar
           .navbar-inner           
@@ -12,28 +12,15 @@ include template_content
                 ul.dropdown-menu(role='menu', aria-labelledby='dLabel', data-bind="foreach: results, visible: containsElements")
                   li
                     a(data-bind="text: name, click: $parents[1].addCourse", href='#') COURSE NAME
-        ul#storeNav.nav.nav-tabs
-          // ko foreach: $parents[0].worklists
-          li(data-bind="css: { active: isActive }")
-            a(data-bind="click: $root.selectWorklist, text:name, attr: {href: label}", data-toggle="tab") WORKLIST NAME
-          // /ko
-          li               
-            a.add(data-bind="click: $root.addWorklist")
-              i.icon-plus
-          li               
-            a.add(data-bind="click: $root.copyActive")
-              i.icon-share-alt
-        .tab-content
-          .tab-pane.fade.active.in(data-bind="attr: {id: label}")
-            table.table.table-striped                  
-              thead
-                th &nbsp;
-                th Course name
-                th ID
-                th Code
-                th Remove
-              tbody(data-bind="template: { name:'storeTemplate', foreach:courses }")                                                      
-      a.register.btn.btn-primary(href="#", data-bind="click:$root.register") Register         
+        .btn.btn-primary(data-bind="click: dropCourse") Drop
+        table.table.table-striped                  
+          thead
+            th &nbsp;            
+            th Switch
+            th Course name
+            th ID            
+            th Color
+          tbody(data-bind="template: { name:'storeTemplate', foreach:courses }")                                                            
     .span4
       .row
         .terms
@@ -43,7 +30,7 @@ include template_content
             li
               a(href="#term2", data-toggle="tab") Term 2
           .tab-content
-            #term1.tab-pane.fade.active.in
+            #term1.tab-pane.fade.active.in                            
               .timetable.span4
                 table.table.table-bordered.table-striped(data-bind="with:timetable")
                   thead
@@ -62,7 +49,7 @@ include template_content
                       td(data-bind="text: $parent.hour");
                       // /ko
                       //ko ifnot:isFirstColumn($index) 
-                      td(data-bind="style: {'background-color': color}, with: course")
+                      td(data-bind="style: {'background-color': color}, css: {'whiteColor': $data.course().isRegistered}, with: course")
                         span(data-bind="text: id");
                       // /ko
             #term2.tab-pane
@@ -84,7 +71,7 @@ include template_content
                       td(data-bind="text: $parent.hour");
                       // /ko
                       //ko ifnot:isFirstColumn($index) 
-                      td(data-bind="style: {'background-color': color}, with: course")
+                      td(data-bind="style: {'background-color': color}, css: {'whiteColor': $data.course().isRegistered}, with: course")
                         span(data-bind="text: id");
                       // /ko  
   script(type="text/html")#storeTemplate    
@@ -92,6 +79,8 @@ include template_content
         td(data-bind="ifnot: isFull")
           label.checkbox
             input(data-bind="checked: checked", type="checkbox")
+        td
+          i.icon-retweet
         td 
           span(data-bind="text:name") COURSENAME
           &nbsp;
@@ -99,6 +88,4 @@ include template_content
           span.label.label-info(data-bind="visible: isWaitingList") Waiting List
         td(data-bind="text:id") COURSEID
         td
-          span.colorCode(data-bind="style: {'background-color': color}") &nbsp;
-        td.remove(data-bind="click:$parent.removeCourse")
-          i.icon-minus
+          span.colorCode(data-bind="style: {'background-color': color}") &nbsp;        

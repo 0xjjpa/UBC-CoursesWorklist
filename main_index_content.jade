@@ -1,0 +1,18 @@
+include template_content
+  .row(data-bind="with: currentWorklist")
+    .span6
+      legend Home
+        small &nbsp; Courses Registration System.
+      .row
+        section#courses(style="margin-top: 10px")
+        - var mod1 = {href: "find.html", name:"Find Courses", description: "Search for courses to register or add to a worklist."}
+        - var mod2 = {href: "courses.html", name: "My Courses", description: "Add or drop registered courses."}
+        - var mod3 = {href: "worklist.html", name: "Worklists", description: "Manage lists of courses. Register for all of them at once or individually. Adding a course to a worklist does not register you in the course."}
+        - var mod4 = {href: "requirements.html", name: "Requirements", description: "View course requirements for your program."}
+        for i in [mod1,mod2,mod3, mod4]                  
+          .span6(style="margin: 5px 5px")
+            a.thumbnail-horiz.thumbnail(style="overflow:hidden", href="#{i.href}")
+              img(src="http://placehold.it/200x130").pull-left
+              .caption.pull-right(style="width: 340px")
+                h5(style="margin-top: 0px") #{i.name}
+                p #{i.description}
