@@ -67,7 +67,7 @@ $(document).ready(function() {
 		} else if (data.isWaitingList()) {
 			data.color("gray");
 		} else if (data.isRegistered()) {
-			data.color("black");	
+			data.color(colors[colors.length - index]);
 		} else {
 			data.color(colors[index]);
 		}
@@ -286,7 +286,25 @@ $(document).ready(function() {
 
 		self.hasCourses = ko.computed(function() {
 			return self.courses().length > 0;
-		})
+		});
+
+		self.dropCourse = function() {
+			var atLeastOne = false;
+			var toRemove = [];
+			$.each(self.courses(), function(index, value){				
+				if (value.checked()) {
+					atLeastOne = true;
+					var choice = confirm("Are you sure you want to drop "+value.name);
+					if(choice) {
+						toRemove.push(value);
+					}
+				}
+			})
+			$.each(toRemove, function(index, value) {
+				self.removeCourse(value);
+			})
+			if (!atLeastOne) alert("You need to pick a course to drop.");
+		}
 
 		self.paintCourseInTimetable = function(course, operation) {
 			var timetable = self.timetable();
@@ -354,8 +372,6 @@ $(document).ready(function() {
 
 				var backlog = self.search().backlog();
 				if(course.isRegistered()) {
-					self.paintOver(course);
-				} else {
 					self.addCourse(course);
 				}
 			});
@@ -413,7 +429,7 @@ $(document).ready(function() {
 		self.addCourse = function(course) {			
 			self.courses.push(course);
 			var searchGUI = self.search();
-			//self.paintCourseInTimetable(course, 'Add');
+			self.paintCourseInTimetable(course, 'Add');
 			searchGUI.removeFromBacklog(course);			
 			searchGUI.cleanInput();
 			return false;
@@ -422,7 +438,7 @@ $(document).ready(function() {
 		self.removeCourse = function(course) {
 			self.courses.remove(course);
 			var searchGUI = self.search();
-			//self.paintCourseInTimetable(course, 'Remove');
+			self.paintCourseInTimetable(course, 'Remove');
 			searchGUI.addToBacklog(course);
 
 		}

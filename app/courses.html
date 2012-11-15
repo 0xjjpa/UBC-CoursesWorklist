@@ -84,47 +84,30 @@
         <div class="span10">         
           <div data-bind="with: currentWorklist" class="row">
             <div class="span6">
-              <legend>Find Courses<small>&nbsp; Courses Registration System.</small></legend>
-              <section id="courses" style="margin-top: 10px">
-                <ul id="storeNav" class="nav nav-tabs">
-                  <li class="active"><a>Basic search</a></li>
-                  <li><a>Advanced search        </a></li>
-                </ul>
+              <legend>My Courses<small>&nbsp; Registered courses.</small></legend>
+              <section id="courses">
                 <div class="navbar">
                   <div class="navbar-inner">          
                     <form id="search" data-bind="with: search" class="navbar-search pull-left">
-                      <input style="margin-top: 10px" data-bind="value: input, valueUpdate: 'afterkeyup'" type="text" placeholder="Type course name to search..." class="search-query">
+                      <input data-bind="value: input, valueUpdate: 'afterkeyup'" type="text" placeholder="Type course name to search..." class="search-query">
                       <div class="dropdown">               
                         <ul role="menu" aria-labelledby="dLabel" data-bind="foreach: results, visible: containsElements" class="dropdown-menu">
                           <li><a data-bind="text: name, click: $parents[1].addCourse" href="#">COURSE NAME</a></li>
                         </ul>
                       </div>
                     </form>
-                    <select style="margin: 10px 0px; font-size: .9em">
-                      <option>Select Faculty</option>
-                      <option>Science</option>
-                      <option>Humanities          </option>
-                    </select>
                   </div>
                 </div>
+                <div data-bind="click: dropCourse" class="btn btn-primary">Drop</div>
                 <table class="table table-striped">                 
                   <thead>
-                    <th>Faculty</th>
+                    <th>&nbsp;            </th>
+                    <th>Switch</th>
                     <th>Course name</th>
-                    <th>ID</th>
-                    <th>Terms</th>
-                    <th>Remove</th>
+                    <th>ID            </th>
+                    <th>Color</th>
                   </thead>
-                  <!-- ko if:hasCourses-->
-                  <tbody data-bind="template: { name:'storeTemplate', foreach:courses }"></tbody>
-                  <!-- /ko-->
-                  <!-- ko ifnot:hasCourses-->
-                  <tbody>
-                    <td colspan="5">
-                      <h6>Please wait while we load the courses...</h6>
-                    </td>
-                  </tbody>
-                  <!-- /ko-->
+                  <tbody data-bind="template: { name:'storeTemplate', foreach:courses }">                                                           </tbody>
                 </table>
               </section>
             </div>
@@ -132,18 +115,12 @@
               <div class="row">
                 <div class="terms">
                   <ul id="termContainer" class="nav nav-tabs">
-                    <div style="position: relative;left: 150px; top: 38px" class="registered"><span style="background-color: black; float: left; height: 20px; margin-right: 10px" class="colorCode"></span>
-                      <p>Courses already registered</p>
-                    </div>
                     <li class="active"><a href="#term1" data-toggle="tab">Term 1</a></li>
                     <li><a href="#term2" data-toggle="tab">Term 2</a></li>
                   </ul>
                   <div class="tab-content">
                     <div id="term1" class="tab-pane fade active in">                           
                       <div class="timetable span4">
-                        <!-- ko if:hasConflict--><span style="background-color: red; float: left; height: 20px; margin-right: 10px" class="colorCode"></span>
-                        <p>Conflict between<a data-bind="text: courseConflictA"> COURSE A</a> and <a data-bind="text: courseConflictB"> COURSE B</a></p>
-                        <!-- /ko-->
                         <table data-bind="with:timetable" class="table table-bordered table-striped">
                           <thead>
                             <tr data-bind="foreach: days">
@@ -200,23 +177,26 @@
             </div>
           </div>
           <script type="text/html" id="storeTemplate">   
-            <tr data-bind="event: {mouseover: $parent.paintOver, mouseout: $parent.paintOut}, css: { success: checked }">
-              <td><span data-bind="text:faculty">FACULTY</span></td>
-              <td> <span data-bind="text:name">COURSENAME                    </span></td>
+            <tr data-bind="css: { success: checked }">
+              <td data-bind="ifnot: isFull">
+                <label class="checkbox">
+                  <input data-bind="checked: checked" type="checkbox">
+                </label>
+              </td>
+              <td><i class="icon-retweet"></i></td>
+              <td> <span data-bind="text:name">COURSENAME</span>&nbsp;<span data-bind="visible: isFull" class="label label-important">Full</span><span data-bind="visible: isWaitingList" class="label label-info">Waiting List</span></td>
               <td data-bind="text:id">COURSEID</td>
-              <td><span data-bind="text:terms">TERM</span></td>
-              <td data-bind="click:$parent.removeCourse" class="remove"><span data-bind="visible: isFull" class="label label-important">Full</span><span data-bind="visible: isWaitingList" class="label label-info">Waiting List</span><span data-bind="visible: isOpen" class="label label-success">Open</span></td>
+              <td><span data-bind="style: {'background-color': color}" class="colorCode">&nbsp;        </span></td>
             </tr>
           </script>
         </div>
       </div>
     </div>
-    <script src="http://www.parsecdn.com/js/parse-1.1.10.min.js"></script>
     <script src="components/knockoutjs/build/output/knockout-latest.js"></script>
     <script src="components/knockoutjs/build/output/knockout.mapping-latest.js"></script>
-    <!-- build:js scripts/find.js    -->
+    <!-- build:js scripts/courses.js-->
     <script src="scripts/vendor/bootstrap/bootstrap-tab.js"></script>
-    <script src="scripts/find.js"></script>
+    <script src="scripts/courses.js"></script>
     <!-- endbuild    -->
     <div id="footer">
       <div id="footer-content">
