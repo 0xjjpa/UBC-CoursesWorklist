@@ -34,3 +34,14 @@ A navigation through the timetable, label display status of the courses, timetab
 
 *Features*
 Color coded id's displayed in the timetable, labeled in the registration section.
+
+![MiddleControlMovement](https://raw.github.com/jjperezaguinaga/UBC-CoursesWorklist/master/app/images/prototypes/Worklist%20prototype%20v4.png)
+
+*Features*
+Added layout for UBC Registration system in order to provide a seamless transfer to the system.
+
+![MiddleControlMovement](https://raw.github.com/jjperezaguinaga/UBC-CoursesWorklist/master/app/images/prototypes/Worklist%20prototype%20v5.png)
+
+*Features*
+Modified the course transfers, removed backlog and created a separate module for that functionality with a search field for adding up fields.
+
