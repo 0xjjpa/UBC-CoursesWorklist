@@ -126,12 +126,18 @@
               <div class="row">
                 <div class="terms">
                   <ul id="termContainer" class="nav nav-tabs">
+                    <div style="position: relative;left: 150px; top: 38px" class="registered"><span style="background-color: black; float: left; height: 20px; margin-right: 10px" class="colorCode"></span>
+                      <p>Courses already registered</p>
+                    </div>
                     <li class="active"><a href="#term1" data-toggle="tab">Term 1</a></li>
                     <li><a href="#term2" data-toggle="tab">Term 2</a></li>
                   </ul>
                   <div class="tab-content">
                     <div id="term1" class="tab-pane fade active in">
                       <div class="timetable span4">
+                        <!-- ko if:hasConflict--><span style="background-color: red; float: left; height: 20px; margin-right: 10px" class="colorCode"></span>
+                        <p>Conflict between<a data-bind="text: courseConflictAName"> COURSE A</a> and <a data-bind="text: courseConflictBName"> COURSE B</a></p>
+                        <!-- /ko-->
                         <table data-bind="with:timetable" class="table table-bordered table-striped">
                           <thead>
                             <tr data-bind="foreach: days">
@@ -149,7 +155,7 @@
                               <td data-bind="text: $parent.hour">;</td>
                               <!-- /ko-->
                               <!--ko ifnot:isFirstColumn($index) -->
-                              <td data-bind="style: {'background-color': color}, with: course"><span data-bind="text: id">;</span></td>
+                              <td data-bind="style: {'background-color': color}, css: {'whiteColor': $data.course().isRegistered}, with: course"><span data-bind="text: id">;</span></td>
                               <!-- /ko-->
                             </tr>
                           </tbody>

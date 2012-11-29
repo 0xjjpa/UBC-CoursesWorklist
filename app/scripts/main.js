@@ -4,7 +4,7 @@ window.courseData = [
 	faculty: "Science",
 	id: "CPSC 418",
 	terms: [1],
-	status: "Full",
+	status: "Full",	
 	schedule: {days: ["Tue", "Thu"], hours: ["15:30", "16:00", "16:30"]}
 },
 {
@@ -12,7 +12,7 @@ window.courseData = [
 	faculty: "Science",		
 	id: "CPSC 344",
 	terms: [1,2],
-	status: "Open",
+	status: "Open",	
 	schedule: {days: ["Tue", "Thu"], hours: ["9:30", "10:00", "10:30"]}
 },
 {
@@ -20,7 +20,7 @@ window.courseData = [
 	faculty: "Science",
 	id: "CPSC 314",
 	terms: [1],
-	status: "Open",
+	status: "Open",	
 	schedule: {days: ["Mon", "Wed", "Fri"], hours: ["15:00", "15:30"]}
 },
 {
@@ -28,7 +28,7 @@ window.courseData = [
 	faculty: "Science",
 	id: "CPSC 318",
 	terms: [1,2],
-	status: "Waitlist",
+	status: "Waitlist",	
 	schedule: {days: ["Mon", "Wed", "Fri"], hours: ["9:00", "9:30"]}
 },
 {
@@ -36,7 +36,7 @@ window.courseData = [
 	faculty: "Science",
 	id: "CPSC 212",
 	terms: [2],
-	status: "Open",
+	status: "Registered",	
 	schedule: {days: ["Mon", "Wed", "Fri"], hours: ["11:00", "11:30"]}
 },
 {
@@ -44,8 +44,16 @@ window.courseData = [
 	faculty: "Science",
 	id: "CPSC 218",
 	terms: [2],
-	status: "Full",
+	status: "Registered",	
 	schedule: {days: ["Mon", "Wed", "Fri"], hours: ["9:00", "9:30"]}
+},
+{
+	name: "Nanotechnology",		
+	faculty: "Engineering",
+	id: "CPEE 332",
+	terms: [2],
+	status: "Open",	
+	schedule: {days: ["Tue", "Thu"], hours: ["14:00", "14:30", "15:00"]}
 }
 ];
 
@@ -53,21 +61,27 @@ $(document).ready(function() {
 
 	var colors = ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94", "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7", "#bcbd22", "#dbdb8d", "#17becf", "#9edae5"];
 
-	var Course = function(data, index) {		
+	var Course = function(data, index) {
 		data.checked = ko.observable(false);
 		data.isFull = ko.observable(data.status == "Full" ? true : false);
 		data.isWaitingList = ko.observable(data.status == "Waitlist" ? true : false);		
+		data.isOpen = ko.observable(data.status == "Open" ? true : false);		
+		data.isRegistered = ko.observable(data.status == "Registered" ? true : false);		
+		data.id = data.id || data.courseId;
+		data.color = ko.observable();
 
 		data.nameWithId = (function() {
 			return data.name + "- " + data.id;
 		})();	
 
 		if (data.isFull()) {
-			data.color = "#B94A48";			
+			data.color("red");			
 		} else if (data.isWaitingList()) {
-			data.color = "gray";
+			data.color("gray");
+		} else if (data.isRegistered()) {
+			data.color("black");	
 		} else {
-			data.color = colors[index];
+			data.color(colors[index]);
 		}
 		return data;		
 	}
@@ -79,12 +93,13 @@ $(document).ready(function() {
 		self.militarHour = 0;
 		self.index = 0;
 		self.days = [];
+		self.color = ko.observable();
 
 		self.init = function(hour, militarHour, index, days) {
 			self.hour = hour;
 			self.militarHour =  militarHour;
 			self.index = index;
-			self.color = "white";
+			self.color("white");
 
 			days.unshift("");
 			$.each(days, function(i, v){
@@ -288,7 +303,7 @@ $(document).ready(function() {
 
 		self.init = function() {
 			//self.load();
-			self.mockLoad();
+			//self.mockLoad();
 			return self;
 		}
 
@@ -304,6 +319,16 @@ $(document).ready(function() {
 		self.timetable = ko.observable({});
 		self.search = ko.observable({});
 		self.courses = ko.observableArray([]);
+
+		self.hasConflict = ko.observable(false);
+		self.courseConflictA = ko.observable();
+		self.courseConflictB = ko.observable();
+		self.courseConflictAName = ko.observable();
+		self.courseConflictBName = ko.observable();
+
+		self.hasCourses = ko.computed(function() {
+			return self.courses().length > 0;
+		})
 
 		self.paintCourseInTimetable = function(course, operation) {
 			var timetable = self.timetable();
@@ -332,18 +357,29 @@ $(document).ready(function() {
 				$.each(weekDays, function(j, day) {
 					$.each(indexesDays, function(k, indexDay) {
 						if(day.index == indexDay) {
-							var courseGivenInDay = day.course;
-							if(!courseGivenInDay.id || operation === "Remove") {
-								if(operation === "Add") {
-									day.course(course);
-									day.color(course.color);	
-								} else {
-									day.course({id:null});
-									day.color("white");
-								}								
+							var courseGivenInDay = day.course;							
+							if(operation == "Repaint") {
+								day.color("black")
 							} else {
-								alert("Conflict");
-							}
+								if(courseGivenInDay().id && operation === "Add") {								
+									day.color("red")
+									self.courseConflictA(courseGivenInDay());
+									self.courseConflictB(course);
+									self.courseConflictAName(" " +courseGivenInDay().name+ " ");
+									self.courseConflictBName(" " + course.name + " ");
+									self.hasConflict(true);								
+								} else {
+									if(operation === "Add" && !self.hasConflict()) {
+										day.course(course);
+										day.color(course.color());								
+									}
+
+									if(operation === "Remove") {
+										day.course({id:null});
+										day.color("white");								
+									}										
+								}
+							}							
 						}
 					})
 				})				
@@ -354,6 +390,48 @@ $(document).ready(function() {
 		self.updateLabel = function() {
 			self.label = self.name().replace(/ /ig, "_");
 		}
+
+		self.parseCourses = function(rawCourses) {				
+			var course;
+			var courses = [];
+			var faculties = {};
+			$.each(rawCourses, function(index, rawCourse) {
+				$.extend(true, rawCourse.attributes, {parseId: rawCourse.id})
+				course = new Course(rawCourse.attributes, index);				
+				faculties[course.faculty] = 1;
+
+				var backlog = self.search().backlog();
+				if(course.isRegistered()) {
+					self.paintOver(course);
+				} else {
+					courses.push(course);
+				}
+			});
+
+			self.search().backlog(courses);
+		}
+
+		self.load = function() {
+			Parse.initialize("s5XRK5EQxsoLQ7bd9lIz35fqKaWHTTNQwQCXkr3O", "8sYc7dACntCwXHSMC3qJ4TaTO8k3DgKuVl0wOQc9");
+			var coursesParse = Parse.Object.extend("courses");
+			var query = new Parse.Query(coursesParse);			
+			query.find({
+				success: self.parseCourses,
+				error: function(error) {
+					console.log("Connection error with the database.");
+				}
+			});
+		}
+
+		self.mockLoad = function() {			
+			var rawCourses = [];
+			$.each(window.courseData, function(index, course) {
+				var mock = new Object;
+				mock.attributes = course;
+				rawCourses.push(mock);	
+			})			
+			self.parseCourses(rawCourses);
+		}
 		
 		self.init = function(index) {
 			var name = "Worklist " + index;
@@ -362,7 +440,23 @@ $(document).ready(function() {
 			self.updateLabel();
 			self.timetable = ko.observable( new Timetable() );	
 			self.search = ko.observable( new Search() );	
+
+			//self.mockLoad();
+			self.load();
 			return self;
+		}
+
+		self.paintOver = function(course) {			
+			self.paintCourseInTimetable(course, 'Add');
+		}
+
+		self.paintOut = function(course) {	
+			if (!self.hasConflict()) {
+				self.paintCourseInTimetable(course, 'Remove');	
+			} else {
+				self.paintCourseInTimetable(course, 'Repaint');
+			}
+			self.hasConflict(false);
 		}
 
 		self.addCourse = function(course) {			
@@ -375,10 +469,18 @@ $(document).ready(function() {
 		}
 
 		self.removeCourse = function(course) {
+			var addBecauseOfConflict = false;
+			if(self.courseConflictB() == course) {
+				addBecauseOfConflict = true;
+			}
+
 			self.courses.remove(course);
 			var searchGUI = self.search();
 			self.paintCourseInTimetable(course, 'Remove');
 			searchGUI.addToBacklog(course);
+
+			self.hasConflict(false);
+			self.paintOver(self.courseConflictA());
 
 		}
 
@@ -434,13 +536,44 @@ $(document).ready(function() {
 				if(courses[i].checked()) coursesToRegister.push(courses[i]);
 			}
 			if(!coursesToRegister.length) { alert("Please check the courses to register."); return; }
-			
+			if(worklist.hasConflict()) { alert("You can't register"+worklist.courseConflictBName()+"because it has a conflict. Please remove it."); return; }
+
 			var confirmationMessage = "";
 			for (var j = 0; j < coursesToRegister.length; j++) {
 				confirmationMessage += coursesToRegister[j].name + ", ";
 			}
 			result = confirm("Are you sure you want to register: "+ confirmationMessage);
-			if(result) alert("Demo is completed. Thank you.");
+			if(result) {
+				var parseBatchArray = $.map(coursesToRegister, function(course, index){
+					return {
+						"method": "PUT",
+						"path": "/1/classes/courses/"+course.parseId,
+						"body": {
+							"status": "Registered"
+						}
+					}
+				});
+
+				var putMessageData = {
+					"requests": parseBatchArray
+				}
+
+				var putMessageRESTOptions = {
+					url: "https://api.parse.com/1/batch",
+					type: "POST",
+					dataType: "json",
+					data: JSON.stringify(putMessageData),
+					beforeSend: function(xhr){
+						xhr.setRequestHeader('X-Parse-Application-Id', 's5XRK5EQxsoLQ7bd9lIz35fqKaWHTTNQwQCXkr3O');
+						xhr.setRequestHeader('X-Parse-REST-API-Key', '99zJUQTnqandl08VrT2cZVB6wgbkEcR6mxmZfRdV');
+						xhr.setRequestHeader('Content-Type', 'application/json');
+					},
+					success: function(data) { console.log("SUCCESS"); console.log(data); },
+					error: function(data) { console.log("ERROR"); console.log(data); }
+				}
+
+				$.ajax(putMessageRESTOptions);
+			}
 			return false;
 		}
 

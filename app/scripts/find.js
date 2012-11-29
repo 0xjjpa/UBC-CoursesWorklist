@@ -446,8 +446,8 @@ $(document).ready(function() {
 			self.timetable = ko.observable( new Timetable() );	
 			self.search = ko.observable( new Search() );
 
-			//self.load();
-			self.mockLoad();
+			self.load();
+			//self.mockLoad();
 			return self;
 		}
 
