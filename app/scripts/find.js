@@ -59,6 +59,10 @@ window.courseData = [
 
 $(document).ready(function() {
 
+	Array.prototype.toString = function() {
+    	return this.join(' & ');
+	};
+
 	var colors = ["#DFEFFC", "#DFEFFC", "#DFEFFC", "#DFEFFC", "#DFEFFC", "#DFEFFC", "#DFEFFC", "#DFEFFC", "#DFEFFC", "#DFEFFC", "#DFEFFC", "#DFEFFC", "#DFEFFC", "#DFEFFC", "#DFEFFC", "#DFEFFC", "#DFEFFC", "#DFEFFC", "#DFEFFC", "#DFEFFC"];
 
 	var Course = function(data, index) {		
@@ -72,6 +76,10 @@ $(document).ready(function() {
 
 		data.nameWithId = (function() {
 			return data.name + "- " + data.id;
+		})();
+
+		data.termsToString = (function() {
+			return data.terms.toString();
 		})()
 
 		if (data.isFull()) {
@@ -391,8 +399,7 @@ $(document).ready(function() {
 			var courses = [];
 			var faculties = {};
 			$.each(rawCourses, function(index, rawCourse) {
-				course = new Course(rawCourse.attributes, index);
-				console.log(course);
+				course = new Course(rawCourse.attributes, index);				
 				faculties[course.faculty] = 1;
 
 				var backlog = self.search().backlog();

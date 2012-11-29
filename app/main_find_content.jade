@@ -100,11 +100,12 @@ include template_content
       tr(data-bind="event: {mouseover: $parent.paintOver, mouseout: $parent.paintOut}, css: { success: checked }")
         td
           span(data-bind="text:faculty") FACULTY
-        td 
-          span(data-bind="text:name") COURSENAME                    
+        td
+          a(href="mocks/course.html", class="lightview", data-lightview-type="ajax", data-lightview-options="skin: 'mac', radius: 5, padding: 10")
+            span(data-bind="text:name") COURSENAME                    
         td(data-bind="text:id") COURSEID
         td
-          span(data-bind="text:terms") TERM
+          span(data-bind="text:termsToString") TERM
         td
           span.label.label-important(data-bind="visible: isFull") Full
           span.label.label-info(data-bind="visible: isWaitingList") Waiting List
