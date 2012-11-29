@@ -17,10 +17,7 @@ include template_content
                 ul.dropdown-menu(role='menu', aria-labelledby='dLabel', data-bind="foreach: results, visible: containsElements")
                   li
                     a(data-bind="text: nameWithId, click: $parents[1].addCourse", href='#') COURSE NAME
-            select(style="margin: 10px 0px; font-size: .9em")
-              option Select Faculty
-              option Science
-              option Humanities          
+            select(style="margin: 10px 0px; font-size: .9em", data-bind="options: faculties, value: selectedFaculty, optionsCaption: 'Select a Faculty'")
         table.table.table-striped                  
           thead
             th Faculty
@@ -29,7 +26,7 @@ include template_content
             th Terms
             th Status
           // ko if:hasCourses
-          tbody(data-bind="template: { name:'storeTemplate', foreach:courses }")
+          tbody(data-bind="template: { name:'storeTemplate', foreach:filteredCourses }")
           // /ko
           // ko ifnot:hasCourses
           tbody

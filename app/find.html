@@ -100,11 +100,7 @@
                         </ul>
                       </div>
                     </form>
-                    <select style="margin: 10px 0px; font-size: .9em">
-                      <option>Select Faculty</option>
-                      <option>Science</option>
-                      <option>Humanities          </option>
-                    </select>
+                    <select style="margin: 10px 0px; font-size: .9em" data-bind="options: faculties, value: selectedFaculty, optionsCaption: 'Select a Faculty'"></select>
                   </div>
                 </div>
                 <table class="table table-striped">                 
@@ -116,7 +112,7 @@
                     <th>Status</th>
                   </thead>
                   <!-- ko if:hasCourses-->
-                  <tbody data-bind="template: { name:'storeTemplate', foreach:courses }"></tbody>
+                  <tbody data-bind="template: { name:'storeTemplate', foreach:filteredCourses }"></tbody>
                   <!-- /ko-->
                   <!-- ko ifnot:hasCourses-->
                   <tbody>

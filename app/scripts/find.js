@@ -46,6 +46,14 @@ window.courseData = [
 	terms: [2],
 	status: "Registered",	
 	schedule: {days: ["Mon", "Wed", "Fri"], hours: ["9:00", "9:30"]}
+},
+{
+	name: "Nanotechnology",		
+	faculty: "Engineering",
+	id: "CPEE 332",
+	terms: [2],
+	status: "Open",	
+	schedule: {days: ["Tue", "Thu"], hours: ["14:00", "14:30", "15:00"]}
 }
 ];
 
@@ -253,13 +261,16 @@ $(document).ready(function() {
 				if(resultsCounter >= self.maxResults) {
 					return false;
 				}
-				resultsCounter++;
+				
 				var courseName = course.name + " " + course.id;
 				var keywords = courseName.split(/\W+/g);
 				var word = "";
 				for(var i = 0; i < keywords.length; i++) {
 					word = keywords[i].toLowerCase();							
-					if (word.indexOf(value.toLowerCase()) >= 0) return true;
+					if (word.indexOf(value.toLowerCase()) >= 0) {
+						resultsCounter++;		
+						return true;
+					} 
 				}
 				return false;				
 			});
@@ -296,6 +307,17 @@ $(document).ready(function() {
 		self.timetable = ko.observable({});
 		self.search = ko.observable({});
 		self.courses = ko.observableArray([]);
+		self.faculties = ko.observableArray([]);
+		self.selectedFaculty = ko.observable();
+
+		self.filteredCourses = ko.computed(function() {
+			var selectedFaculty = self.selectedFaculty();
+			if(!selectedFaculty) return self.courses();
+
+			return ko.utils.arrayFilter(self.courses(), function(course){
+				return course.faculty === selectedFaculty;
+			})
+		})
 
 		self.hasConflict = ko.observable(false);
 		self.courseConflictA = ko.observable();
@@ -367,8 +389,11 @@ $(document).ready(function() {
 		self.parseCourses = function(rawCourses) {				
 			var course;
 			var courses = [];
+			var faculties = {};
 			$.each(rawCourses, function(index, rawCourse) {
 				course = new Course(rawCourse.attributes, index);
+				console.log(course);
+				faculties[course.faculty] = 1;
 
 				var backlog = self.search().backlog();
 				if(course.isRegistered()) {
@@ -377,6 +402,9 @@ $(document).ready(function() {
 					courses.push(course);
 				}
 			});
+
+			var facultiesArray = $.map(faculties, function (value, key) { return key; });
+			self.faculties(facultiesArray);
 			self.search().backlog(courses);
 		}
 
