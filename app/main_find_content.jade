@@ -16,7 +16,7 @@ include template_content
               .dropdown                
                 ul.dropdown-menu(role='menu', aria-labelledby='dLabel', data-bind="foreach: results, visible: containsElements")
                   li
-                    a(data-bind="text: name, click: $parents[1].addCourse", href='#') COURSE NAME
+                    a(data-bind="text: nameWithId, click: $parents[1].addCourse", href='#') COURSE NAME
             select(style="margin: 10px 0px; font-size: .9em")
               option Select Faculty
               option Science
@@ -27,14 +27,14 @@ include template_content
             th Course name
             th ID
             th Terms
-            th Remove
+            th Status
           // ko if:hasCourses
           tbody(data-bind="template: { name:'storeTemplate', foreach:courses }")
           // /ko
           // ko ifnot:hasCourses
           tbody
             td(colspan="5")
-              h6 Please wait while we load the courses...
+              h6 Search a course with the search bar.
           // /ko
     .span4
       .row
@@ -108,7 +108,7 @@ include template_content
         td(data-bind="text:id") COURSEID
         td
           span(data-bind="text:terms") TERM
-        td.remove(data-bind="click:$parent.removeCourse")
+        td
           span.label.label-important(data-bind="visible: isFull") Full
           span.label.label-info(data-bind="visible: isWaitingList") Waiting List
           span.label.label-success(data-bind="visible: isOpen") Open

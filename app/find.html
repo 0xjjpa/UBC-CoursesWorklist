@@ -96,7 +96,7 @@
                       <input style="margin-top: 10px" data-bind="value: input, valueUpdate: 'afterkeyup'" type="text" placeholder="Type course name to search..." class="search-query">
                       <div class="dropdown">               
                         <ul role="menu" aria-labelledby="dLabel" data-bind="foreach: results, visible: containsElements" class="dropdown-menu">
-                          <li><a data-bind="text: name, click: $parents[1].addCourse" href="#">COURSE NAME</a></li>
+                          <li><a data-bind="text: nameWithId, click: $parents[1].addCourse" href="#">COURSE NAME</a></li>
                         </ul>
                       </div>
                     </form>
@@ -113,7 +113,7 @@
                     <th>Course name</th>
                     <th>ID</th>
                     <th>Terms</th>
-                    <th>Remove</th>
+                    <th>Status</th>
                   </thead>
                   <!-- ko if:hasCourses-->
                   <tbody data-bind="template: { name:'storeTemplate', foreach:courses }"></tbody>
@@ -121,7 +121,7 @@
                   <!-- ko ifnot:hasCourses-->
                   <tbody>
                     <td colspan="5">
-                      <h6>Please wait while we load the courses...</h6>
+                      <h6>Search a course with the search bar.</h6>
                     </td>
                   </tbody>
                   <!-- /ko-->
@@ -205,7 +205,7 @@
               <td> <span data-bind="text:name">COURSENAME                    </span></td>
               <td data-bind="text:id">COURSEID</td>
               <td><span data-bind="text:terms">TERM</span></td>
-              <td data-bind="click:$parent.removeCourse" class="remove"><span data-bind="visible: isFull" class="label label-important">Full</span><span data-bind="visible: isWaitingList" class="label label-info">Waiting List</span><span data-bind="visible: isOpen" class="label label-success">Open</span></td>
+              <td><span data-bind="visible: isFull" class="label label-important">Full</span><span data-bind="visible: isWaitingList" class="label label-info">Waiting List</span><span data-bind="visible: isOpen" class="label label-success">Open</span></td>
             </tr>
           </script>
         </div>

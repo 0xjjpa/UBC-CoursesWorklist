@@ -214,8 +214,9 @@ $(document).ready(function() {
 		var self = {};
 		self.input = ko.observable();
 
-		self.backlog = ko.observableArray($.map(window.courseData, function(course, index){ return new Course(course, index); }));
+		self.backlog = ko.observableArray();
 		self.results = ko.observableArray([]);
+		self.maxResults = 10;
 
 		self.containsElements = ko.computed(function() {
 			return self.results().length > 0;
@@ -234,9 +235,14 @@ $(document).ready(function() {
 			self.results.removeAll();
 		}
 
-		self.input.subscribe(function(value) {			
+		self.input.subscribe(function(value) {
+			var resultsCounter = 0;			
 			if (value.length === 0) { self.cleanInput(); return; }
 			var results = ko.utils.arrayFilter(self.backlog(), function(course) {
+				if(resultsCounter >= self.maxResults) {
+					return false;
+				}
+				resultsCounter++;				
 				var courseName = course.name;
 				var keywords = courseName.split(/\W+/g);
 				var word = "";
@@ -248,9 +254,41 @@ $(document).ready(function() {
 			});
 
 			self.results(results);		
-		})
+		});
 
-		return self;
+		self.parseCourses = function(rawCourses) {				
+			var parsedCourses = $.map(rawCourses, function(rawCourse, index){ 
+				return new Course(rawCourse.attributes, index);
+			});
+
+			self.backlog(parsedCourses);
+		}
+
+		self.load = function() {
+			Parse.initialize("s5XRK5EQxsoLQ7bd9lIz35fqKaWHTTNQwQCXkr3O", "8sYc7dACntCwXHSMC3qJ4TaTO8k3DgKuVl0wOQc9");
+			var coursesParse = Parse.Object.extend("courses");
+			var query = new Parse.Query(coursesParse);			
+			query.find({
+				success: self.parseCourses,
+				error: function(error) {
+					console.log("Connection error with the database.");
+				}
+			});
+		}
+
+		self.mockLoad = function() {
+			var parsedCourses = $.map(window.courseData, function(course, index){ return new Course(course, index); });
+			self.backlog(parsedCourses);
+		};
+
+
+		self.init = function() {
+			//self.load();
+			self.mockLoad();
+			return self;
+		}
+
+		return self.init();
 	}
 
 	var Worklist = function (index) {

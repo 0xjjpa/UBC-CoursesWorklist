@@ -86,19 +86,6 @@
             <div class="span6">
               <legend>My Courses<small>&nbsp; Registered courses.</small></legend>
               <section id="courses">
-                <div class="navbar">
-                  <div class="navbar-inner">          
-                    <form id="search" data-bind="with: search" class="navbar-search pull-left">
-                      <input data-bind="value: input, valueUpdate: 'afterkeyup'" type="text" placeholder="Type course name to search..." class="search-query">
-                      <div class="dropdown">               
-                        <ul role="menu" aria-labelledby="dLabel" data-bind="foreach: results, visible: containsElements" class="dropdown-menu">
-                          <li><a data-bind="text: name, click: $parents[1].addCourse" href="#">COURSE NAME</a></li>
-                        </ul>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-                <div data-bind="click: dropCourse" class="btn btn-primary">Drop</div>
                 <table class="table table-striped">                 
                   <thead>
                     <th>&nbsp;            </th>
@@ -109,6 +96,7 @@
                   </thead>
                   <tbody data-bind="template: { name:'storeTemplate', foreach:courses }">                                                           </tbody>
                 </table>
+                <div data-bind="click: dropCourse" style="float: right; margin-right: 25px;" class="btn btn-primary">Drop</div>
               </section>
             </div>
             <div class="span4">

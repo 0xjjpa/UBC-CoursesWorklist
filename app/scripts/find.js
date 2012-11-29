@@ -51,7 +51,7 @@ window.courseData = [
 
 $(document).ready(function() {
 
-	var colors = ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94", "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7", "#bcbd22", "#dbdb8d", "#17becf", "#9edae5"];
+	var colors = ["#DFEFFC", "#DFEFFC", "#DFEFFC", "#DFEFFC", "#DFEFFC", "#DFEFFC", "#DFEFFC", "#DFEFFC", "#DFEFFC", "#DFEFFC", "#DFEFFC", "#DFEFFC", "#DFEFFC", "#DFEFFC", "#DFEFFC", "#DFEFFC", "#DFEFFC", "#DFEFFC", "#DFEFFC", "#DFEFFC"];
 
 	var Course = function(data, index) {		
 		data.checked = ko.observable(false);
@@ -62,8 +62,12 @@ $(document).ready(function() {
 		data.id = data.id || data.courseId;
 		data.color = ko.observable();
 
+		data.nameWithId = (function() {
+			return data.name + "- " + data.id;
+		})()
+
 		if (data.isFull()) {
-			data.color("#B94A48");			
+			data.color("#DFEFFC");			
 		} else if (data.isWaitingList()) {
 			data.color("gray");
 		} else if (data.isRegistered()) {
@@ -223,6 +227,7 @@ $(document).ready(function() {
 
 		self.backlog = ko.observableArray([]);
 		self.results = ko.observableArray([]);
+		self.maxResults = 2;
 
 		self.containsElements = ko.computed(function() {
 			return self.results().length > 0;
@@ -241,10 +246,15 @@ $(document).ready(function() {
 			self.results.removeAll();
 		}
 
-		self.input.subscribe(function(value) {			
+		self.input.subscribe(function(value) {	
+			var resultsCounter = 0;			
 			if (value.length === 0) { self.cleanInput(); return; }
 			var results = ko.utils.arrayFilter(self.backlog(), function(course) {
-				var courseName = course.name;
+				if(resultsCounter >= self.maxResults) {
+					return false;
+				}
+				resultsCounter++;
+				var courseName = course.name + " " + course.id;
 				var keywords = courseName.split(/\W+/g);
 				var word = "";
 				for(var i = 0; i < keywords.length; i++) {
@@ -257,12 +267,19 @@ $(document).ready(function() {
 			self.results(results);		
 		})
 
-		self.load = function(courses) {
-			
+		self.externalLoad = function(courses) {
+			var parsedCourses = $.map(courses, function(course, index){ return new Course(course, index); });
+			self.backlog(parsedCourses);
 		}
+
+		self.mockLoad = function() {
+			var parsedCourses = $.map(window.courseData, function(course, index){ return new Course(course, index); });
+			self.backlog(parsedCourses);
+		};
 
 		self.init = function() {
 			//self.load();
+			//self.mockLoad();
 			//$.map(window.courseData, function(course, index){ return new Course(course, index); })
 			return self;
 		}
@@ -349,6 +366,7 @@ $(document).ready(function() {
 
 		self.parseCourses = function(rawCourses) {				
 			var course;
+			var courses = [];
 			$.each(rawCourses, function(index, rawCourse) {
 				course = new Course(rawCourse.attributes, index);
 
@@ -356,9 +374,10 @@ $(document).ready(function() {
 				if(course.isRegistered()) {
 					self.paintOver(course);
 				} else {
-					self.addCourse(course);
+					courses.push(course);
 				}
 			});
+			self.search().backlog(courses);
 		}
 
 		self.load = function() {
