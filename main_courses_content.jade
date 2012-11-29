@@ -4,15 +4,6 @@ include template_content
       legend My Courses
         small &nbsp; Registered courses.
       section#courses
-        .navbar
-          .navbar-inner           
-            form.navbar-search.pull-left#search(data-bind="with: search")
-              input.search-query(data-bind="value: input, valueUpdate: 'afterkeyup'", type="text", placeholder="Type course name to search...")
-              .dropdown                
-                ul.dropdown-menu(role='menu', aria-labelledby='dLabel', data-bind="foreach: results, visible: containsElements")
-                  li
-                    a(data-bind="text: name, click: $parents[1].addCourse", href='#') COURSE NAME
-        .btn.btn-primary(data-bind="click: dropCourse") Drop
         table.table.table-striped                  
           thead
             th &nbsp;            
@@ -21,6 +12,7 @@ include template_content
             th ID            
             th Color
           tbody(data-bind="template: { name:'storeTemplate', foreach:courses }")                                                            
+        .btn.btn-primary(data-bind="click: dropCourse", style="float: right; margin-right: 25px;") Drop
     .span4
       .row
         .terms
@@ -82,7 +74,8 @@ include template_content
         td
           i.icon-retweet
         td 
-          span(data-bind="text:name") COURSENAME
+          a(href="mocks/course.html", class="lightview", data-lightview-type="ajax", data-lightview-options="skin: 'mac', radius: 5, padding: 10")
+            span(data-bind="text:name") COURSENAME
           &nbsp;
           span.label.label-important(data-bind="visible: isFull") Full
           span.label.label-info(data-bind="visible: isWaitingList") Waiting List

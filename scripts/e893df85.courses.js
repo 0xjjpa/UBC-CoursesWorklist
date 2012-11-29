@@ -291,125 +291,150 @@ $(document).ready(function() {
 		self.dropCourse = function() {
 			var atLeastOne = false;
 			var toRemove = [];
+			var timeToReload = false;
 			$.each(self.courses(), function(index, value){				
 				if (value.checked()) {
 					atLeastOne = true;
 					var choice = confirm("Are you sure you want to drop "+value.name);
 					if(choice) {
 						toRemove.push(value);
+
+						var putMessageData = {
+							"status": "Open"
+						}
+
+						var putMessageRESTOptions = {
+							url: "https://api.parse.com/1/classes/courses/"+value.parseId,
+							type: "PUT",
+							dataType: "json",
+							data: JSON.stringify(putMessageData),
+							beforeSend: function(xhr){
+								xhr.setRequestHeader('X-Parse-Application-Id', 's5XRK5EQxsoLQ7bd9lIz35fqKaWHTTNQwQCXkr3O');
+								xhr.setRequestHeader('X-Parse-REST-API-Key', '99zJUQTnqandl08VrT2cZVB6wgbkEcR6mxmZfRdV');
+								xhr.setRequestHeader('Content-Type', 'application/json');
+							},
+							success: function(data) { console.log("SUCCESS"); alert(value.name + " was dropped successfully."); timeToReload = true; },
+							error: function(data) { console.log("ERROR"); console.log(data); }
+						}
+
+						$.ajax(putMessageRESTOptions);
+
 					}
 				}
-			})
-			$.each(toRemove, function(index, value) {
-				self.removeCourse(value);
-			})
-			if (!atLeastOne) alert("You need to pick a course to drop.");
-		}
-
-		self.paintCourseInTimetable = function(course, operation) {
-			var timetable = self.timetable();
-			var courseDays = course.schedule.days;
-			var courseHours = course.schedule.hours;
-
-			var indexesHours = [];
+			});
 			
-			$.each(courseHours, function(i, courseHour) {
-				$.each(timetable.hours(), function(j, hour) {
-					if(hour.hour == courseHour) indexesHours.push(j);
-				}) 								
-			})
+$.each(toRemove, function(index, value) {
+	self.removeCourse(value);
+})
+if (timeToReload) window.location.reload();
+if (!atLeastOne) alert("You need to pick a course to drop.");
+}
 
-			var indexesDays = [];
-			var sampleDays = timetable.hours()[0].days;
-			$.each(courseDays, function(i, courseDay) {
-				$.each(sampleDays, function(j, day) {
-					if(day.name == courseDay) indexesDays.push(j);
-				})				
-			})
-			
-			var weekDays = []
-			$.each(indexesHours, function(i, hourIndex) {
-				weekDays = timetable.hours()[hourIndex].days;
-				$.each(weekDays, function(j, day) {
-					$.each(indexesDays, function(k, indexDay) {
-						if(day.index == indexDay) {
-							var courseGivenInDay = day.course;							
-							if(operation == "Repaint") {
-								day.color("black")
-							} else {
-								if(courseGivenInDay().id && operation === "Add") {								
-									day.color("red")
-									self.courseConflictA(" " +courseGivenInDay().name+ " ");
-									self.courseConflictB(" " + course.name + " ");
-									self.hasConflict(true);								
-								} else {
-									if(operation === "Add" && !self.hasConflict()) {
-										day.course(course);
-										day.color(course.color());								
-									}
+self.paintCourseInTimetable = function(course, operation) {
+	var timetable = self.timetable();
+	var courseDays = course.schedule.days;
+	var courseHours = course.schedule.hours;
 
-									if(operation === "Remove") {
-										day.course({id:null});
-										day.color("white");								
-									}										
-								}
-							}							
+	var indexesHours = [];
+
+	$.each(courseHours, function(i, courseHour) {
+		$.each(timetable.hours(), function(j, hour) {
+			if(hour.hour == courseHour) indexesHours.push(j);
+		}) 								
+	})
+
+	var indexesDays = [];
+	var sampleDays = timetable.hours()[0].days;
+	$.each(courseDays, function(i, courseDay) {
+		$.each(sampleDays, function(j, day) {
+			if(day.name == courseDay) indexesDays.push(j);
+		})				
+	})
+
+	var weekDays = []
+	$.each(indexesHours, function(i, hourIndex) {
+		weekDays = timetable.hours()[hourIndex].days;
+		$.each(weekDays, function(j, day) {
+			$.each(indexesDays, function(k, indexDay) {
+				if(day.index == indexDay) {
+					var courseGivenInDay = day.course;							
+					if(operation == "Repaint") {
+						day.color("black")
+					} else {
+						if(courseGivenInDay().id && operation === "Add") {								
+							day.color("red")
+							self.courseConflictA(" " +courseGivenInDay().name+ " ");
+							self.courseConflictB(" " + course.name + " ");
+							self.hasConflict(true);								
+						} else {
+							if(operation === "Add" && !self.hasConflict()) {
+								day.course(course);
+								day.color(course.color());								
+							}
+
+							if(operation === "Remove") {
+								day.course({id:null});
+								day.color("white");								
+							}										
 						}
-					})
-				})				
-			});
-			
-		}
-
-		self.updateLabel = function() {
-			self.label = self.name().replace(/ /ig, "_");
-		}
-
-		self.parseCourses = function(rawCourses) {				
-			var course;
-			$.each(rawCourses, function(index, rawCourse) {
-				course = new Course(rawCourse.attributes, index);
-
-				var backlog = self.search().backlog();
-				if(course.isRegistered()) {
-					self.addCourse(course);
+					}							
 				}
-			});
+			})
+		})				
+	});
+
+}
+
+self.updateLabel = function() {
+	self.label = self.name().replace(/ /ig, "_");
+}
+
+self.parseCourses = function(rawCourses) {				
+	var course;
+	$.each(rawCourses, function(index, rawCourse) {
+		$.extend(true, rawCourse.attributes, {parseId: rawCourse.id})
+		course = new Course(rawCourse.attributes, index);
+
+		var backlog = self.search().backlog();
+		if(course.isRegistered()) {
+			self.addCourse(course);
 		}
+	});
+}
 
-		self.load = function() {
-			Parse.initialize("s5XRK5EQxsoLQ7bd9lIz35fqKaWHTTNQwQCXkr3O", "8sYc7dACntCwXHSMC3qJ4TaTO8k3DgKuVl0wOQc9");
-			var coursesParse = Parse.Object.extend("courses");
-			var query = new Parse.Query(coursesParse);			
-			query.find({
-				success: self.parseCourses,
-				error: function(error) {
-					console.log("Connection error with the database.");
-				}
-			});
+self.load = function() {
+	Parse.initialize("s5XRK5EQxsoLQ7bd9lIz35fqKaWHTTNQwQCXkr3O", "8sYc7dACntCwXHSMC3qJ4TaTO8k3DgKuVl0wOQc9");
+	var coursesParse = Parse.Object.extend("courses");
+	var query = new Parse.Query(coursesParse);			
+	query.find({
+		success: self.parseCourses,
+		error: function(error) {
+			console.log("Connection error with the database.");
 		}
+	});
+}
 
-		self.mockLoad = function() {			
-			var rawCourses = [];
-			$.each(window.courseData, function(index, course) {
-				var mock = new Object;
-				mock.attributes = course;
-				rawCourses.push(mock);	
-			})			
-			self.parseCourses(rawCourses);
-		}
-		
-		self.init = function(index) {
-			var name = "Worklist " + index;
-			self.name = ko.observable(name);
+self.mockLoad = function() {			
+	var rawCourses = [];
+	$.each(window.courseData, function(index, course) {
+		var mock = new Object;
+		mock.attributes = course;
+		rawCourses.push(mock);	
+	})			
+	self.parseCourses(rawCourses);
+}
 
-			
-			self.updateLabel();
-			self.timetable = ko.observable( new Timetable() );	
-			self.search = ko.observable( new Search() );
+self.init = function(index) {
+	var name = "Worklist " + index;
+	self.name = ko.observable(name);
 
-			//self.load();
-			self.mockLoad();
+
+	self.updateLabel();
+	self.timetable = ko.observable( new Timetable() );	
+	self.search = ko.observable( new Search() );
+
+	self.load();
+			//self.mockLoad();
 			return self;
 		}
 

@@ -11,7 +11,7 @@ include template_content
               .dropdown                
                 ul.dropdown-menu(role='menu', aria-labelledby='dLabel', data-bind="foreach: results, visible: containsElements")
                   li
-                    a(data-bind="text: name, click: $parents[1].addCourse", href='#') COURSE NAME
+                    a(data-bind="text: nameWithId, click: $parents[1].addCourse", href='#') COURSE NAME
         ul#storeNav.nav.nav-tabs.navbar-inverse
           // ko foreach: $parents[0].worklists
           li(data-bind="css: { active: isActive }")            
@@ -40,6 +40,9 @@ include template_content
       .row
         .terms
           ul#termContainer.nav.nav-tabs
+            .registered(style="position: relative;left: 150px; top: 38px")
+              span.colorCode(style="background-color: black; float: left; height: 20px; margin-right: 10px")
+              p Courses already registered
             li.active
               a(href="#term1", data-toggle="tab") Term 1
             li
@@ -47,6 +50,13 @@ include template_content
           .tab-content
             #term1.tab-pane.fade.active.in
               .timetable.span4
+                // ko if:hasConflict
+                span.colorCode(style="background-color: red; float: left; height: 20px; margin-right: 10px")
+                p Conflict between
+                  a(data-bind="text: courseConflictAName")  COURSE A
+                  |  and 
+                  a(data-bind="text: courseConflictBName")  COURSE B
+                // /ko
                 table.table.table-bordered.table-striped(data-bind="with:timetable")
                   thead
                     tr(data-bind="foreach: days")
@@ -64,7 +74,7 @@ include template_content
                       td(data-bind="text: $parent.hour");
                       // /ko
                       //ko ifnot:isFirstColumn($index) 
-                      td(data-bind="style: {'background-color': color}, with: course")
+                      td(data-bind="style: {'background-color': color}, css: {'whiteColor': $data.course().isRegistered}, with: course")
                         span(data-bind="text: id");
                       // /ko
             #term2.tab-pane
@@ -95,7 +105,8 @@ include template_content
           label.checkbox
             input(data-bind="checked: checked", type="checkbox")
         td 
-          span(data-bind="text:name") COURSENAME
+          a(href="mocks/course.html", class="lightview", data-lightview-type="ajax", data-lightview-options="skin: 'mac', radius: 5, padding: 10")
+            span(data-bind="text:name") COURSENAME
           &nbsp;
           span.label.label-important(data-bind="visible: isFull") Full
           span.label.label-info(data-bind="visible: isWaitingList") Waiting List

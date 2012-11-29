@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# Time: Thu Nov 15 2012 15:08:49 GMT-0800 (PST)
+# Time: Thu Nov 29 2012 07:17:37 GMT-0800 (PST)
 # This manifest was created by confess.js, http://github.com/jamesgpearce/confess
 #
 # Retrieved URL: http://localhost:3501/
@@ -33,10 +33,15 @@ http://localhost:3501/styles/images/footerBg.png
 http://localhost:3501/styles/images/homelogout.png
 http://localhost:3501/styles/images/menuBg.png
 http://localhost:3501/styles/images/ubclogo.png
+http://localhost:3501/styles/skins/blank.gif
+http://localhost:3501/styles/skins/dark/sprite.png
+http://localhost:3501/styles/skins/light/sprite.png
+http://localhost:3501/styles/skins/mac/sprite.png
 http://placehold.it/200x130
-scripts/0790260f.find.js
+http://www.parsecdn.com/js/parse-1.1.10.min.js
+scripts/29e6de36.find.js
 scripts/2edc7af0.vendor.js
-styles/7593ba89.main.css
+styles/6a0e9998.main.css
 
 NETWORK:
 *

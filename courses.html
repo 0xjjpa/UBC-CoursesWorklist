@@ -6,7 +6,7 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="styles/7593ba89.main.css"/>
+    <link rel="stylesheet" href="styles/6a0e9998.main.css"/>
     <script src="scripts/2edc7af0.vendor.js"></script>
   </head>
   <body>
@@ -80,19 +80,6 @@
             <div class="span6">
               <legend>My Courses<small>&nbsp; Registered courses.</small></legend>
               <section id="courses">
-                <div class="navbar">
-                  <div class="navbar-inner">          
-                    <form id="search" data-bind="with: search" class="navbar-search pull-left">
-                      <input data-bind="value: input, valueUpdate: 'afterkeyup'" type="text" placeholder="Type course name to search..." class="search-query">
-                      <div class="dropdown">               
-                        <ul role="menu" aria-labelledby="dLabel" data-bind="foreach: results, visible: containsElements" class="dropdown-menu">
-                          <li><a data-bind="text: name, click: $parents[1].addCourse" href="#">COURSE NAME</a></li>
-                        </ul>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-                <div data-bind="click: dropCourse" class="btn btn-primary">Drop</div>
                 <table class="table table-striped">                 
                   <thead>
                     <th>&nbsp;            </th>
@@ -103,6 +90,7 @@
                   </thead>
                   <tbody data-bind="template: { name:'storeTemplate', foreach:courses }">                                                           </tbody>
                 </table>
+                <div data-bind="click: dropCourse" style="float: right; margin-right: 25px;" class="btn btn-primary">Drop</div>
               </section>
             </div>
             <div class="span4">
@@ -178,7 +166,7 @@
                 </label>
               </td>
               <td><i class="icon-retweet"></i></td>
-              <td> <span data-bind="text:name">COURSENAME</span>&nbsp;<span data-bind="visible: isFull" class="label label-important">Full</span><span data-bind="visible: isWaitingList" class="label label-info">Waiting List</span></td>
+              <td> <a href="mocks/course.html" data-lightview-type="ajax" data-lightview-options="skin: 'mac', radius: 5, padding: 10" class="lightview"><span data-bind="text:name">COURSENAME</span></a>&nbsp;<span data-bind="visible: isFull" class="label label-important">Full</span><span data-bind="visible: isWaitingList" class="label label-info">Waiting List</span></td>
               <td data-bind="text:id">COURSEID</td>
               <td><span data-bind="style: {'background-color': color}" class="colorCode">&nbsp;        </span></td>
             </tr>
@@ -186,9 +174,10 @@
         </div>
       </div>
     </div>
+    <script src="http://www.parsecdn.com/js/parse-1.1.10.min.js"></script>
     <script src="components/knockoutjs/build/output/knockout-latest.js"></script>
     <script src="components/knockoutjs/build/output/knockout.mapping-latest.js"></script>
-    <script src="scripts/4fcb2f45.courses.js"></script>
+    <script src="scripts/e893df85.courses.js"></script>
     <div id="footer">
       <div id="footer-content">
         <div id="footer-copyright">

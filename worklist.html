@@ -6,7 +6,7 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="styles/7593ba89.main.css"/>
+    <link rel="stylesheet" href="styles/6a0e9998.main.css"/>
     <script src="scripts/2edc7af0.vendor.js"></script>
   </head>
   <body>
@@ -86,7 +86,7 @@
                       <input data-bind="value: input, valueUpdate: 'afterkeyup'" type="text" placeholder="Type course name to search..." class="search-query">
                       <div class="dropdown">               
                         <ul role="menu" aria-labelledby="dLabel" data-bind="foreach: results, visible: containsElements" class="dropdown-menu">
-                          <li><a data-bind="text: name, click: $parents[1].addCourse" href="#">COURSE NAME</a></li>
+                          <li><a data-bind="text: nameWithId, click: $parents[1].addCourse" href="#">COURSE NAME</a></li>
                         </ul>
                       </div>
                     </form>
@@ -119,12 +119,18 @@
               <div class="row">
                 <div class="terms">
                   <ul id="termContainer" class="nav nav-tabs">
+                    <div style="position: relative;left: 150px; top: 38px" class="registered"><span style="background-color: black; float: left; height: 20px; margin-right: 10px" class="colorCode"></span>
+                      <p>Courses already registered</p>
+                    </div>
                     <li class="active"><a href="#term1" data-toggle="tab">Term 1</a></li>
                     <li><a href="#term2" data-toggle="tab">Term 2</a></li>
                   </ul>
                   <div class="tab-content">
                     <div id="term1" class="tab-pane fade active in">
                       <div class="timetable span4">
+                        <!-- ko if:hasConflict--><span style="background-color: red; float: left; height: 20px; margin-right: 10px" class="colorCode"></span>
+                        <p>Conflict between<a data-bind="text: courseConflictAName"> COURSE A</a> and <a data-bind="text: courseConflictBName"> COURSE B</a></p>
+                        <!-- /ko-->
                         <table data-bind="with:timetable" class="table table-bordered table-striped">
                           <thead>
                             <tr data-bind="foreach: days">
@@ -142,7 +148,7 @@
                               <td data-bind="text: $parent.hour">;</td>
                               <!-- /ko-->
                               <!--ko ifnot:isFirstColumn($index) -->
-                              <td data-bind="style: {'background-color': color}, with: course"><span data-bind="text: id">;</span></td>
+                              <td data-bind="style: {'background-color': color}, css: {'whiteColor': $data.course().isRegistered}, with: course"><span data-bind="text: id">;</span></td>
                               <!-- /ko-->
                             </tr>
                           </tbody>
@@ -187,7 +193,7 @@
                   <input data-bind="checked: checked" type="checkbox">
                 </label>
               </td>
-              <td> <span data-bind="text:name">COURSENAME</span>&nbsp;<span data-bind="visible: isFull" class="label label-important">Full</span><span data-bind="visible: isWaitingList" class="label label-info">Waiting List</span></td>
+              <td> <a href="mocks/course.html" data-lightview-type="ajax" data-lightview-options="skin: 'mac', radius: 5, padding: 10" class="lightview"><span data-bind="text:name">COURSENAME</span></a>&nbsp;<span data-bind="visible: isFull" class="label label-important">Full</span><span data-bind="visible: isWaitingList" class="label label-info">Waiting List</span></td>
               <td data-bind="text:id">COURSEID</td>
               <td><span data-bind="style: {'background-color': color}" class="colorCode">&nbsp;</span></td>
               <td data-bind="click:$parent.removeCourse" class="remove"><i class="icon-minus"></i></td>
@@ -196,9 +202,10 @@
         </div>
       </div>
     </div>
+    <script src="http://www.parsecdn.com/js/parse-1.1.10.min.js"> </script>
     <script src="components/knockoutjs/build/output/knockout-latest.js"></script>
     <script src="components/knockoutjs/build/output/knockout.mapping-latest.js"></script>
-    <script src="scripts/787ffd2d.main.js"></script>
+    <script src="scripts/03f7ccb5.main.js"></script>
     <div id="footer">
       <div id="footer-content">
         <div id="footer-copyright">

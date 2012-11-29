@@ -6,7 +6,7 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="styles/7593ba89.main.css"/>
+    <link rel="stylesheet" href="styles/6a0e9998.main.css"/>
     <script src="scripts/2edc7af0.vendor.js"></script>
   </head>
   <body>
@@ -90,15 +90,11 @@
                       <input style="margin-top: 10px" data-bind="value: input, valueUpdate: 'afterkeyup'" type="text" placeholder="Type course name to search..." class="search-query">
                       <div class="dropdown">               
                         <ul role="menu" aria-labelledby="dLabel" data-bind="foreach: results, visible: containsElements" class="dropdown-menu">
-                          <li><a data-bind="text: name, click: $parents[1].addCourse" href="#">COURSE NAME</a></li>
+                          <li><a data-bind="text: nameWithId, click: $parents[1].addCourse" href="#">COURSE NAME</a></li>
                         </ul>
                       </div>
                     </form>
-                    <select style="margin: 10px 0px; font-size: .9em">
-                      <option>Select Faculty</option>
-                      <option>Science</option>
-                      <option>Humanities          </option>
-                    </select>
+                    <select style="margin: 10px 0px; font-size: .9em" data-bind="options: faculties, value: selectedFaculty, optionsCaption: 'Select a Faculty'"></select>
                   </div>
                 </div>
                 <table class="table table-striped">                 
@@ -107,15 +103,15 @@
                     <th>Course name</th>
                     <th>ID</th>
                     <th>Terms</th>
-                    <th>Remove</th>
+                    <th>Status</th>
                   </thead>
                   <!-- ko if:hasCourses-->
-                  <tbody data-bind="template: { name:'storeTemplate', foreach:courses }"></tbody>
+                  <tbody data-bind="template: { name:'storeTemplate', foreach:filteredCourses }"></tbody>
                   <!-- /ko-->
                   <!-- ko ifnot:hasCourses-->
                   <tbody>
                     <td colspan="5">
-                      <h6>Please wait while we load the courses...</h6>
+                      <h6>Search a course with the search bar.</h6>
                     </td>
                   </tbody>
                   <!-- /ko-->
@@ -196,10 +192,10 @@
           <script type="text/html" id="storeTemplate">   
             <tr data-bind="event: {mouseover: $parent.paintOver, mouseout: $parent.paintOut}, css: { success: checked }">
               <td><span data-bind="text:faculty">FACULTY</span></td>
-              <td> <span data-bind="text:name">COURSENAME                    </span></td>
+              <td><a href="mocks/course.html" data-lightview-type="ajax" data-lightview-options="skin: 'mac', radius: 5, padding: 10" class="lightview"><span data-bind="text:name">COURSENAME                    </span></a></td>
               <td data-bind="text:id">COURSEID</td>
-              <td><span data-bind="text:terms">TERM</span></td>
-              <td data-bind="click:$parent.removeCourse" class="remove"><span data-bind="visible: isFull" class="label label-important">Full</span><span data-bind="visible: isWaitingList" class="label label-info">Waiting List</span><span data-bind="visible: isOpen" class="label label-success">Open</span></td>
+              <td><span data-bind="text:termsToString">TERM</span></td>
+              <td><span data-bind="visible: isFull" class="label label-important">Full</span><span data-bind="visible: isWaitingList" class="label label-info">Waiting List</span><span data-bind="visible: isOpen" class="label label-success">Open</span></td>
             </tr>
           </script>
         </div>
@@ -208,7 +204,7 @@
     <script src="http://www.parsecdn.com/js/parse-1.1.10.min.js"></script>
     <script src="components/knockoutjs/build/output/knockout-latest.js"></script>
     <script src="components/knockoutjs/build/output/knockout.mapping-latest.js"></script>
-    <script src="scripts/0790260f.find.js"></script>
+    <script src="scripts/29e6de36.find.js"></script>
     <div id="footer">
       <div id="footer-content">
         <div id="footer-copyright">
