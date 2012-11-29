@@ -63,7 +63,11 @@ $(document).ready(function() {
 		data.checked = ko.observable(false);
 		data.isFull = ko.observable(data.status == "Full" ? true : false);
 		data.isWaitingList = ko.observable(data.status == "Waitlist" ? true : false);		
-		data.isOpen = ko.observable(data.status == "Open" ? true : false);		
+		data.isOpen = ko.observable(data.status == "Open" ? true : false);
+
+		data.nameWithId = (function() {
+			return data.name + "- " + data.id;
+		})();		
 
 		if (data.isFull()) {
 			data.color = "#B94A48";			

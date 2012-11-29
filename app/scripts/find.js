@@ -243,7 +243,7 @@ $(document).ready(function() {
 
 		self.backlog = ko.observableArray([]);
 		self.results = ko.observableArray([]);
-		self.maxResults = 2;
+		self.maxResults = 10;
 
 		self.containsElements = ko.computed(function() {
 			return self.results().length > 0;

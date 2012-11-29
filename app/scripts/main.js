@@ -58,6 +58,10 @@ $(document).ready(function() {
 		data.isFull = ko.observable(data.status == "Full" ? true : false);
 		data.isWaitingList = ko.observable(data.status == "Waitlist" ? true : false);		
 
+		data.nameWithId = (function() {
+			return data.name + "- " + data.id;
+		})();	
+
 		if (data.isFull()) {
 			data.color = "#B94A48";			
 		} else if (data.isWaitingList()) {
@@ -243,7 +247,7 @@ $(document).ready(function() {
 					return false;
 				}
 				resultsCounter++;				
-				var courseName = course.name;
+				var courseName = course.name + " " + course.id;
 				var keywords = courseName.split(/\W+/g);
 				var word = "";
 				for(var i = 0; i < keywords.length; i++) {
