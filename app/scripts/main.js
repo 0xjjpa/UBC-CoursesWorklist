@@ -568,7 +568,7 @@ $(document).ready(function() {
 						xhr.setRequestHeader('X-Parse-REST-API-Key', '99zJUQTnqandl08VrT2cZVB6wgbkEcR6mxmZfRdV');
 						xhr.setRequestHeader('Content-Type', 'application/json');
 					},
-					success: function(data) { console.log("SUCCESS"); console.log(data); },
+					success: function(data) { console.log("SUCCESS"); alert("You course was registered successfully."); window.location.reload(); },
 					error: function(data) { console.log("ERROR"); console.log(data); }
 				}
 
